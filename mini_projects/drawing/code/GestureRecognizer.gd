@@ -154,21 +154,101 @@ func _rotate_by(points : PackedVector2Array, theta : float) -> PackedVector2Arra
 	
 # Step 3: scaling
 
-#func scale_to_square(points : PackedVector2Array, size : int) -> PackedVector2Array:
-	#
-	#var bounding_box : Vector2 = _find_width_height_BB(points)
-	#
-	#for point in points:
-		#var new_x : float = point[0] * (size / )
+func scale_to_square(points : PackedVector2Array, size : int) -> PackedVector2Array:
+	var bounding_box : Vector2 = _find_width_height_BB(points)
+	var new_points : PackedVector2Array = PackedVector2Array()
+	
+	for point in points:
+		var new_x : float = point[0] * (size / bounding_box[0])
+		var new_y : float = point[1] * (size / bounding_box[1])
+		new_points.append(Vector2(new_x, new_y))
+	
+	return new_points
+	
+func translate_to_origin(points : PackedVector2Array) -> PackedVector2Array:
+	var centroid : Vector2 = _centroid(points)
+	var new_points : PackedVector2Array = PackedVector2Array()
+	
+	for point in points:
+		var new_x : float = point[0] - centroid[0]
+		var new_y : float = point[1] - centroid[1]
+		new_points.append(Vector2(new_x, new_y))
+		
+	return new_points
+		
+func _find_width_height_BB(points: PackedVector2Array) -> Vector2:
+	var min_x : float = INF
+	var max_x : float = -INF
+	var min_y : float = INF
+	var max_y : float = -INF
+	
+	for point in points:
+		min_x = min(min_x, point.x)
+		max_x = max(max_x, point.x)
+		min_y = min(min_y, point.y)
+		max_y = max(max_y, point.y)
+	
+	var width = max(max_x - min_x, 0.01)
+	var height = max(max_y - min_y, 0.01)
+	
+	return Vector2(width, height)
 		
 		
-#func _find_width_height_BB(points : PackedVector2Array) -> Vector2:
-	#
-	#var min_x : float = INF
-	#var max_x : float = INF
-	#
-	#for point in points:
-		#var tmp_x : float = point[0]
-		#var tmp_y : flaot = point[1]
+# Step 4 : recognizing
+
+# --- STEP 4: RECOGNITION ---
+
+func recognize(points: PackedVector2Array, templates: Array) -> Dictionary:
+	var best_distance : float = INF
+	var best_template = null
+	
+	for template in templates:
+		var distance : float = _distance_at_best_angle(points, template["points"], -PI/4, PI/4, 2.0 * PI / 180.0)
 		
-		
+		if distance < best_distance:
+			best_distance = distance
+			best_template = template
+
+	# Box size TBD !!
+	var box_size : float= 250.0
+	var tmp_half_sqrt : float = sqrt(2 * pow(box_size, 2)) / 2.0
+	var score : float = 1.0 - (best_distance / tmp_half_sqrt)
+	
+	return { "name": best_template["name"], "score": score }
+
+func _distance_at_best_angle(points: PackedVector2Array, T: PackedVector2Array, theta_a: float, theta_b: float, theta_delta: float) -> float:
+	var phi : float = 0.5 * (-1.0 + sqrt(5.0))
+	
+	var x1 : float = phi * theta_a + (1.0 - phi) * theta_b
+	var f1 : float = _distance_at_angle(points, T, x1)
+	var x2 : float = (1.0 - phi) * theta_a + phi * theta_b
+	var f2 : float = _distance_at_angle(points, T, x2)
+	
+	while abs(theta_b - theta_a) > theta_delta:
+		if f1 < f2:
+			theta_b = x2
+			x2 = x1
+			f2 = f1
+			x1 = phi * theta_a + (1.0 - phi) * theta_b
+			f1 = _distance_at_angle(points, T, x1)
+		else:
+			theta_a = x1
+			x1 = x2
+			f1 = f2
+			x2 = (1.0 - phi) * theta_a + phi * theta_b
+			f2 = _distance_at_angle(points, T, x2)
+
+	return min(f1, f2)
+
+func _distance_at_angle(points: PackedVector2Array, T: PackedVector2Array, theta: float) -> float:
+	var new_points : PackedVector2Array = _rotate_by(points, theta)
+	return _path_distance(new_points, T)
+
+func _path_distance(points_1 : PackedVector2Array, points_2 : PackedVector2Array) -> float:
+	var distance : float = 0.0
+	
+	for i in range(len(points_1)):
+		distance += points_1[i].distance_to(points_2[i])
+
+	return distance / len(points_1)
+	
