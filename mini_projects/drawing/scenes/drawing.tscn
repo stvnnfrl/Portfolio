@@ -1,0 +1,174 @@
+[gd_scene load_steps=11 format=3 uid="uid://dy0af7j7y5whl"]
+
+[ext_resource type="StyleBox" uid="uid://b0qaaorrcb6vp" path="res://resources/SpellCardStyle.tres" id="1_c8mn3"]
+[ext_resource type="LabelSettings" uid="uid://663bly6lgqsf" path="res://resources/SpellTitle.tres" id="2_726w6"]
+[ext_resource type="StyleBox" uid="uid://qlj2wcy58gs2" path="res://resources/Clipper.tres" id="3_726w6"]
+[ext_resource type="Texture2D" uid="uid://bkpamh7bjs3o7" path="res://assets/spells/spell1.jpg" id="3_oc4n8"]
+[ext_resource type="Texture2D" uid="uid://cyri5r2a11w8g" path="res://assets/spells/spell2.jpg" id="4_e0gpi"]
+[ext_resource type="Texture2D" uid="uid://b3m5jtcxbbgv6" path="res://assets/spells/spell3.jpg" id="5_7fc8g"]
+[ext_resource type="Texture2D" uid="uid://dyw2fn26lks6f" path="res://assets/spells/spell4.jpg" id="6_fxr7v"]
+[ext_resource type="Script" uid="uid://pu7yqgx8mu2p" path="res://scenes/drawing_pad.gd" id="8_oc4n8"]
+[ext_resource type="Script" uid="uid://mqtaf1dcwdoa" path="res://code/GestureRecognizer.gd" id="9_e0gpi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ae3v"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.34220684, 0.34220695, 0.3422069, 1)
+
+[node name="mainLayout" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="mainLayout"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="spellBar" type="HBoxContainer" parent="mainLayout/MarginContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="spellSlot1" type="PanelContainer" parent="mainLayout/MarginContainer/spellBar"]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_c8mn3")
+
+[node name="spellBox1" type="VBoxContainer" parent="mainLayout/MarginContainer/spellBar/spellSlot1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="spell1Label" type="Label" parent="mainLayout/MarginContainer/spellBar/spellSlot1/spellBox1"]
+layout_mode = 2
+text = "Spell 1"
+label_settings = ExtResource("2_726w6")
+horizontal_alignment = 1
+
+[node name="spell1Clipper" type="PanelContainer" parent="mainLayout/MarginContainer/spellBar/spellSlot1/spellBox1"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("3_726w6")
+
+[node name="spell1" type="TextureRect" parent="mainLayout/MarginContainer/spellBar/spellSlot1/spellBox1/spell1Clipper"]
+layout_mode = 2
+texture = ExtResource("3_oc4n8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="spellSlot2" type="PanelContainer" parent="mainLayout/MarginContainer/spellBar"]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_c8mn3")
+
+[node name="spellBox2" type="VBoxContainer" parent="mainLayout/MarginContainer/spellBar/spellSlot2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="spell2Label" type="Label" parent="mainLayout/MarginContainer/spellBar/spellSlot2/spellBox2"]
+layout_mode = 2
+text = "Spell 2"
+label_settings = ExtResource("2_726w6")
+horizontal_alignment = 1
+
+[node name="spell2Clipper" type="PanelContainer" parent="mainLayout/MarginContainer/spellBar/spellSlot2/spellBox2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("3_726w6")
+
+[node name="spell2" type="TextureRect" parent="mainLayout/MarginContainer/spellBar/spellSlot2/spellBox2/spell2Clipper"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("4_e0gpi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="spellSlot3" type="PanelContainer" parent="mainLayout/MarginContainer/spellBar"]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_c8mn3")
+
+[node name="spellBox3" type="VBoxContainer" parent="mainLayout/MarginContainer/spellBar/spellSlot3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="spell3Label" type="Label" parent="mainLayout/MarginContainer/spellBar/spellSlot3/spellBox3"]
+layout_mode = 2
+text = "Spell 3"
+label_settings = ExtResource("2_726w6")
+horizontal_alignment = 1
+
+[node name="spell3Clipper" type="PanelContainer" parent="mainLayout/MarginContainer/spellBar/spellSlot3/spellBox3"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("3_726w6")
+
+[node name="spell3" type="TextureRect" parent="mainLayout/MarginContainer/spellBar/spellSlot3/spellBox3/spell3Clipper"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("5_7fc8g")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="spellSlot4" type="PanelContainer" parent="mainLayout/MarginContainer/spellBar"]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_c8mn3")
+
+[node name="spellBox4" type="VBoxContainer" parent="mainLayout/MarginContainer/spellBar/spellSlot4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="spell4Label" type="Label" parent="mainLayout/MarginContainer/spellBar/spellSlot4/spellBox4"]
+layout_mode = 2
+text = "Spell 4"
+label_settings = ExtResource("2_726w6")
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="mainLayout/MarginContainer/spellBar/spellSlot4/spellBox4"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("3_726w6")
+
+[node name="spell4" type="TextureRect" parent="mainLayout/MarginContainer/spellBar/spellSlot4/spellBox4/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("6_fxr7v")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="drawingPadMargin" type="MarginContainer" parent="mainLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 20
+
+[node name="drawingPad" type="Panel" parent="mainLayout/drawingPadMargin"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ae3v")
+script = ExtResource("8_oc4n8")
+
+[node name="testNode" type="Node" parent="."]
+script = ExtResource("9_e0gpi")
