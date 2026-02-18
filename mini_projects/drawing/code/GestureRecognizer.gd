@@ -8,7 +8,7 @@ func _ready() -> void:
 	test_resampler()
 	test_rotation()
 
-# Test function
+# Test functions
 func test_resampler():
 	print("--- STARTING RESAMPLE TEST ---")
 	
@@ -69,6 +69,9 @@ func test_rotation():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+	
+# ------- 
 
 # ------- $1 algorithm code -------
 
@@ -130,7 +133,7 @@ func rotate_to_zero(points : PackedVector2Array) -> PackedVector2Array:
 	
 	new_points = _rotate_by(points, -theta)
 	return new_points
-	
+
 func _centroid(points : PackedVector2Array) -> Vector2:
 	
 	var centroid : Vector2 = Vector2.ZERO
@@ -139,8 +142,7 @@ func _centroid(points : PackedVector2Array) -> Vector2:
 		
 	centroid /= points.size()
 	return centroid
-	
-	
+
 func _rotate_by(points : PackedVector2Array, theta : float) -> PackedVector2Array:
 	var centroid : Vector2 = _centroid(points)
 	var new_points : PackedVector2Array = PackedVector2Array()
@@ -151,7 +153,7 @@ func _rotate_by(points : PackedVector2Array, theta : float) -> PackedVector2Arra
 		new_points.append(Vector2(new_x, new_y))
 		
 	return new_points
-	
+
 # Step 3: scaling
 
 func scale_to_square(points : PackedVector2Array, size : int) -> PackedVector2Array:
@@ -164,7 +166,7 @@ func scale_to_square(points : PackedVector2Array, size : int) -> PackedVector2Ar
 		new_points.append(Vector2(new_x, new_y))
 	
 	return new_points
-	
+
 func translate_to_origin(points : PackedVector2Array) -> PackedVector2Array:
 	var centroid : Vector2 = _centroid(points)
 	var new_points : PackedVector2Array = PackedVector2Array()
@@ -175,7 +177,7 @@ func translate_to_origin(points : PackedVector2Array) -> PackedVector2Array:
 		new_points.append(Vector2(new_x, new_y))
 		
 	return new_points
-		
+
 func _find_width_height_BB(points: PackedVector2Array) -> Vector2:
 	var min_x : float = INF
 	var max_x : float = -INF
@@ -192,8 +194,7 @@ func _find_width_height_BB(points: PackedVector2Array) -> Vector2:
 	var height = max(max_y - min_y, 0.01)
 	
 	return Vector2(width, height)
-		
-		
+
 # Step 4 : recognizing
 
 # --- STEP 4: RECOGNITION ---
@@ -251,4 +252,3 @@ func _path_distance(points_1 : PackedVector2Array, points_2 : PackedVector2Array
 		distance += points_1[i].distance_to(points_2[i])
 
 	return distance / len(points_1)
-	
