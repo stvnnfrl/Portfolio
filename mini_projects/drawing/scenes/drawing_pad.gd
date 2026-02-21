@@ -1,6 +1,5 @@
 extends Panel
 
-# Signal we will send to the main game controller when the user is done drawing
 signal drawing_finished(points: PackedVector2Array)
 
 var _active_line: PackedVector2Array = []
@@ -11,7 +10,7 @@ func _ready():
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _gui_input(event):
-	# 1. DETECT MOUSE CLICK (START/END)
+	# 1. detect mouse click
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
@@ -19,7 +18,7 @@ func _gui_input(event):
 			else:
 				_end_drawing()
 	
-	# 2. DETECT MOUSE MOVEMENT (DRAGGING)
+	# 2. detect dragging
 	elif event is InputEventMouseMotion and _is_drawing:
 		_add_point(event.position)
 

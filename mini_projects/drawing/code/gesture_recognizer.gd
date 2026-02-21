@@ -5,8 +5,10 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	test_resampler()
-	test_rotation()
+	#test_resampler()
+	#test_rotation()
+	
+	load_templates()
 
 # Test functions
 func test_resampler():
@@ -71,11 +73,71 @@ func _process(delta: float) -> void:
 	pass
 	
 	
-# ------- 
+# ------- Template pipeline -------
+
+var templates : Dictionary = {}
+
+func normalize(points : PackedVector2Array, point_count : int = 64) -> PackedVector2Array:
+	# run step 1 to 3 of algorithm
+	points = resample(points, point_count)
+	points = rotate_to_zero(points)
+	points = scale_to_square(points, 250)
+	points = translate_to_origin(points)
+	return points
+	
+func add_template(spell_name: String, raw_points: PackedVector2Array):
+	var normalized_points : PackedVector2Array = normalize(raw_points)
+	
+	if not templates.has(spell_name):
+		templates[spell_name] = []
+	
+	templates[spell_name].append(normalized_points)
+	save_templates()
+	
+func save_templates():
+	var file = FileAccess.open("user://spells.json", FileAccess.WRITE)
+	if file:
+		var data_to_save : Dictionary = {}
+		for spell_name in templates:
+			data_to_save[spell_name] = []
+			for example in templates[spell_name]:
+				# convert to array for Json file
+				var point_list : Array = []
+				for p in example:
+					point_list.append([p.x, p.y])
+				data_to_save[spell_name].append(point_list)
+		
+		file.store_string(JSON.stringify(data_to_save))
+		file.close()
+
+func load_templates():
+	# check if file exists
+	if not FileAccess.file_exists("user://spells.json"):
+		return
+		
+	var file : FileAccess = FileAccess.open("user://spells.json", FileAccess.READ)
+	var text : String = file.get_as_text()
+	var json : JSON = JSON.new()
+	var parse_result : Error = json.parse(text)
+	
+	if parse_result == OK:
+		var loaded_data = json.data
+		# clear dictionnary to make sure it is empty before adding data from file
+		templates.clear()
+		
+		# Convert arrays [x, y] back to Vector2 for algorithm
+		for spell_name in loaded_data:
+			templates[spell_name] = []
+			for example_array in loaded_data[spell_name]:
+				var vec_array : PackedVector2Array = PackedVector2Array()
+				for p_data in example_array:
+					vec_array.append(Vector2(p_data[0], p_data[1]))
+				templates[spell_name].append(vec_array)
 
 # ------- $1 algorithm code -------
 
 # Step 1: Resampling
+
 func resample(points: PackedVector2Array, n: int = 64) -> PackedVector2Array:
 	
 	# Don't bother resampling if the drawing is too small
@@ -197,25 +259,28 @@ func _find_width_height_BB(points: PackedVector2Array) -> Vector2:
 
 # Step 4 : recognizing
 
-# --- STEP 4: RECOGNITION ---
-
-func recognize(points: PackedVector2Array, templates: Array) -> Dictionary:
-	var best_distance : float = INF
-	var best_template = null
+func recognize(points: PackedVector2Array, template_dict: Dictionary) -> Dictionary:
+	# safety check
+	if template_dict.is_empty():
+		return { "name": "No Templates Loaded", "score": 0.0 }
 	
-	for template in templates:
-		var distance : float = _distance_at_best_angle(points, template["points"], -PI/4, PI/4, 2.0 * PI / 180.0)
+	var best_distance : float = INF
+	var best_name : String = "TBD"
+	
+	for spell_name in template_dict:
+		for template_points in template_dict[spell_name]:
+			var distance : float = _distance_at_best_angle(points, template_points, -PI/4, PI/4, 2.0 * PI / 180.0)
 		
-		if distance < best_distance:
-			best_distance = distance
-			best_template = template
+			if distance < best_distance:
+				best_distance = distance
+				best_name = spell_name
 
 	# Box size TBD !!
-	var box_size : float= 250.0
+	var box_size : float = 250.0
 	var tmp_half_sqrt : float = sqrt(2 * pow(box_size, 2)) / 2.0
 	var score : float = 1.0 - (best_distance / tmp_half_sqrt)
 	
-	return { "name": best_template["name"], "score": score }
+	return { "name": best_name, "score": score }
 
 func _distance_at_best_angle(points: PackedVector2Array, T: PackedVector2Array, theta_a: float, theta_b: float, theta_delta: float) -> float:
 	var phi : float = 0.5 * (-1.0 + sqrt(5.0))
@@ -247,8 +312,10 @@ func _distance_at_angle(points: PackedVector2Array, T: PackedVector2Array, theta
 
 func _path_distance(points_1 : PackedVector2Array, points_2 : PackedVector2Array) -> float:
 	var distance : float = 0.0
+	# safety to make sure we don't get an out of bounds error
+	var length : int = min(points_1.size(), points_2.size())
 	
-	for i in range(len(points_1)):
+	for i in range(length):
 		distance += points_1[i].distance_to(points_2[i])
 
 	return distance / len(points_1)

@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dy0af7j7y5whl"]
+[gd_scene load_steps=12 format=3 uid="uid://dy0af7j7y5whl"]
 
+[ext_resource type="Script" uid="uid://dwodwh3p1hj1" path="res://scenes/game_controller.gd" id="1_7fc8g"]
 [ext_resource type="StyleBox" uid="uid://b0qaaorrcb6vp" path="res://resources/SpellCardStyle.tres" id="1_c8mn3"]
 [ext_resource type="LabelSettings" uid="uid://663bly6lgqsf" path="res://resources/SpellTitle.tres" id="2_726w6"]
 [ext_resource type="StyleBox" uid="uid://qlj2wcy58gs2" path="res://resources/Clipper.tres" id="3_726w6"]
@@ -8,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b3m5jtcxbbgv6" path="res://assets/spells/spell3.jpg" id="5_7fc8g"]
 [ext_resource type="Texture2D" uid="uid://dyw2fn26lks6f" path="res://assets/spells/spell4.jpg" id="6_fxr7v"]
 [ext_resource type="Script" uid="uid://pu7yqgx8mu2p" path="res://scenes/drawing_pad.gd" id="8_oc4n8"]
-[ext_resource type="Script" uid="uid://mqtaf1dcwdoa" path="res://code/GestureRecognizer.gd" id="9_e0gpi"]
+[ext_resource type="Script" uid="uid://mqtaf1dcwdoa" path="res://code/gesture_recognizer.gd" id="9_e0gpi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ae3v"]
 corner_radius_top_left = 15
@@ -17,6 +18,7 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_7fc8g")
 
 [node name="background" type="ColorRect" parent="."]
 anchors_preset = 15
