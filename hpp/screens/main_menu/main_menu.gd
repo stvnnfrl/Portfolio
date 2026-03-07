@@ -9,12 +9,12 @@ const STATUS_COLOR_ERROR := Color("a03d2f")
 @onready var settings_screen: MarginContainer = $Screens/Settings
 @onready var load_game_screen: MarginContainer = $Screens/LoadGame
 
-@onready var window_mode_option: OptionButton = $Screens/Settings/Page/BodyScroll/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/WindowModeRow/WindowModeOption
-@onready var resolution_option: OptionButton = $Screens/Settings/Page/BodyScroll/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/ResolutionRow/ResolutionOption
-@onready var master_slider: HSlider = $Screens/Settings/Page/BodyScroll/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper/MasterSlider
-@onready var master_value_label: Label = $Screens/Settings/Page/BodyScroll/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper/MasterHeader/MasterValue
-@onready var summary_label: Label = $Screens/Settings/Page/BodyScroll/BodyCenter/Body/ContentRow/SummaryPanel/SummaryBox/SummaryLabel
-@onready var status_label: Label = $Screens/Settings/Page/BodyScroll/BodyCenter/Body/FooterPanel/FooterBox/StatusLabel
+@onready var window_mode_option: OptionButton = $Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/WindowModeRow/WindowModeOption
+@onready var resolution_option: OptionButton = $Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/ResolutionRow/ResolutionOption
+@onready var master_slider: HSlider = $Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper/MasterSlider
+@onready var master_value_label: Label = $Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper/MasterHeader/MasterValue
+@onready var summary_label: Label = $Screens/Settings/BodyCenter/Body/ContentRow/SummaryPanel/SummaryBox/SummaryLabel
+@onready var status_label: Label = $Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/StatusLabel
 
 var _pending_settings: Dictionary = {}
 var _is_loading: bool = false

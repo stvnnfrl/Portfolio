@@ -20,7 +20,9 @@
 [sub_resource type="Theme" id="Theme_3q0ta"]
 default_font = ExtResource("3_78h0p")
 
-[sub_resource type="Theme" id="Theme_tldqp"]
+[sub_resource type="LabelSettings" id="LabelSettings_tldqp"]
+font_size = 80
+font_color = Color(0.13725491, 0.09411765, 0.050980393, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hu0a"]
 content_margin_left = 20.0
@@ -309,12 +311,10 @@ theme_override_constants/separation = 14
 
 [node name="TitleLabel" type="Label" parent="Screens/Settings/BodyCenter/Body"]
 layout_mode = 2
-theme = SubResource("Theme_tldqp")
-theme_override_colors/font_color = Color(0.137255, 0.0941176, 0.0509804, 1)
 theme_override_colors/font_outline_color = Color(0.905882, 0.843137, 0.717647, 1)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 80
 text = "Settings"
+label_settings = SubResource("LabelSettings_tldqp")
 horizontal_alignment = 1
 
 [node name="ContentRow" type="HBoxContainer" parent="Screens/Settings/BodyCenter/Body"]
