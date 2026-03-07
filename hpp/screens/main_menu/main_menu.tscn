@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bei8fchfaoial"]
+[gd_scene load_steps=40 format=3 uid="uid://bei8fchfaoial"]
 
 [ext_resource type="Script" uid="uid://c6jpa3x4xy6o4" path="res://screens/main_menu/main_menu.gd" id="1_tldqp"]
 [ext_resource type="Texture2D" uid="uid://bu2d7bdhap8ic" path="res://screens/resources/crumpled_background.jpg" id="2_kee05"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://gogx2nlp0pjt" path="res://screens/main_menu/load_game.gd" id="4_mhwf8"]
 [ext_resource type="PackedScene" uid="uid://10ri8qgqum6v" path="res://screens/main_menu/save_slot.tscn" id="5_ba7al"]
 [ext_resource type="StyleBox" uid="uid://c54mw835dl0rb" path="res://screens/main_menu/load_game_container.tres" id="6_ek553"]
+[ext_resource type="Script" path="res://screens/main_menu/settings_panel.gd" id="7_x6q0j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okifl"]
 
@@ -292,6 +293,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("7_x6q0j")
 theme = SubResource("Theme_3q0ta")
 theme_override_constants/margin_left = 36
 theme_override_constants/margin_top = 52
@@ -681,10 +683,11 @@ text = "Resume"
 [connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/LoadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="item_selected" from="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/WindowModeRow/WindowModeOption" to="." method="_on_window_mode_changed"]
-[connection signal="item_selected" from="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/ResolutionRow/ResolutionOption" to="." method="_on_resolution_changed"]
-[connection signal="value_changed" from="Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper/MasterSlider" to="." method="_on_master_volume_changed"]
-[connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/ApplyButton" to="." method="_on_settings_apply_button_pressed"]
-[connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/ResetButton" to="." method="_on_settings_reset_button_pressed"]
-[connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/SettingsBackButton" to="." method="_on_settings_back_button_pressed"]
+[connection signal="back_requested" from="Screens/Settings" to="." method="_on_settings_back_requested"]
+[connection signal="item_selected" from="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/WindowModeRow/WindowModeOption" to="Screens/Settings" method="_on_window_mode_changed"]
+[connection signal="item_selected" from="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/ResolutionRow/ResolutionOption" to="Screens/Settings" method="_on_resolution_changed"]
+[connection signal="value_changed" from="Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper/MasterSlider" to="Screens/Settings" method="_on_master_volume_changed"]
+[connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/ApplyButton" to="Screens/Settings" method="_on_apply_button_pressed"]
+[connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/ResetButton" to="Screens/Settings" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/SettingsBackButton" to="Screens/Settings" method="_on_back_button_pressed"]
 [connection signal="pressed" from="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/NavigationContainer/BackButton" to="." method="_on_back_button_pressed"]
