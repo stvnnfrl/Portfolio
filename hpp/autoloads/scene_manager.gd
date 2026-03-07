@@ -1,11 +1,14 @@
 extends Node
 
+var main_menu_path : String = "res://modules/main_menu/main_menu.tscn"
+var match_setup_path : String = "res://modules/match_setup/match_setup.tscn"
+var ending_screen_path : String = "res://modules/end_screen/end_screen.tscn"
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func load_main_menu():
+	get_tree().change_scene_to_file(main_menu_path)
+	
+func load_match_setup():
+	get_tree().change_scene_to_file(match_setup_path)
+	
+func load_game_over():
+	get_tree().change_scene_to_file(ending_screen_path)
