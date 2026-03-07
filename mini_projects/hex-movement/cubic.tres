@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CubicCoords" load_steps=2 format=3 uid="uid://dt7ny0gyu5cwg"]
+
+[ext_resource type="Script" uid="uid://da1b6187e4ta8" path="res://cubic_coords.gd" id="1_g5ko2"]
+
+[resource]
+script = ExtResource("1_g5ko2")
+size = 95.0
+metadata/_custom_type_script = "uid://da1b6187e4ta8"

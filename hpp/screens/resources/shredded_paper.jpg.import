@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkk58rgnx0jby"
-path="res://.godot/imported/shredded_paper.jpg-12dbebf92a6b749231e9ab8f24d8d9fa.ctex"
+path="res://.godot/imported/shredded_paper.jpg-f9f695a42e462bdff6c13e96e8894b19.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://shared_assets/shredded_paper.jpg"
-dest_files=["res://.godot/imported/shredded_paper.jpg-12dbebf92a6b749231e9ab8f24d8d9fa.ctex"]
+source_file="res://screens/resources/shredded_paper.jpg"
+dest_files=["res://.godot/imported/shredded_paper.jpg-f9f695a42e462bdff6c13e96e8894b19.ctex"]
 
 [params]
 
