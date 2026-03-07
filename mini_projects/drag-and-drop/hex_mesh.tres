@@ -1,0 +1,9 @@
+[gd_resource type="RibbonTrailMesh" load_steps=2 format=3 uid="uid://why0m1hfguuc"]
+
+[ext_resource type="Curve" uid="uid://dfmbl3wd10gfp" path="res://hex_curve.tres" id="1_owkor"]
+
+[resource]
+sections = 4
+section_length = 0.25
+section_segments = 1
+curve = ExtResource("1_owkor")
