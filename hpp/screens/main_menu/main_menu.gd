@@ -26,3 +26,14 @@ func _process(delta: float) -> void:
 func _on_start_button_pressed():
 	SceneManager.load_match_setup()
 	
+
+func _on_load_button_pressed() -> void:
+	show_screen(load_game_screen)
+	
+
+func _on_exit_button_pressed() -> void:
+	get_tree().quit()
+
+
+func _on_back_button_pressed() -> void:
+	show_screen(main_screen)
