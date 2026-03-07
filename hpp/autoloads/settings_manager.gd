@@ -121,12 +121,12 @@ func _set_bus_volume(bus_name: String, linear_value: float) -> void:
 func _parse_resolution(value: String) -> Vector2i:
 	var parts: PackedStringArray = value.split("x")
 	if parts.size() != 2:
-		return Vector2i(1600, 900)
+		return Vector2i(1920, 1080)
 
 	var width: int = int(parts[0])
 	var height: int = int(parts[1])
 	if width <= 0 or height <= 0:
-		return Vector2i(1600, 900)
+		return Vector2i(1920, 1080)
 	return Vector2i(width, height)
 
 
