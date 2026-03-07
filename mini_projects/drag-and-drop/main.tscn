@@ -1,0 +1,88 @@
+[gd_scene load_steps=12 format=4 uid="uid://dsmqtu45cjs62"]
+
+[ext_resource type="RibbonTrailMesh" uid="uid://why0m1hfguuc" path="res://hex_mesh.tres" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://dbyhd2p67bkg7" path="res://white.tres" id="1_h2yge"]
+[ext_resource type="Curve" uid="uid://dfmbl3wd10gfp" path="res://hex_curve.tres" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://6otm4atidad0" path="res://icon.svg" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://di8bmxa4uqptv" path="res://FollowMouse.gd" id="5_7mycd"]
+[ext_resource type="Texture2D" uid="uid://dps5knnynh2ps" path="res://tiles.png" id="5_lquwl"]
+
+[sub_resource type="MeshTexture" id="MeshTexture_1bvp3"]
+mesh = ExtResource("1_0xm2m")
+base_texture = ExtResource("1_h2yge")
+image_size = Vector2(1, 1)
+
+[sub_resource type="MeshTexture" id="MeshTexture_lquwl"]
+mesh = ExtResource("1_0xm2m")
+base_texture = ExtResource("3_1bvp3")
+image_size = Vector2(1, 1)
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_ig7tw"]
+sections = 4
+section_length = 0.25
+section_segments = 1
+curve = ExtResource("1_ig7tw")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
+texture = ExtResource("5_lquwl")
+0:0/0 = 0
+1:0/0 = 0
+1:1/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_lquwl"]
+tile_shape = 3
+sources/2 = SubResource("TileSetAtlasSource_7mycd")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BoxContainer" type="BoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="anchor" type="Control" parent="Control/BoxContainer"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="Control/BoxContainer/anchor"]
+layout_mode = 0
+offset_left = 27.713
+offset_top = 32.0
+offset_right = 91.713
+offset_bottom = 96.0
+texture_normal = SubResource("MeshTexture_1bvp3")
+texture_hover = SubResource("MeshTexture_lquwl")
+stretch_mode = 0
+
+[node name="Hex" type="MeshInstance2D" parent="Control"]
+position = Vector2(-1, -1)
+mesh = SubResource("RibbonTrailMesh_ig7tw")
+
+[node name="Cursor" type="Sprite2D" parent="."]
+texture = ExtResource("3_1bvp3")
+script = ExtResource("5_7mycd")
+massInverse = 150.0
+springConstant = 0.7
+targetDistance = 128.0
+dampingFactor = 0.997
+dampingInterval = 1.0
+
+[node name="Target" type="Sprite2D" parent="Cursor"]
+top_level = true
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1bvp3")
+
+[node name="Dragged" type="Sprite2D" parent="Cursor"]
+top_level = true
+texture = ExtResource("3_1bvp3")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAD/////AgAAAAAAAAAAAP//AgAAAAAAAAAAAAAAAgAAAAAAAAD//wAAAgAAAAAAAAABAAAAAgAAAAAAAAABAP//AgAAAAAAAAABAP7/AgAAAAAAAAAAAP7/AgAAAAAAAAACAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAACAP//AgAAAAAAAAACAP7/AgAAAAAAAAABAP3/AgAAAAAAAAACAP3/AgAAAAAAAAA=")
+tile_set = SubResource("TileSet_lquwl")
