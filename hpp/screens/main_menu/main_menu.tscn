@@ -1,8 +1,8 @@
 [gd_scene load_steps=27 format=3 uid="uid://b2ys85rrusy8f"]
 
 [ext_resource type="Script" uid="uid://de1jxhqbj0ynj" path="res://screens/main_menu/main_menu.gd" id="1_tldqp"]
-[ext_resource type="Texture2D" uid="uid://bu2d7bdhap8ic" path="res://shared_assets/crumpled_background.jpg" id="2_kee05"]
-[ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://shared_assets/fonts/Excalifont-Regular.woff2" id="3_78h0p"]
+[ext_resource type="Texture2D" uid="uid://bu2d7bdhap8ic" path="res://screens/resources/crumpled_background.jpg" id="2_kee05"]
+[ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://screens/resources/Excalifont-Regular.woff2" id="3_78h0p"]
 [ext_resource type="Script" uid="uid://gogx2nlp0pjt" path="res://screens/main_menu/load_game.gd" id="4_mhwf8"]
 [ext_resource type="PackedScene" uid="uid://10ri8qgqum6v" path="res://screens/main_menu/save_slot.tscn" id="5_ba7al"]
 [ext_resource type="StyleBox" uid="uid://c54mw835dl0rb" path="res://screens/main_menu/load_game_container.tres" id="6_ek553"]
@@ -76,6 +76,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MainMenu" type="MarginContainer" parent="Screens"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,13 +84,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 100
+theme_override_constants/margin_top = 200
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="MainLayout" type="VBoxContainer" parent="Screens/MainMenu"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 
 [node name="TitleLabel" type="Label" parent="Screens/MainMenu/MainLayout"]
 layout_mode = 2
@@ -97,7 +98,7 @@ theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 
 theme_override_colors/font_outline_color = Color(0.70173043, 0.70172995, 0.7017301, 1)
 theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("3_78h0p")
-theme_override_font_sizes/font_size = 74
+theme_override_font_sizes/font_size = 120
 text = "Heroes of Pen and Paper"
 horizontal_alignment = 1
 
@@ -113,7 +114,7 @@ theme_override_constants/separation = 15
 layout_mode = 2
 theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 theme_override_fonts/font = ExtResource("3_78h0p")
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 74
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okifl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_nnlxq")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_0b4wy")
@@ -125,7 +126,7 @@ text = "Start Game"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 theme_override_fonts/font = ExtResource("3_78h0p")
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 74
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okifl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_nnlxq")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_0b4wy")
@@ -137,7 +138,7 @@ text = "Load Game"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 theme_override_fonts/font = ExtResource("3_78h0p")
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 74
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okifl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_nnlxq")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_0b4wy")
@@ -149,7 +150,7 @@ text = "Settings"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 theme_override_fonts/font = ExtResource("3_78h0p")
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 74
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okifl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_nnlxq")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_0b4wy")
@@ -166,17 +167,16 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="LoadGame" type="MarginContainer" parent="Screens"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
 script = ExtResource("4_mhwf8")
 save_slot_scene = ExtResource("5_ba7al")
 
@@ -198,7 +198,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="SearchBar" type="LineEdit" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer"]
-custom_minimum_size = Vector2(0, 70)
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 theme_override_colors/font_placeholder_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
@@ -241,16 +241,16 @@ size_flags_vertical = 3
 theme_override_constants/separation = 15
 
 [node name="NavigationContainer" type="HBoxContainer" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 75)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 theme_override_constants/separation = 40
 
 [node name="BackButton" type="Button" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/NavigationContainer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 theme_override_fonts/font = ExtResource("3_78h0p")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x10td")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_dfeeu")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_js4y3")
@@ -258,7 +258,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_hkjyp")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_18dlr")
 text = "Back"
 
-[node name="BackOnePage" type="Button" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/NavigationContainer"]
+[node name="Spacer" type="Control" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/NavigationContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -276,7 +276,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Screens/LoadGame/HBoxContainer/PreviewContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 75)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
 [node name="DeleteButton" type="Button" parent="Screens/LoadGame/HBoxContainer/PreviewContainer/VBoxContainer/HBoxContainer"]
@@ -284,7 +284,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 theme_override_fonts/font = ExtResource("3_78h0p")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_i61vg")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_wy1j6")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_mcinw")
@@ -301,7 +301,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 theme_override_fonts/font = ExtResource("3_78h0p")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ne8n1")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_85lx7")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_nlxfp")
