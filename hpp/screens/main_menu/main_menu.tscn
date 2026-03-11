@@ -20,6 +20,12 @@
 
 [sub_resource type="Theme" id="Theme_3q0ta"]
 default_font = ExtResource("3_78h0p")
+PopupMenu/font_sizes/font_separator_size = 30
+PopupMenu/font_sizes/font_size = 30
+PopupMenu/font_sizes/title_font_size = 30
+PopupMenu/fonts/font = ExtResource("3_78h0p")
+PopupMenu/fonts/font_separator = ExtResource("3_78h0p")
+PopupMenu/fonts/title_font = ExtResource("3_78h0p")
 
 [sub_resource type="LabelSettings" id="LabelSettings_tldqp"]
 font_size = 96
