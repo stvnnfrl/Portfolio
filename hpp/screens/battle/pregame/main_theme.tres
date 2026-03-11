@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cgfpt6lxvjk8f"]
+
+[ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://screens/Excalifont-Regular.woff2" id="1_20g4n"]
+[ext_resource type="StyleBox" uid="uid://u7yk788n8pv2" path="res://screens/battle/pregame/main_style.tres" id="1_japiy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_japiy"]
+bg_color = Color(0.9490196, 0.9019608, 0.8901961, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[resource]
+default_font = ExtResource("1_20g4n")
+default_font_size = 28
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/styles/normal = SubResource("StyleBoxFlat_japiy")
+HBoxContainer/constants/separation = 24
+MarginContainer/constants/margin_bottom = 16
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_top = 16
+Panel/styles/panel = ExtResource("1_japiy")
+PanelContainer/styles/panel = ExtResource("1_japiy")
