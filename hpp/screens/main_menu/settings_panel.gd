@@ -23,6 +23,11 @@ func _ready() -> void:
 	refresh_from_saved_settings(false)
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_VISIBILITY_CHANGED and is_node_ready() and visible:
+		refresh_from_saved_settings()
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		return

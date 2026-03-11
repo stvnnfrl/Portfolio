@@ -15,8 +15,6 @@ func show_screen(target_screen: Control) -> void:
 	load_game_screen.hide()
 
 	target_screen.show()
-	if target_screen == settings_screen and settings_screen.has_method("refresh_from_saved_settings"):
-		settings_screen.call("refresh_from_saved_settings")
 
 
 func _on_start_button_pressed() -> void:
