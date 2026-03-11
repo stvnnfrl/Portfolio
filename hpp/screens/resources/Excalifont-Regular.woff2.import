@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dfwrpmk5t77kh"
-path="res://.godot/imported/Excalifont-Regular.woff2-0bb825db668aa9188bc1f2858c31cdb8.fontdata"
+path="res://.godot/imported/Excalifont-Regular.woff2-a8a8738d559cf9819336dfa678391c42.fontdata"
 
 [deps]
 
-source_file="res://shared_assets/fonts/Excalifont-Regular.woff2"
-dest_files=["res://.godot/imported/Excalifont-Regular.woff2-0bb825db668aa9188bc1f2858c31cdb8.fontdata"]
+source_file="res://screens/resources/Excalifont-Regular.woff2"
+dest_files=["res://.godot/imported/Excalifont-Regular.woff2-a8a8738d559cf9819336dfa678391c42.fontdata"]
 
 [params]
 
