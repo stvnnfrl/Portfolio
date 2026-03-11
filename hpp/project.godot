@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="hpp"
-run/main_scene="uid://b2ys85rrusy8f"
+run/main_scene="uid://bei8fchfaoial"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 SceneManager="*res://autoloads/scene_manager.gd"
+SettingsManager="*res://autoloads/settings_manager.gd"
 
 [display]
 
@@ -25,3 +26,7 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
