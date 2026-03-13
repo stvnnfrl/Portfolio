@@ -23,6 +23,16 @@ var stub_saves_data = [
 			"save_name": "Save 4",
 			"mode": "Singleplayer",
 			"date": "2026-01-16T14:33"
+		},
+		{
+			"save_name": "Save 5",
+			"mode": "Singleplayer",
+			"date": "2026-01-16T14:34"
+		},
+		{
+			"save_name": "Save 6",
+			"mode": "Multiplayer",
+			"date": "2026-01-16T14:35"
 		}
 	]
 
