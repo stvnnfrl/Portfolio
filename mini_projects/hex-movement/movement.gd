@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 		cubic_pos = cubic.cubic_round(cubic_pos)
 		if last_dest != Vector3i.MIN and last_dest == Vector3i(cubic_pos):
 			position = cubic.cubic_to_pos2D(cubic_pos)
-		if !field.obstacles.has(cubic_pos):
+		if !field.obstacles.has(Vector3i(cubic_pos)):
 			pathfind(cubic.cubic_round(cubic.pos2D_to_cubic(position)), cubic_pos)
 	
 	label2.text = str(cubic.cubic_round(cubic.pos2D_to_cubic(position)))
@@ -40,9 +40,11 @@ func pathfind(start: Vector3i, dest: Vector3i):
 	var queue: Array[Vector3i] = [start]
 	
 	while !queue.is_empty():
-		var cubic_pos = queue.pop_front()
+		var cubic_pos: Vector3i = queue.pop_front()
 		var dist = cell_distance[cubic_pos]
-		for dir in cubic.CUBIC_DIRECTIONS:
+		var dirs = [cubic.cubic_round(sqrt(2.0) * Vector3(dest - cubic_pos).normalized())]
+		dirs.append_array(CubicCoords.CUBIC_DIRECTIONS)
+		for dir in dirs:
 			dir = Vector3i(dir)
 			var search_pos = cubic_pos + dir
 			if on_screen(cubic.cubic_to_pos2D(search_pos))\
