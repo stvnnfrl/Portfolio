@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://cqsvguahxshyt"]
+
+[ext_resource type="Script" uid="uid://bymmyjmwpv1mh" path="res://screens/battle/game_menu/game_menu.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu"]
+content_margin_left = 40.0
+content_margin_top = 30.0
+content_margin_right = 40.0
+content_margin_bottom = 30.0
+bg_color = Color(0.22, 0.22, 0.22, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.52, 0.48, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.35, 0.35, 0.35, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.45, 0.45, 0.45, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="GameMenu" type="Control" unique_id=1829651518]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="DimBg" type="ColorRect" parent="." unique_id=1214501195]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="CenterContainer" type="CenterContainer" parent="DimBg" unique_id=1105785574]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuPanel" type="PanelContainer" parent="DimBg/CenterContainer" unique_id=845006808]
+custom_minimum_size = Vector2(320, 280)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
+
+[node name="ButtonBox" type="VBoxContainer" parent="DimBg/CenterContainer/MenuPanel" unique_id=604463220]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="DimBg/CenterContainer/MenuPanel/ButtonBox" unique_id=670760198]
+layout_mode = 2
+text = "Game Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="DimBg/CenterContainer/MenuPanel/ButtonBox" unique_id=1440950528]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="DimBg/CenterContainer/MenuPanel/ButtonBox" unique_id=1938704764]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Resume"
+
+[node name="SaveButton" type="Button" parent="DimBg/CenterContainer/MenuPanel/ButtonBox" unique_id=960728451]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Save Game"
+
+[node name="QuitButton" type="Button" parent="DimBg/CenterContainer/MenuPanel/ButtonBox" unique_id=1635487381]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Quit to Main Menu"
