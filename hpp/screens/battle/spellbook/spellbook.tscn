@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://biy8pnjm81qbo"]
+
+[ext_resource type="Script" uid="uid://bq4lf142jryln" path="res://screens/battle/spellbook/spellbook.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_book"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 16.0
+bg_color = Color(0.78, 0.75, 0.68, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.4, 0.33, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="SpellBook" type="Control" unique_id=6204019]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="DimBg" type="ColorRect" parent="." unique_id=199930683]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="BookCenter" type="CenterContainer" parent="." unique_id=914033222]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BookPanel" type="PanelContainer" parent="BookCenter" unique_id=884839565]
+custom_minimum_size = Vector2(720, 540)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_book")
+
+[node name="BookLayout" type="VBoxContainer" parent="BookCenter/BookPanel" unique_id=876354000]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TopBar" type="HBoxContainer" parent="BookCenter/BookPanel/BookLayout" unique_id=1693852665]
+layout_mode = 2
+
+[node name="LatchButton" type="Button" parent="BookCenter/BookPanel/BookLayout/TopBar" unique_id=28903194]
+custom_minimum_size = Vector2(36, 28)
+layout_mode = 2
+tooltip_text = "Close Spell Book"
+text = "X"
+
+[node name="TopSpacer" type="Control" parent="BookCenter/BookPanel/BookLayout/TopBar" unique_id=1361090982]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="Label" parent="BookCenter/BookPanel/BookLayout/TopBar" unique_id=1522447924]
+layout_mode = 2
+text = "Spell Book"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TopSpacer2" type="Control" parent="BookCenter/BookPanel/BookLayout/TopBar" unique_id=925187343]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Pages" type="HBoxContainer" parent="BookCenter/BookPanel/BookLayout" unique_id=1688333069]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="LeftPage" type="GridContainer" parent="BookCenter/BookPanel/BookLayout/Pages" unique_id=1958215060]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="Spine" type="VSeparator" parent="BookCenter/BookPanel/BookLayout/Pages" unique_id=1419816787]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="RightPage" type="GridContainer" parent="BookCenter/BookPanel/BookLayout/Pages" unique_id=588325355]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="NavBar" type="HBoxContainer" parent="BookCenter/BookPanel/BookLayout" unique_id=2059918526]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="PrevButton" type="Button" parent="BookCenter/BookPanel/BookLayout/NavBar" unique_id=1549017538]
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+text = "<"
+
+[node name="PageLabel" type="Label" parent="BookCenter/BookPanel/BookLayout/NavBar" unique_id=930631455]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "1 / 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="BookCenter/BookPanel/BookLayout/NavBar" unique_id=2069212520]
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+text = ">"
