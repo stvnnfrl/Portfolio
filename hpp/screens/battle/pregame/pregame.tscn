@@ -181,10 +181,8 @@ button_group = ExtResource("2_ote4s")
 text = "Unit 4"
 
 [node name="DraggedUnit" type="Sprite2D" parent="."]
-centered = false
 script = ExtResource("6_5qa4y")
 unset_unit_texture = SubResource("NoiseTexture2D_rrnwb")
-size = Vector2(100, 100)
 
 [connection signal="selectedUnitChanged" from="Main/Padding/Main/UnitSelector" to="Main/Padding/Main/Info" method="_on_unit_selector_selected_unit_changed"]
 [connection signal="selectedUnitChanged" from="Main/Padding/Main/UnitSelector" to="Main/Padding/Main/Info/Stats" method="_on_units_selected_unit_changed"]
