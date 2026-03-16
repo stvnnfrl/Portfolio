@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjocx3d03imeh"]
+
+[ext_resource type="Texture2D" uid="uid://dkk58rgnx0jby" path="res://shared_assets/shredded_paper.jpg" id="1_1xlpg"]
+[ext_resource type="Script" uid="uid://bsygy0dv5osfr" path="res://modules/end_screen/end_screen.gd" id="1_l6275"]
+[ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://shared_assets/fonts/Excalifont-Regular.woff2" id="2_30d0p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_30d0p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l6275"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_14wtu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cgj41"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ks7be"]
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6275")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0.24296579, 0.24296573, 0.24296573, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1xlpg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MainMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 130
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="MainLayout" type="VBoxContainer" parent="MainMargin"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MainMargin/MainLayout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_30d0p")
+theme_override_font_sizes/font_size = 110
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="ButtonsCenterContainer" type="CenterContainer" parent="MainMargin/MainLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonsVContainer" type="VBoxContainer" parent="MainMargin/MainLayout/ButtonsCenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Restart" type="Button" parent="MainMargin/MainLayout/ButtonsCenterContainer/ButtonsVContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_30d0p")
+theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxEmpty_30d0p")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_l6275")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_14wtu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_cgj41")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ks7be")
+text = "Restart"
+
+[node name="Quit" type="Button" parent="MainMargin/MainLayout/ButtonsCenterContainer/ButtonsVContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_30d0p")
+theme_override_font_sizes/font_size = 52
+theme_override_styles/normal = SubResource("StyleBoxEmpty_30d0p")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_l6275")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_14wtu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_cgj41")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ks7be")
+text = "Quit"
+
+[connection signal="pressed" from="MainMargin/MainLayout/ButtonsCenterContainer/ButtonsVContainer/Restart" to="." method="_on_restart_button_pressed"]
