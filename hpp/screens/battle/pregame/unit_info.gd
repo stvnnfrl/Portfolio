@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-@export var units: Array[Variant]
+var units: Array[Variant]
 
 @export var name_label: Label
 @export var flavor_label: Label
