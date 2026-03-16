@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://2n3ubcoaq1l"]
+[gd_scene load_steps=12 format=3 uid="uid://2n3ubcoaq1l"]
 
 [ext_resource type="Script" uid="uid://5efmd7mno0ok" path="res://screens/battle/pregame/pregame.gd" id="1_k75mm"]
 [ext_resource type="Theme" uid="uid://cgfpt6lxvjk8f" path="res://screens/battle/pregame/main_theme.tres" id="1_ug2bj"]
 [ext_resource type="ButtonGroup" uid="uid://c1c4e40h75iab" path="res://screens/battle/pregame/selected_unit.tres" id="2_ote4s"]
 [ext_resource type="Texture2D" uid="uid://c0n0ah6i7t2xh" path="res://screens/battle/pregame/test_unit_textures.png" id="2_rrnwb"]
 [ext_resource type="Script" uid="uid://p2gqkn7gn1a1" path="res://screens/battle/pregame/unit_info.gd" id="3_5qa4y"]
+[ext_resource type="Script" uid="uid://cfe1mjyw2cuqm" path="res://screens/battle/pregame/grid.gd" id="3_u80o1"]
 [ext_resource type="Script" uid="uid://bv71pol8nortl" path="res://screens/battle/pregame/unit_selector.gd" id="4_wxa71"]
 [ext_resource type="Script" uid="uid://c7pcefq1w8xsf" path="res://screens/battle/pregame/dragged_unit.gd" id="6_5qa4y"]
 
@@ -15,7 +16,7 @@
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rrnwb"]
 noise = SubResource("FastNoiseLite_5qa4y")
 
-[node name="Pregame" type="Control" node_paths=PackedStringArray("units_script", "info_script", "drag_script")]
+[node name="Pregame" type="Control" node_paths=PackedStringArray("units_script", "info_script", "drag_script", "grid_script")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,9 +27,10 @@ script = ExtResource("1_k75mm")
 units_script = NodePath("Main/Padding/Main/UnitSelector")
 info_script = NodePath("Main/Padding/Main/Info")
 drag_script = NodePath("DraggedUnit")
+grid_script = NodePath("Grid")
 test_unit_texture_atlas = ExtResource("2_rrnwb")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Grid" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,6 +38,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.9490196, 0.9019608, 0.8901961, 1)
+script = ExtResource("3_u80o1")
 
 [node name="Main" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -184,6 +187,8 @@ text = "Unit 4"
 script = ExtResource("6_5qa4y")
 unset_unit_texture = SubResource("NoiseTexture2D_rrnwb")
 
+[connection signal="gui_input" from="Grid" to="Grid" method="_on_gui_input"]
+[connection signal="selectedUnitChanged" from="Main/Padding/Main/UnitSelector" to="Grid" method="_on_unit_selector_selected_unit_changed"]
 [connection signal="selectedUnitChanged" from="Main/Padding/Main/UnitSelector" to="Main/Padding/Main/Info" method="_on_unit_selector_selected_unit_changed"]
 [connection signal="selectedUnitChanged" from="Main/Padding/Main/UnitSelector" to="Main/Padding/Main/Info/Stats" method="_on_units_selected_unit_changed"]
 [connection signal="selectedUnitChanged" from="Main/Padding/Main/UnitSelector" to="DraggedUnit" method="_on_unit_selector_selected_unit_changed"]

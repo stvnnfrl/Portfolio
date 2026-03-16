@@ -3,11 +3,13 @@ extends Control
 @export var units_script: Node
 @export var info_script: Node
 @export var drag_script: Node
+@export var grid_script: Node
 
 func init(units: Array[Dictionary]):
 	units_script.init(units)
 	info_script.init(units)
 	drag_script.init(units)
+	grid_script.init(units)
 
 
 # initialize with random data (only for testing)
