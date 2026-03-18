@@ -6,43 +6,11 @@ extends MarginContainer
 @onready var search_bar = $HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer/SearchBar
 @onready var filter_dropdown = $HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer/FilterHBox/Filter
 @onready var sort_dropdown = $HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer/FilterHBox/Sort
+@onready var delete_button = $HBoxContainer/PreviewContainer/VBoxContainer/HBoxContainer/DeleteButton
 
 # Saves data
-var saves_data = []
-
-# Stub data
-var stub_saves_data = [
-		{
-			"save_name": "Save 1",
-			"mode": "Multiplayer",
-			"date": "2026-01-17T01:05"
-		},
-		{
-			"save_name": "Save 2",
-			"mode": "Singleplayer",
-			"date": "2026-01-15T11:57"
-		},
-		{
-			"save_name": "Save 3",
-			"mode": "Multiplayer",
-			"date": "2026-01-16T14:23"
-		},
-		{
-			"save_name": "Save 4",
-			"mode": "Singleplayer",
-			"date": "2026-01-16T14:33"
-		},
-		{
-			"save_name": "Save 5",
-			"mode": "Singleplayer",
-			"date": "2026-01-16T14:34"
-		},
-		{
-			"save_name": "test 6",
-			"mode": "Multiplayer",
-			"date": "2026-01-16T14:35"
-		}
-	]
+var saves_data : Array = []
+var current_selected_save : Dictionary = {}
 
 func _ready():
 	# Populate dropdown menu
@@ -53,11 +21,15 @@ func _ready():
 	filter_dropdown.item_selected.connect(_on_search_or_filter_changed)
 	sort_dropdown.item_selected.connect(_on_search_or_filter_changed)
 	
+	delete_button.pressed.connect(_on_delete_button_pressed)
+	delete_button.disabled = true
+	
 	#search_bar.focus_entered.connect(_on_search_focus_entered)
 	#search_bar.focus_exited.connect(_on_search_focus_exited)
 	
 	# Get saves from 
 	# Call to load manager autoload
+	saves_data = FileManager.get_all_saves()
 	
 	# Populate saves list accordingly
 	update_saves_list()
@@ -89,7 +61,7 @@ func populate_drop_down():
 	sort_dropdown.add_item("Name (Z-A)")
 
 func update_saves_list():
-	var current_data = stub_saves_data.duplicate(true)
+	var current_data = saves_data.duplicate(true)
 	
 	current_data = apply_search(current_data)
 	current_data = apply_mode_filter(current_data)
@@ -140,13 +112,39 @@ func populate_saves_list(data_to_display : Array):
 		slot.setup(metadata)
 		slot.pressed.connect(_on_save_slot_pressed.bind(metadata))
 
-
 # Signals functions
 func _on_search_or_filter_changed(_value_passed_by_signal):
 	update_saves_list()
 
 func _on_save_slot_pressed(metadata: Dictionary):
 	print("Player clicked on: ", metadata["save_name"])
+	current_selected_save = metadata
+	delete_button.disabled = false
+	
+func _on_delete_button_pressed():
+	# Double check we have something selected
+	if current_selected_save.is_empty():
+		return
+		
+	var save_to_delete_file_path = current_selected_save["file_path"]
+	
+	# Delete file with FileManager
+	var success : bool = FileManager.delete_save(save_to_delete_file_path)
+	
+	if success:
+		# Remove the save from our local array
+		for i in range(saves_data.size()):
+			if saves_data[i]["file_path"] == save_to_delete_file_path:
+				saves_data.remove_at(i)
+				break
+			
+	# Clear selection and button
+	current_selected_save = {}
+	delete_button.disabled = true
+	
+	# Refresh UI
+	update_saves_list()
+
 
 #func _on_search_focus_entered():
 	#if search_bar.text == "Search Saves...":
