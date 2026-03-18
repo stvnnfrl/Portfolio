@@ -12,3 +12,7 @@ func _process(delta: float) -> void:
 
 func _on_back_pressed() -> void:
 	SceneManager.load_main_menu()
+
+
+func _on_start_match_pressed() -> void:
+	SceneManager.load_pre_game()

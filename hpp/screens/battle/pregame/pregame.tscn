@@ -148,6 +148,11 @@ layout_mode = 2
 text = "123"
 horizontal_alignment = 1
 
+[node name="Button" type="Button" parent="Main/Padding/Main/Info/Stats"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Next"
+
 [node name="UnitSelector" type="HBoxContainer" parent="Main/Padding/Main" node_paths=PackedStringArray("buttons")]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -188,6 +193,7 @@ script = ExtResource("6_5qa4y")
 unset_unit_texture = SubResource("NoiseTexture2D_rrnwb")
 
 [connection signal="gui_input" from="Grid" to="Grid" method="_on_gui_input"]
+[connection signal="pressed" from="Main/Padding/Main/Info/Stats/Button" to="." method="_on_button_pressed"]
 [connection signal="selectedUnitChanged" from="Main/Padding/Main/UnitSelector" to="Grid" method="_on_unit_selector_selected_unit_changed"]
 [connection signal="selectedUnitChanged" from="Main/Padding/Main/UnitSelector" to="Main/Padding/Main/Info" method="_on_unit_selector_selected_unit_changed"]
 [connection signal="selectedUnitChanged" from="Main/Padding/Main/UnitSelector" to="Main/Padding/Main/Info/Stats" method="_on_units_selected_unit_changed"]
