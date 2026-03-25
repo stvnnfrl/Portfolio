@@ -1,0 +1,710 @@
+[gd_scene load_steps=41 format=3 uid="uid://bei8fchfaoial"]
+
+[ext_resource type="Script" uid="uid://c6jpa3x4xy6o4" path="res://screens/main_menu/main_menu.gd" id="1_tldqp"]
+[ext_resource type="Texture2D" uid="uid://bu2d7bdhap8ic" path="res://screens/resources/crumpled_background.jpg" id="2_kee05"]
+[ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://screens/resources/Excalifont-Regular.woff2" id="3_78h0p"]
+[ext_resource type="Script" uid="uid://gogx2nlp0pjt" path="res://screens/main_menu/load_game.gd" id="4_mhwf8"]
+[ext_resource type="PackedScene" uid="uid://10ri8qgqum6v" path="res://screens/main_menu/save_slot.tscn" id="5_ba7al"]
+[ext_resource type="StyleBox" uid="uid://c54mw835dl0rb" path="res://screens/main_menu/load_game_container.tres" id="6_ek553"]
+[ext_resource type="Theme" uid="uid://dutkq3b5rh1cv" path="res://screens/main_menu/pop_up_menu.tres" id="7_kee05"]
+[ext_resource type="Script" uid="uid://cxkjrfwicep8s" path="res://screens/main_menu/settings_panel.gd" id="7_x6q0j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okifl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nnlxq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0b4wy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wtb82"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_no6ca"]
+
+[sub_resource type="Theme" id="Theme_3q0ta"]
+default_font = ExtResource("3_78h0p")
+PopupMenu/font_sizes/font_separator_size = 30
+PopupMenu/font_sizes/font_size = 30
+PopupMenu/font_sizes/title_font_size = 30
+PopupMenu/fonts/font = ExtResource("3_78h0p")
+PopupMenu/fonts/font_separator = ExtResource("3_78h0p")
+PopupMenu/fonts/title_font = ExtResource("3_78h0p")
+
+[sub_resource type="LabelSettings" id="LabelSettings_tldqp"]
+font_size = 96
+font_color = Color(0.13725491, 0.09411765, 0.050980393, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hu0a"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.556863, 0.415686, 0.231373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32h8a"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.556863, 0.415686, 0.231373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01y5v"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.55, 0.41, 0.18, 0.16)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.556863, 0.415686, 0.231373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0d0g"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.85, 0.67, 0.34, 0.2)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.615686, 0.466667, 0.25098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8r0w"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.85, 0.67, 0.34, 0.12)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.905882, 0.843137, 0.717647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vjlwm"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.85, 0.67, 0.34, 0.18)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.556863, 0.415686, 0.231373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3m8c"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.55, 0.41, 0.18, 0.16)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.556863, 0.415686, 0.231373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i1o5t"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.85, 0.67, 0.34, 0.2)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.615686, 0.466667, 0.25098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7v7av"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.556863, 0.415686, 0.231373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kcep"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.85, 0.67, 0.34, 0.12)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.905882, 0.843137, 0.717647, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x10td"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dfeeu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_js4y3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hkjyp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_18dlr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i61vg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wy1j6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcinw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mhmp4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cvdgu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ne8n1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85lx7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nlxfp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x6nsq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eoefr"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tldqp")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kee05")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Screens" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="MarginContainer" parent="Screens"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="MainLayout" type="VBoxContainer" parent="Screens/MainMenu"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="Screens/MainMenu/MainLayout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_colors/font_outline_color = Color(0.70173043, 0.70172995, 0.7017301, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 120
+text = "Heroes of Pen and Paper"
+horizontal_alignment = 1
+
+[node name="ButtonsCenterContainer" type="CenterContainer" parent="Screens/MainMenu/MainLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonsVContainer" type="VBoxContainer" parent="Screens/MainMenu/MainLayout/ButtonsCenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="StartButton" type="Button" parent="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 74
+theme_override_styles/normal = SubResource("StyleBoxEmpty_okifl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_nnlxq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_0b4wy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wtb82")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_no6ca")
+text = "Start Game"
+
+[node name="LoadButton" type="Button" parent="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 74
+theme_override_styles/normal = SubResource("StyleBoxEmpty_okifl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_nnlxq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_0b4wy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wtb82")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_no6ca")
+text = "Load Game"
+
+[node name="SettingsButton" type="Button" parent="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 74
+theme_override_styles/normal = SubResource("StyleBoxEmpty_okifl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_nnlxq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_0b4wy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wtb82")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_no6ca")
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 74
+theme_override_styles/normal = SubResource("StyleBoxEmpty_okifl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_nnlxq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_0b4wy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wtb82")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_no6ca")
+text = "Exit"
+
+[node name="Settings" type="MarginContainer" parent="Screens"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3q0ta")
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 52
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 24
+script = ExtResource("7_x6q0j")
+
+[node name="BodyCenter" type="VBoxContainer" parent="Screens/Settings"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Body" type="VBoxContainer" parent="Screens/Settings/BodyCenter"]
+custom_minimum_size = Vector2(1240, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 22
+
+[node name="TitleLabel" type="Label" parent="Screens/Settings/BodyCenter/Body"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.905882, 0.843137, 0.717647, 1)
+theme_override_constants/outline_size = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_tldqp")
+horizontal_alignment = 1
+
+[node name="ContentRow" type="HBoxContainer" parent="Screens/Settings/BodyCenter/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="SummaryPanel" type="PanelContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_6hu0a")
+
+[node name="SummaryBox" type="VBoxContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow/SummaryPanel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="SummaryTitle" type="Label" parent="Screens/Settings/BodyCenter/Body/ContentRow/SummaryPanel/SummaryBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.117647, 0.0705882, 1)
+theme_override_font_sizes/font_size = 34
+text = "Current Summary"
+
+[node name="SummaryLabel" type="Label" parent="Screens/Settings/BodyCenter/Body/ContentRow/SummaryPanel/SummaryBox"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.286275, 0.2, 0.109804, 1)
+theme_override_font_sizes/font_size = 26
+autowrap_mode = 3
+
+[node name="Sections" type="VBoxContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 22
+
+[node name="DisplayPanel" type="PanelContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_6hu0a")
+
+[node name="DisplayBox" type="VBoxContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="DisplayTitle" type="Label" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.117647, 0.0705882, 1)
+theme_override_font_sizes/font_size = 40
+text = "Display"
+
+[node name="WindowModeRow" type="HBoxContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox"]
+custom_minimum_size = Vector2(0, 74)
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="WindowModeLabel" type="Label" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/WindowModeRow"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.207843, 0.141176, 0.0784314, 1)
+theme_override_font_sizes/font_size = 30
+text = "Window Mode"
+
+[node name="WindowModeOption" type="OptionButton" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/WindowModeRow"]
+custom_minimum_size = Vector2(280, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.168627, 0.117647, 0.0705882, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_32h8a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_01y5v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j0d0g")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_32h8a")
+theme_override_styles/focus = SubResource("StyleBoxFlat_b8r0w")
+selected = 0
+item_count = 2
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+
+[node name="ResolutionRow" type="HBoxContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox"]
+custom_minimum_size = Vector2(0, 74)
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="ResolutionLabel" type="Label" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/ResolutionRow"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.207843, 0.141176, 0.0784314, 1)
+theme_override_font_sizes/font_size = 30
+text = "Resolution"
+
+[node name="ResolutionOption" type="OptionButton" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/ResolutionRow"]
+custom_minimum_size = Vector2(280, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.168627, 0.117647, 0.0705882, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_32h8a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_01y5v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j0d0g")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_32h8a")
+theme_override_styles/focus = SubResource("StyleBoxFlat_b8r0w")
+selected = 0
+item_count = 4
+popup/item_0/text = "1280x720"
+popup/item_0/id = 0
+popup/item_1/text = "1600x900"
+popup/item_1/id = 1
+popup/item_2/text = "1920x1080"
+popup/item_2/id = 2
+popup/item_3/text = "2560x1440"
+popup/item_3/id = 3
+
+[node name="AudioPanel" type="PanelContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_6hu0a")
+
+[node name="AudioBox" type="VBoxContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="AudioTitle" type="Label" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.117647, 0.0705882, 1)
+theme_override_font_sizes/font_size = 40
+text = "Audio"
+
+[node name="MasterWrapper" type="VBoxContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MasterHeader" type="HBoxContainer" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+
+[node name="MasterLabel" type="Label" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper/MasterHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.207843, 0.141176, 0.0784314, 1)
+theme_override_font_sizes/font_size = 30
+text = "Master Volume"
+
+[node name="MasterValue" type="Label" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper/MasterHeader"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.478431, 0.309804, 0.0705882, 1)
+theme_override_font_sizes/font_size = 30
+text = "50%"
+
+[node name="MasterSlider" type="HSlider" parent="Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="FooterPanel" type="PanelContainer" parent="Screens/Settings/BodyCenter/Body"]
+custom_minimum_size = Vector2(1240, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_6hu0a")
+
+[node name="FooterBox" type="VBoxContainer" parent="Screens/Settings/BodyCenter/Body/FooterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="StatusLabel" type="Label" parent="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox"]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.482353, 0.356863, 0.180392, 1)
+theme_override_font_sizes/font_size = 26
+text = "Adjust values and press Apply to save them."
+autowrap_mode = 3
+
+[node name="ActionCenter" type="CenterContainer" parent="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox"]
+layout_mode = 2
+
+[node name="ActionRow" type="HBoxContainer" parent="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="ApplyButton" type="Button" parent="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow"]
+custom_minimum_size = Vector2(230, 78)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.117647, 0.0705882, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_4vjlwm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u3m8c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i1o5t")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_7v7av")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0kcep")
+text = "Apply"
+
+[node name="ResetButton" type="Button" parent="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow"]
+custom_minimum_size = Vector2(230, 78)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.117647, 0.0705882, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_7v7av")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u3m8c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i1o5t")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_7v7av")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0kcep")
+text = "Reset"
+
+[node name="SettingsBackButton" type="Button" parent="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow"]
+custom_minimum_size = Vector2(230, 78)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.117647, 0.0705882, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_7v7av")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u3m8c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i1o5t")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_7v7av")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0kcep")
+text = "Back"
+
+[node name="BottomSpacer" type="Control" parent="Screens/Settings/BodyCenter/Body"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="LoadGame" type="MarginContainer" parent="Screens"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+script = ExtResource("4_mhwf8")
+save_slot_scene = ExtResource("5_ba7al")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Screens/LoadGame"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="NavigationContainer" type="PanelContainer" parent="Screens/LoadGame/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("6_ek553")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Screens/LoadGame/HBoxContainer/NavigationContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="SearchVContainer" type="VBoxContainer" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SearchBar" type="LineEdit" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 34
+placeholder_text = "Search Saves..."
+
+[node name="FilterHBox" type="HBoxContainer" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Filter" type="OptionButton" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer/FilterHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_kee05")
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 25
+
+[node name="Sort" type="OptionButton" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer/FilterHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_kee05")
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 25
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="SavesContainer" type="VBoxContainer" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="NavigationContainer" type="HBoxContainer" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="BackButton" type="Button" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/NavigationContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x10td")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dfeeu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_js4y3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hkjyp")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_18dlr")
+text = "Back"
+
+[node name="Spacer" type="Control" parent="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/NavigationContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PreviewContainer" type="PanelContainer" parent="Screens/LoadGame/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("6_ek553")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Screens/LoadGame/HBoxContainer/PreviewContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="PanelContainer" type="PanelContainer" parent="Screens/LoadGame/HBoxContainer/PreviewContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Screens/LoadGame/HBoxContainer/PreviewContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="DeleteButton" type="Button" parent="Screens/LoadGame/HBoxContainer/PreviewContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_i61vg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wy1j6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mcinw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_mhmp4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cvdgu")
+text = "Delete"
+
+[node name="Control" type="Control" parent="Screens/LoadGame/HBoxContainer/PreviewContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ResumeGameButton" type="Button" parent="Screens/LoadGame/HBoxContainer/PreviewContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ne8n1")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_85lx7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_nlxfp")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_x6nsq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_eoefr")
+text = "Resume"
+
+[connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="back_requested" from="Screens/Settings" to="." method="_on_settings_back_requested"]
+[connection signal="item_selected" from="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/WindowModeRow/WindowModeOption" to="Screens/Settings" method="_on_window_mode_changed"]
+[connection signal="item_selected" from="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/ResolutionRow/ResolutionOption" to="Screens/Settings" method="_on_resolution_changed"]
+[connection signal="value_changed" from="Screens/Settings/BodyCenter/Body/ContentRow/Sections/AudioPanel/AudioBox/MasterWrapper/MasterSlider" to="Screens/Settings" method="_on_master_volume_changed"]
+[connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/ApplyButton" to="Screens/Settings" method="_on_apply_button_pressed"]
+[connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/ResetButton" to="Screens/Settings" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/SettingsBackButton" to="Screens/Settings" method="_on_back_button_pressed"]
+[connection signal="pressed" from="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/NavigationContainer/BackButton" to="." method="_on_back_button_pressed"]

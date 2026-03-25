@@ -1,0 +1,161 @@
+[gd_scene load_steps=3 format=3 uid="uid://vend0r1al8bt"]
+
+[ext_resource type="Script" uid="uid://bnra65y63ghog" path="res://GameUi/in_game_ui.gd" id="1_4qjrg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_db7xr"]
+font_size = 50
+font_color = Color(0.3416767, 0.24779227, 0.20701006, 1)
+outline_size = 12
+outline_color = Color(0.73932946, 0.5965649, 0.5350613, 1)
+shadow_size = 13
+shadow_color = Color(0.3950726, 0.29119197, 0.24792075, 1)
+
+[node name="inGameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4qjrg")
+
+[node name="mainMenu" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="ColorRect" type="ColorRect" parent="mainMenu"]
+layout_mode = 2
+color = Color(0.6455454, 0.5002062, 0.43988648, 1)
+
+[node name="mainMenuScreen" type="MarginContainer" parent="mainMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 15
+
+[node name="mainMenuLabel" type="Label" parent="mainMenu/mainMenuScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_db7xr")
+horizontal_alignment = 1
+
+[node name="buttonVBoxContainer" type="VBoxContainer" parent="mainMenu/mainMenuScreen"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="saveButton" type="Button" parent="mainMenu/mainMenuScreen/buttonVBoxContainer"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.77483934, 0.6400208, 0.58207655, 1)
+theme_override_font_sizes/font_size = 40
+text = "Save"
+
+[node name="loadButton" type="Button" parent="mainMenu/mainMenuScreen/buttonVBoxContainer"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.77254903, 0.6392157, 0.5764706, 1)
+theme_override_font_sizes/font_size = 40
+text = "Load"
+
+[node name="saveMenu" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="saveMenu"]
+layout_mode = 2
+color = Color(0.64705884, 0.5019608, 0.4392157, 1)
+
+[node name="saveMenuScreen" type="MarginContainer" parent="saveMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 15
+
+[node name="saveMenuLabel" type="Label" parent="saveMenu/saveMenuScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Save Menu"
+label_settings = SubResource("LabelSettings_db7xr")
+horizontal_alignment = 1
+
+[node name="buttonVBoxContainer" type="VBoxContainer" parent="saveMenu/saveMenuScreen"]
+custom_minimum_size = Vector2(500, 450)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="backButton" type="Button" parent="saveMenu/saveMenuScreen/buttonVBoxContainer"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.75200665, 0.6116296, 0.5512029, 1)
+theme_override_font_sizes/font_size = 40
+text = "Back"
+
+[node name="loadMenu" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="loadMenu"]
+layout_mode = 2
+color = Color(0.64705884, 0.5019608, 0.4392157, 1)
+
+[node name="loadMenuScreen" type="MarginContainer" parent="loadMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 15
+
+[node name="loadMenuLabel" type="Label" parent="loadMenu/loadMenuScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Load Menu"
+label_settings = SubResource("LabelSettings_db7xr")
+horizontal_alignment = 1
+
+[node name="buttonVBoxContainer" type="VBoxContainer" parent="loadMenu/loadMenuScreen"]
+custom_minimum_size = Vector2(500, 450)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="backButton" type="Button" parent="loadMenu/loadMenuScreen/buttonVBoxContainer"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.75200665, 0.6116296, 0.5512029, 1)
+theme_override_font_sizes/font_size = 40
+text = "Back"

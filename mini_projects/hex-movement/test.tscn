@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=3 uid="uid://dmsnh8mwvykbv"]
+
+[ext_resource type="Shader" uid="uid://bevoy404ptawm" path="res://hex_test.gdshader" id="1_6uqi0"]
+[ext_resource type="Script" uid="uid://720c53cdbpwo" path="res://obstacle_field.gd" id="1_ykrsh"]
+[ext_resource type="PackedScene" uid="uid://yicosvv1v0b5" path="res://Obstacle.tscn" id="2_g14j6"]
+[ext_resource type="Texture2D" uid="uid://b3wmfkclnpcjr" path="res://tile_horizontal.png" id="3_6uqi0"]
+[ext_resource type="Resource" uid="uid://dt7ny0gyu5cwg" path="res://cubic.tres" id="3_g14j6"]
+[ext_resource type="Script" uid="uid://d1xp2ta2rcqac" path="res://movement.gd" id="5_g14j6"]
+[ext_resource type="Texture2D" uid="uid://dhordo17sxtv5" path="res://icon.svg" id="6_vbegm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ppyta"]
+shader = ExtResource("1_6uqi0")
+shader_parameter/size = 95.0
+
+[sub_resource type="Gradient" id="Gradient_ykrsh"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g14j6"]
+gradient = SubResource("Gradient_ykrsh")
+width = 1152
+height = 648
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ykrsh")
+obstacle_scene = ExtResource("2_g14j6")
+cubic = ExtResource("3_g14j6")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ppyta")
+position = Vector2(576, 323)
+texture = SubResource("GradientTexture2D_g14j6")
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("5_g14j6")
+cubic = ExtResource("3_g14j6")
+path_segment = ExtResource("6_vbegm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("3_6uqi0")
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 3.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+
+[node name="Label2" type="Label" parent="Node2D"]
+offset_top = 10.0
+offset_right = 185.0
+offset_bottom = 52.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "TESTESTETST"
