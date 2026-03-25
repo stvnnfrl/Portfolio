@@ -41,7 +41,7 @@ func _on_drawing_finished(raw_points: PackedVector2Array):
 		var normalized = recognizer.normalize(raw_points)
 		var result = recognizer.recognize(normalized, recognizer.templates)
 		
-		if result["score"] > 0.85:
+		if result["score"] > 0.80:
 			var spell_index : int = int(result["name"].replace("spell", "")) - 1
 			highlight_slot(spell_index)
 			flash_feedback(Color.WEB_GREEN)

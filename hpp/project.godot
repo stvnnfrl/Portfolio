@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneManager="*res://autoloads/scene_manager.gd"
 SettingsManager="*res://autoloads/settings_manager.gd"
+FileManager="*res://autoloads/file_manager.gd"
 
 [display]
 
