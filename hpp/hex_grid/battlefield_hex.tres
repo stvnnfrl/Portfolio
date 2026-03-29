@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CubicCoords" load_steps=2 format=3 uid="uid://bfdrcvmymov1a"]
+
+[ext_resource type="Script" uid="uid://cj2rbjop1ymw7" path="res://hex_grid/cubic_coords.gd" id="1_2w41n"]
+
+[resource]
+script = ExtResource("1_2w41n")
+size = 120.0
