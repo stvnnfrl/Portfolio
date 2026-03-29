@@ -6,7 +6,7 @@ for a deselectable radio input
 class_name UnitSelector
 extends HBoxContainer
 
-signal selectedUnitChanged(index: int)
+signal selectedUnitChanged(unit: Unit)
 
 @export var buttongroup: ButtonGroup
 @export var buttons: Array[Button]
@@ -14,7 +14,11 @@ signal selectedUnitChanged(index: int)
 @onready
 var buttonMap: Dictionary[Button, int]
 
-func init(units: Array[Dictionary]) -> void:
+var units: Array[Unit]
+
+func init(units1: Array[Unit], _units2: Array[Unit]) -> void:
+	units = units1
+	
 	# initialize buttonmap and button label
 	for i in buttons.size():
 		var button = buttons[i]
@@ -31,5 +35,9 @@ func _handle_selected_unit_change(__) -> void:
 	# and don't want to duplicate state in a global
 	var button = buttongroup.get_pressed_button()
 	var index = buttonMap.get(button, -1)
-
-	selectedUnitChanged.emit(index)
+	
+	var unit: Unit = null
+	if index >= 0:
+		unit = units[index]
+	
+	selectedUnitChanged.emit(unit)

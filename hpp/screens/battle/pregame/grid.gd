@@ -4,8 +4,13 @@ extends ColorRect
 
 var placed_units: Dictionary[Vector3i, Node2D]
 
-var current_unit: int = -1
-var units: Array[Variant]
+var current_unit: Unit = null
+
+func init() -> void:
+	pass
+
+func _on_unit_selector_selected_unit_changed(unit: Unit) -> void:
+	current_unit = unit
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is not InputEventMouseButton:
@@ -19,7 +24,7 @@ func _on_gui_input(event: InputEvent) -> void:
 	
 	if event.button_index == MouseButton.MOUSE_BUTTON_LEFT:
 		# only do anything if a unit is selected
-		if current_unit < 0:
+		if current_unit == null:
 			return
 		
 		var grid_coordinates = cubic_coords.cubic_round(cubic_coords.pos2D_to_cubic(event.position))
@@ -44,24 +49,14 @@ func _on_gui_input(event: InputEvent) -> void:
 			unit_at_click.queue_free()
 
 func create_unit_at(screen_coordinates: Vector2) -> Node2D:
-	var sprite = Sprite2D.new()
-	
-	var unit = units[current_unit]
-	var texture: Texture2D = unit.texture
-	sprite.texture = texture
+	var new_unit = current_unit.duplicate()
 	
 	# make sizes consistent between units
-	var current_size = texture.get_size()
-	sprite.scale = Vector2(cubic_coords.size / current_size.x, cubic_coords.size / current_size.y)
+	var current_size = new_unit.texture.get_size()
+	new_unit.scale = Vector2(cubic_coords.size / current_size.x, cubic_coords.size / current_size.y)
 	
-	sprite.position = screen_coordinates
+	new_unit.position = screen_coordinates
 	
-	add_child(sprite)
+	add_child(new_unit)
 	
-	return sprite
-
-func _on_unit_selector_selected_unit_changed(index: int) -> void:
-	current_unit = index
-
-func init(units_: Array[Variant]) -> void:
-	units = units_
+	return new_unit

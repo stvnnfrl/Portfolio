@@ -1,8 +1,5 @@
 extends Sprite2D
 
-var units: Array[Variant]
-
-@export var unset_unit_texture: Texture2D
 @export var size: Vector2 = Vector2(100, 100)
 
 # resize the sprite to get a consistent size
@@ -10,24 +7,16 @@ var units: Array[Variant]
 # we can add scale multipliers to the unit
 var base_scale: Vector2 = Vector2.ONE
 
-func init(units_: Array[Dictionary]) -> void:
-	units = units_
-	unset_unit()
+func init() -> void:
+	# unset unit
+	set_unit_to(null)
 
-func _on_unit_selector_selected_unit_changed(index: int) -> void:
-	set_unit_to(index)
+func _on_unit_selector_selected_unit_changed(unit: Unit) -> void:
+	set_unit_to(unit)
 
-func unset_unit() -> void:
-	set_unit_to(-1)
-
-func set_unit_to(index: int) -> void:
-	if index < 0:
-		texture = unset_unit_texture
-	else:
-		var unit = units[index]
-		texture = unit.texture
-	
-	base_scale = size / texture.get_size()
+func set_unit_to(unit: Unit) -> void:
+	texture = unit.texture if unit != null else null
+	base_scale = size / texture.get_size() if texture != null else Vector2.ONE
 
 
 # drag animation

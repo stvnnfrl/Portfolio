@@ -5,23 +5,31 @@ extends Control
 @export var drag_script: Node
 @export var grid_script: Node
 
-func init(units: Array[Dictionary]):
-	units_script.init(units)
-	info_script.init(units)
-	drag_script.init(units)
-	grid_script.init(units)
+func init(hero1: Hero, _units_counts1: Array[int], hero2: Hero, _units_counts2: Array[int]):
+	var units1: Array[Unit] = []
+	for unit_scene in hero1.units:
+		units1.append(unit_scene.instantiate())
+		
+	var units2: Array[Unit] = []
+	for unit_scene in hero2.units:
+		units2.append(unit_scene.instantiate())
+	
+	units_script.init(units1, units2)
+	info_script.init()
+	drag_script.init()
+	grid_script.init()
 
 
 # initialize with random data (only for testing)
 
 @export var test_unit_texture_atlas: Texture2D
 
+var monarch: Hero = load("res://army/Monarch/monarch.tscn").instantiate()
+
 func _ready() -> void:
-	init(
-		[ {"movement": 1, "attack": 2, "defense": 3, "health": 4, "name": "swordsman", "flavor_text": "swords...", "texture": create_atlas_texture(0, 0) }
-		, {"movement": 4, "attack": 3, "defense": 2, "health": 1, "name": "pikeman", "flavor_text": "pikes...", "texture": create_atlas_texture(1, 0)}
-		, {"movement": 4, "attack": 5, "defense": 6, "health": 1, "name": "archer", "flavor_text": "bows...", "texture": create_atlas_texture(0, 1)}
-		, {"movement": 4, "attack": 6, "defense": 5, "health": 1, "name": "cow", "flavor_text": "moo...", "texture": create_atlas_texture(1, 1)} ] )
+	init \
+		( monarch, [ 1, 2, 3, 4 ]
+		, monarch, [ 4, 3, 2, 1 ] )
 
 func create_atlas_texture(x: int, y: int) -> AtlasTexture:
 	var atlas = AtlasTexture.new()
