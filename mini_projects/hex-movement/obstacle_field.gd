@@ -14,7 +14,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("m2"):
 		var pos = get_viewport().get_mouse_position()
 		var cubic_pos = cubic.pos2D_to_cubic(pos)
+		print(cubic_pos)
 		cubic_pos = Vector3i(cubic.cubic_round(cubic_pos))
+		print(cubic_pos)
 		if obstacles.has(cubic_pos):
 			var obstacle = obstacles[cubic_pos]
 			obstacles.erase(cubic_pos)

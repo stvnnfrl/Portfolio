@@ -3,6 +3,7 @@ extends CanvasItem
 @export var cubic: CubicCoords
 @export var color: Color = Color.BLACK
 @export var border_frac: float = 0.9
+@export var unit_scene : PackedScene
 
 var turn_queue : Array = []
 
@@ -16,7 +17,7 @@ var unit_1 = {
 		"health" = 10,
 		"damage" = 2
 	},
-	"coords" = Vector3i(1,1,1)
+	"coords" = Vector3i(4,-1,-3)
 }
 
 var unit_2 = {
@@ -26,7 +27,27 @@ var unit_2 = {
 		"health" = 5,
 		"damage" = 3
 	},
-	"coords" = Vector3(4,1,1)
+	"coords" = Vector3i(7,-4,-3)
+}
+
+var unit_3 = {
+	"stats" = {
+		"speed" = 5,
+		"movement" = 3,
+		"health" = 20,
+		"damage" = 1
+	},
+	"coords" = Vector3i(5, 0, -5)
+}
+
+var unit_4 = {
+	"stats" = {
+		"speed" = 1,
+		"movement" = 1,
+		"health" = 7,
+		"damage" = 10
+	},
+	"coords" = Vector3i(8, -3, -5)
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -51,9 +72,26 @@ func _process(delta: float) -> void:
 	pass
 	
 func _setup_army():
+	
+	_instantiate_unit_scene(unit_1, Color.RED)
 	army_1.append(unit_1)
+	
+	_instantiate_unit_scene(unit_3, Color.RED)
+	army_1.append(unit_3)
+	
+	_instantiate_unit_scene(unit_2, Color.BLUE)
 	army_2.append(unit_2)
 	
+	_instantiate_unit_scene(unit_4, Color.BLUE)
+	army_2.append(unit_4)
+	
+
+func _instantiate_unit_scene(unit : Dictionary, color: Color):
+	var u_scene = unit_scene.instantiate()
+	add_child(u_scene)
+	u_scene.position = cubic.cubic_to_pos2D(unit["coords"])
+	u_scene.modulate = color
+	unit["hex"] = u_scene
 	
 
 func _init_turn():
