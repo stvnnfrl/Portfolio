@@ -8,11 +8,11 @@ extends CanvasItem
 var turn_queue : Array = []
 var curr_subturn_index : int = -1
 var active_unit : Dictionary
-var is_waiting_for_input : bool = false
 
 var army_1 : Array = []
 var army_2 : Array = []
 
+# Units (this is temporary, will be replaced by the data passed from the pre-game)
 var unit_1 = {
 	"stats" = {
 		"speed" = 2,
@@ -66,8 +66,7 @@ func _ready() -> void:
 	_init_turn()
 	
 	# start turn
-	
-	pass # Replace with function body.
+	_start_next_sub_turn()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -76,16 +75,16 @@ func _process(delta: float) -> void:
 	
 func _setup_army():
 	
-	_instantiate_unit_scene(unit_1, Color.RED)
+	_instantiate_unit_scene(unit_1, Color.DARK_RED)
 	army_1.append(unit_1)
 	
-	_instantiate_unit_scene(unit_3, Color.RED)
+	_instantiate_unit_scene(unit_3, Color.DARK_RED)
 	army_1.append(unit_3)
 	
-	_instantiate_unit_scene(unit_2, Color.BLUE)
+	_instantiate_unit_scene(unit_2, Color.DARK_BLUE)
 	army_2.append(unit_2)
 	
-	_instantiate_unit_scene(unit_4, Color.BLUE)
+	_instantiate_unit_scene(unit_4, Color.DARK_BLUE)
 	army_2.append(unit_4)
 	
 
@@ -95,6 +94,7 @@ func _instantiate_unit_scene(unit : Dictionary, color: Color):
 	u_scene.position = cubic.cubic_to_pos2D(unit["coords"])
 	u_scene.modulate = color
 	unit["hex"] = u_scene
+	unit["base_color"] = color
 	
 
 func _init_turn():
@@ -118,22 +118,51 @@ func _start_next_sub_turn():
 	
 	if curr_subturn_index >= turn_queue.size():
 		curr_subturn_index = 0
+		print("round done")
 		
 	active_unit = turn_queue[curr_subturn_index]
-	is_waiting_for_input = true
-	
+	_update_unit_color(active_unit)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if is_waiting_for_input:
-			var pos = get_viewport().get_mouse_position()
-			var cubic_pos = cubic.pos2D_to_cubic(pos)
+		var pos = get_viewport().get_mouse_position()
+		var cubic_pos = cubic.pos2D_to_cubic(pos)
+		var target_pos = Vector3i(cubic.cubic_round(cubic_pos))
+		print(cubic_pos)
+		
+		var dist = get_cubic_distance(active_unit["coords"], target_pos)
+		var move_limit = active_unit["stats"]["movement"]
+		
+		if dist <= move_limit and not is_hex_occupied(target_pos):
+			print("Valid move. Distance: ", dist)
 			
-			print(cubic_pos)
-			
-			## FOR TESTING: Hardcoding a destination to test the turn loop
-			#var test_dest = active_unit["coords"] + Vector3i(1, -1, 0)
-			#_try_move_active_unit(test_dest)
+			active_unit["hex"].modulate = active_unit["base_color"]
+			active_unit["coords"] = target_pos
+			active_unit["hex"].position = cubic.cubic_to_pos2D(target_pos)
+
+			_start_next_sub_turn()
+				
+		else:
+			print("Invalid move. Hex is ", dist, " spaces away. Limit is ", move_limit)
+		
 
 func _draw() -> void:
 	self.draw_rect(get_viewport_rect(), color)
+
+func _update_unit_color(unit):
+	if active_unit in army_1:
+		unit["hex"].modulate = Color.RED
+	else:
+		unit["hex"].modulate = Color.BLUE
+	
+# Helper functions
+
+func get_cubic_distance(a: Vector3i, b: Vector3i) -> int:
+	return maxi(maxi(abs(a.x - b.x), abs(a.y - b.y)), abs(a.z - b.z))
+
+func is_hex_occupied(target_hex: Vector3i) -> bool:
+	for unit in turn_queue:
+		if unit["coords"] == target_hex:
+			return true
+	return false
