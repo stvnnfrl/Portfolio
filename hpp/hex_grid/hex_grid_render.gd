@@ -6,6 +6,9 @@ extends CanvasItem
 @export var unit_scene : PackedScene
 
 var turn_queue : Array = []
+var curr_subturn_index : int = -1
+var active_unit : Dictionary
+var is_waiting_for_input : bool = false
 
 var army_1 : Array = []
 var army_2 : Array = []
@@ -62,7 +65,7 @@ func _ready() -> void:
 	# init turn
 	_init_turn()
 	
-	print(turn_queue)
+	# start turn
 	
 	pass # Replace with function body.
 
@@ -108,6 +111,29 @@ func _init_turn():
 		else:
 			turn_queue.append(army_2[pointer_2])
 			pointer_2 += 1
+
+
+func _start_next_sub_turn():
+	curr_subturn_index += 1
+	
+	if curr_subturn_index >= turn_queue.size():
+		curr_subturn_index = 0
+		
+	active_unit = turn_queue[curr_subturn_index]
+	is_waiting_for_input = true
+	
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if is_waiting_for_input:
+			var pos = get_viewport().get_mouse_position()
+			var cubic_pos = cubic.pos2D_to_cubic(pos)
+			
+			print(cubic_pos)
+			
+			## FOR TESTING: Hardcoding a destination to test the turn loop
+			#var test_dest = active_unit["coords"] + Vector3i(1, -1, 0)
+			#_try_move_active_unit(test_dest)
 
 func _draw() -> void:
 	self.draw_rect(get_viewport_rect(), color)
