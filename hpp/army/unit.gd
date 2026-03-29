@@ -10,4 +10,6 @@ var health : int
 
 @export var cost : int
 
+var cubic_pos : Vector3i
+
 # TODO functions
