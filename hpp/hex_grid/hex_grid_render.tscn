@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://xcq67l2wb3g2"]
+
+[ext_resource type="Material" uid="uid://d2ycdmsirv8h4" path="res://hex_grid/hex_grid_render.tres" id="1_chq8m"]
+[ext_resource type="Script" uid="uid://bbcmspuafiyn2" path="res://hex_grid/hex_grid_render.gd" id="2_chq8m"]
+[ext_resource type="Script" uid="uid://cj2rbjop1ymw7" path="res://hex_grid/cubic_coords.gd" id="3_chq8m"]
+
+[sub_resource type="Resource" id="Resource_x3chq"]
+script = ExtResource("3_chq8m")
+metadata/_custom_type_script = "uid://cj2rbjop1ymw7"
+
+[node name="HexGridRender" type="Node2D"]
+material = ExtResource("1_chq8m")
+script = ExtResource("2_chq8m")
+cubic = SubResource("Resource_x3chq")
