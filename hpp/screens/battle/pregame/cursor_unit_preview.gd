@@ -1,5 +1,7 @@
 extends Sprite2D
 
+# unit sprite size
+# TODO: should probably be relative to grid size
 @export var size: Vector2 = Vector2(100, 100)
 
 # resize the sprite to get a consistent size
@@ -7,14 +9,7 @@ extends Sprite2D
 # we can add scale multipliers to the unit
 var base_scale: Vector2 = Vector2.ONE
 
-func init() -> void:
-	# unset unit
-	set_unit_to(null)
-
-func _on_unit_selector_selected_unit_changed(unit: Unit) -> void:
-	set_unit_to(unit)
-
-func set_unit_to(unit: Unit) -> void:
+func _on_pregame_selected_unit_updated(unit: Unit) -> void:
 	texture = unit.texture if unit != null else null
 	base_scale = size / texture.get_size() if texture != null else Vector2.ONE
 

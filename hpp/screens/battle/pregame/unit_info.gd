@@ -9,33 +9,16 @@ extends VBoxContainer
 @export var damage_label: Label
 @export var reach_label: Label
 
-func init() -> void:
-	unset_labels()
-
 func unset_labels() -> void:
 	set_labels_to \
 		( "no unit selected", "..." 
 		, "-", "-", "-", "-", "-" )
 
-func set_labels_to \
-		( unit_name: String, flavor_text: String
-		, health: String, speed: String, movement: String, damage: String, reach: String ) \
-		-> void:
-
-	name_label.text = unit_name
-	flavor_label.text = flavor_text
-	
-	health_label.text = health
-	speed_label.text = speed
-	movement_label.text = movement
-	damage_label.text = damage
-	reach_label.text = reach
-
-func _on_unit_selector_selected_unit_changed(unit: Unit) -> void:
+func _on_pregame_selected_unit_updated(unit: Unit) -> void:
 	if unit == null:  # deselected
 		unset_labels()
 		return
-
+	
 	set_labels_to \
 		# main info
 		( str(unit.name)
@@ -47,3 +30,17 @@ func _on_unit_selector_selected_unit_changed(unit: Unit) -> void:
 		, str(unit.dmg_min) + "-" + str(unit.dmg_max)
 		, str(unit.reach)
 		)
+
+func set_labels_to \
+		( unit_name: String, flavor_text: String
+		, health: String, speed: String, movement: String, damage: String, reach: String ) \
+		-> void:
+	
+	name_label.text = unit_name
+	flavor_label.text = flavor_text
+	
+	health_label.text = health
+	speed_label.text = speed
+	movement_label.text = movement
+	damage_label.text = damage
+	reach_label.text = reach
