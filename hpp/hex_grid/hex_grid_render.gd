@@ -4,6 +4,12 @@ extends CanvasItem
 @export var color: Color = Color.BLACK
 @export var border_frac: float = 0.9
 @export var unit_scene : PackedScene
+@export var highlight_scene : PackedScene
+
+@onready var highlight_layer = $"../Highlight"
+
+var active_reachable_hex : Dictionary = {}
+var active_highlights : Array = []
 
 enum SubTurnPhase {MOVING, ATTACKING}
 
@@ -71,13 +77,16 @@ func _ready() -> void:
 	# start turn
 	_start_next_sub_turn()
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	set_instance_shader_parameter("rect_size", get_viewport_rect().size)
 	pass
 	
+	
 func _draw() -> void:
 	self.draw_rect(get_viewport_rect(), color)
+	
 	
 # This will have to be improved to be more modular depending on the unit and data we get from pre-grame
 func _setup_army():
@@ -134,6 +143,7 @@ func _start_next_sub_turn():
 	active_unit = turn_queue[curr_subturn_index]
 	curr_subturn_phase = SubTurnPhase.MOVING
 	_update_unit_color(active_unit)
+	_draw_reachable_hexes()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -155,9 +165,11 @@ func _unhandled_input(event: InputEvent) -> void:
 				active_unit["hex"].position = cubic.cubic_to_pos2D(target_pos)
 				
 				curr_subturn_phase = SubTurnPhase.ATTACKING
+				_clear_highlights()
 				print("Moved")
 			elif target_pos == active_unit["coords"]:
 				curr_subturn_phase = SubTurnPhase.ATTACKING
+				_clear_highlights()
 				print("Moving subphase skipped")
 			else:
 				print("Invalid move")
@@ -195,12 +207,42 @@ func _update_unit_color(unit):
 	else:
 		sprite.self_modulate = Color.BLUE
 		
+		
 func _end_turn_cleanup():
 	var sprite = active_unit["hex"].get_node("Sprite2D")
 	sprite.self_modulate = active_unit["base_color"]
 	
 	_start_next_sub_turn()
 	
+	
+func _draw_reachable_hexes():
+	# clean up just in case
+	_clear_highlights() 
+	
+	# get reachable hexes with BFS
+	var move_limit = active_unit["stats"]["movement"]
+	active_reachable_hex = calculate_reachable_hexes(active_unit["coords"], move_limit)
+	
+	for hex_coord in active_reachable_hex.keys():
+		# skip active unit coordinates (i.e. don't want to "overwrite" unit)
+		if hex_coord == active_unit["coords"]:
+			continue
+			
+		var h_instance = highlight_scene.instantiate()
+		highlight_layer.add_child(h_instance)
+		h_instance.position = cubic.cubic_to_pos2D(hex_coord)
+		h_instance.modulate = Color.ALICE_BLUE
+		
+		active_highlights.append(h_instance)
+
+
+func _clear_highlights():
+	for hex in active_highlights:
+		if is_instance_valid(hex):
+			hex.queue_free()
+	active_highlights.clear()
+
+
 # Helper functions
 
 # This will have to be replaced by proper pathfinding (see Daniil code for inspo)
@@ -241,3 +283,31 @@ func kill_unit(unit: Dictionary):
 	army_2.erase(unit)
 	
 	print("Unit killed")
+	
+	
+func calculate_reachable_hexes(start: Vector3i, max_move: int) -> Dictionary:
+	var queue: Array[Vector3i] = [start]
+	var reachable_hex: Dictionary = {start: start}
+	var cost_so_far: Dictionary = {start: 0}
+	
+	while not queue.is_empty():
+		var current : Vector3i = queue.pop_front()
+		
+		for dir in CubicCoords.CUBIC_DIRECTIONS:
+			var neighbor = current + Vector3i(dir)
+			var new_cost = cost_so_far[current] + 1
+			
+			# stop search if distance too big for unit
+			if new_cost > max_move:
+				continue
+				
+			# stop search in this direction if 
+			if not get_unit_at_hex(neighbor).is_empty():
+				continue
+				
+			if not cost_so_far.has(neighbor) or new_cost < cost_so_far[neighbor]:
+				cost_so_far[neighbor] = new_cost
+				reachable_hex[neighbor] = current
+				queue.append(neighbor)
+				
+	return reachable_hex
