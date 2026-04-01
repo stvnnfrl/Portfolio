@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmm8ra6fvpmg2"
-path="res://.godot/imported/tile_horizontal.png-ff3dae44ab14d87ff317bb01f3245077.ctex"
+uid="uid://cuhujp8l6s35w"
+path="res://.godot/imported/tile.png-f3a38e9ef59144de05b2c53e177c6c46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://screens/battle/tile_horizontal.png"
-dest_files=["res://.godot/imported/tile_horizontal.png-ff3dae44ab14d87ff317bb01f3245077.ctex"]
+source_file="res://army/base_unit/tile.png"
+dest_files=["res://.godot/imported/tile.png-f3a38e9ef59144de05b2c53e177c6c46.ctex"]
 
 [params]
 

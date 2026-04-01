@@ -3,7 +3,7 @@ extends Node
 var main_menu_path : String = "res://screens/main_menu/main_menu.tscn"
 var match_setup_path : String = "res://screens/match_setup/match_setup.tscn"
 var pre_game : PackedScene = preload("res://screens/battle/pregame/pregame.tscn")
-var battlefield : PackedScene = preload("res://screens/battle/battlefield.tscn")
+var battlefield : PackedScene = preload("res://screens/battle/battlefield_og/battlefield.tscn")
 var ending_screen_path : String = "res://screens/battle/end_screen/end_screen.tscn"
 
 func load_main_menu():

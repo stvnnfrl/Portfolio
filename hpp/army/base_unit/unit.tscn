@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://6v2upjya8370"]
+
+[ext_resource type="Script" uid="uid://cu88nr81e8kyl" path="res://army/base_unit/unit.gd" id="1_tcvd8"]
+[ext_resource type="Texture2D" uid="uid://cuhujp8l6s35w" path="res://army/base_unit/tile.png" id="2_3jiyr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jiyr"]
+bg_color = Color(0.09019608, 0.73333335, 0.34117648, 1)
+
+[node name="Unit" type="Node2D"]
+script = ExtResource("1_tcvd8")
+
+[node name="HexHalo" type="Sprite2D" parent="."]
+texture = ExtResource("2_3jiyr")
+
+[node name="AnimatedPixelArt" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3.5, 3.5)
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = 50.0
+offset_right = 25.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_3jiyr")
+show_percentage = false
