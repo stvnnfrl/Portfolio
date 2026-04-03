@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bn2k3sna5bg5q"]
+[gd_scene load_steps=7 format=3 uid="uid://bn2k3sna5bg5q"]
 
 [ext_resource type="PackedScene" path="res://army/base_unit/unit.tscn" id="1_ninja"]
 [ext_resource type="Texture2D" path="res://army/test_units/Ninja_Master.png" id="2_ninja"]
@@ -11,6 +11,10 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("2_ninja")
 region = Rect2(0, 32, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_2"]
+atlas = ExtResource("2_ninja")
+region = Rect2(0, 64, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ninja"]
 animations = [{
 "frames": [{
@@ -19,6 +23,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ninja_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ninja_2")
 }],
 "loop": true,
 "name": &"idle",
