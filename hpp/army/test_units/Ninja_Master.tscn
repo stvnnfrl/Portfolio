@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bn2k3sna5bg5q"]
 
 [ext_resource type="PackedScene" path="res://army/base_unit/unit.tscn" id="1_ninja"]
-[ext_resource type="Texture2D" path="res://army/test_units/ninja.png" id="2_ninja"]
+[ext_resource type="Texture2D" path="res://army/test_units/Ninja_Master.png" id="2_ninja"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ninja_0"]
 atlas = ExtResource("2_ninja")
@@ -25,9 +25,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Ninja" instance=ExtResource("1_ninja")]
-unit_name = "Ninja"
-description = "Ninja unit using the first idle row from Ninja_Animations."
+[node name="Ninja_Master" instance=ExtResource("1_ninja")]
+unit_name = "Ninja_Master"
+description = "Ninja_Master unit using the first idle row from Ninja_Animations."
 max_health = 6
 speed = 7
 movement = 3
