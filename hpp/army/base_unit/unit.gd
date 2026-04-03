@@ -1,5 +1,8 @@
 class_name Unit extends Node2D
 
+@export var unit_name : String
+@export var description : String
+
 @export var max_health : int
 var health : int
 @export var speed : int

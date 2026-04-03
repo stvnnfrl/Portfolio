@@ -8,6 +8,13 @@ bg_color = Color(0.09019608, 0.73333335, 0.34117648, 1)
 
 [node name="Unit" type="Node2D"]
 script = ExtResource("1_tcvd8")
+max_health = null
+speed = null
+movement = null
+dmg_min = null
+dmg_max = null
+reach = null
+cost = null
 
 [node name="HexHalo" type="Sprite2D" parent="."]
 texture = ExtResource("2_3jiyr")
