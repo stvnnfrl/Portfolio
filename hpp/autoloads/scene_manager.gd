@@ -13,11 +13,13 @@ func load_match_setup():
 	get_tree().change_scene_to_file(match_setup_path)
 
 func load_pre_game(hero1: Hero, unit_counts1 : Array[int], hero2: Hero, unit_counts2: Array[int]):
+	var pregame = pre_game.instantiate()
+	pregame.init(hero1, unit_counts1, hero2, unit_counts2)
+	
 	var tree = get_tree()
 	tree.unload_current_scene()
-	tree.current_scene = pre_game.instantiate()
-	tree.current_scene.init(hero1, unit_counts1, hero2, unit_counts2)
-	tree.root.add_child(tree.current_scene)
+	tree.call_deferred("set_current_scene", pregame)
+	tree.root.add_child(pregame)
 
 func load_battlefield(hero1: Hero, units1: Array[Unit], hero2: Hero, units2: Array[Unit]):
 	var tree = get_tree()

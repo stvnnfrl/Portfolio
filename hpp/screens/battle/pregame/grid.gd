@@ -75,15 +75,8 @@ func can_clear(coordinates: Vector3i) -> Callable:
 
 func create_unit_at(screen_coordinates: Vector2, unit_type: Unit) -> Node2D:
 	var new_unit = unit_type.duplicate()
-	
-	# make sizes consistent between units
-	var current_size = new_unit.texture.get_size()
-	new_unit.scale = Vector2(cubic_coords.size / current_size.x, cubic_coords.size / current_size.y)
-	
 	new_unit.position = screen_coordinates
-	
 	add_child(new_unit)
-	
 	return new_unit
 
 func _on_pregame_units_updated(_units: Array[Unit]) -> void:

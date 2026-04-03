@@ -16,9 +16,9 @@ var health : int
 var cubic_pos : Vector3i
 var army_id : int
 
-@onready var anim_sprite : AnimatedSprite2D = $AnimatedPixelArt
-@onready var hex_halo : Sprite2D = $HexHalo
-@onready var health_bar : ProgressBar = $HealthBar
+@export var anim_sprite : AnimatedSprite2D
+@export var hex_halo : Sprite2D
+@export var health_bar : ProgressBar
 
 func _ready() -> void:
 	health = max_health

@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 
 # unit sprite size
 # TODO: should probably be relative to grid size
@@ -9,9 +9,30 @@ extends Sprite2D
 # we can add scale multipliers to the unit
 var base_scale: Vector2 = Vector2.ONE
 
+var unit_preview: Unit = null
+
 func _on_pregame_selected_unit_updated(unit: Unit) -> void:
-	texture = unit.texture if unit != null else null
-	base_scale = size / texture.get_size() if texture != null else Vector2.ONE
+	if unit_preview != null:
+		unit_preview.queue_free()
+	
+	if unit == null:
+		return
+	
+	base_scale = Vector2.ONE
+	if unit.anim_sprite != null:
+		unit_preview = unit.duplicate()
+		base_scale /= unit.anim_sprite.scale
+		var base_texture = unit.anim_sprite.sprite_frames.get_frame_texture("idle", 0)
+		base_scale *= size / base_texture.get_size()
+	elif unit.get("texture") != null:  # Sprite2D Unit fallback
+		unit_preview = unit.duplicate()
+		var base_texture = unit_preview.texture
+		base_scale *= size / base_texture.get_size()
+	
+	if unit_preview == null:
+		return
+	
+	add_child(unit_preview)
 
 
 # drag animation

@@ -73,15 +73,3 @@ func _on_button_pressed() -> void:
 		current_unit_counts = _unit_counts2
 	else:
 		SceneManager.load_game_over()
-
-
-# initialize with testing data
-
-@export var test_unit_texture_atlas: Texture2D
-
-var monarch: Hero = load("res://army/Monarch/monarch.tscn").instantiate()
-
-func _ready() -> void:
-	init \
-		( monarch, [ 1, 2, 3, 4 ]
-		, monarch, [ 4, 3, 2, 1 ] )
