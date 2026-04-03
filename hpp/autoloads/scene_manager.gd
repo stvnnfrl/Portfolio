@@ -18,7 +18,7 @@ func load_pre_game(hero1: Hero, unit_counts1 : Array[int], hero2: Hero, unit_cou
 	
 	var tree = get_tree()
 	tree.unload_current_scene()
-	tree.call_deferred("set_current_scene", pregame)
+	tree.call_deferred("set_current_scene", pregame)  # "tree.current_scene = pregame" doesn't seem to work here
 	tree.root.add_child(pregame)
 
 func load_battlefield(hero1: Hero, units1: Array[Unit], hero2: Hero, units2: Array[Unit]):
