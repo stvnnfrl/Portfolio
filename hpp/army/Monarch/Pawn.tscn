@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cg6igungbqd2u"]
 
 [ext_resource type="Texture2D" uid="uid://b3eod7vx82xu0" path="res://icon.svg" id="1_8t4mk"]
-[ext_resource type="Script" uid="uid://cu88nr81e8kyl" path="res://army/unit.gd" id="1_h7vqu"]
+[ext_resource type="Script" uid="uid://cu88nr81e8kyl" path="res://army/base_unit/unit.gd" id="1_h7vqu"]
 
 [node name="Pawn" type="Sprite2D"]
 texture = ExtResource("1_8t4mk")
