@@ -3,10 +3,10 @@ extends ColorRect
 @export var state: Pregame
 @export var cubic_coords: CubicCoords
 
-var placed_units: Dictionary[Vector3i, Node2D]
+var placed_units: Dictionary[Vector3i, Unit]
 
 # indices for the current player - reset when players switch
-var placed_unit_indices: Dictionary[Node2D, int]
+var placed_unit_indices: Dictionary[Unit, int]
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is not InputEventMouseButton:
@@ -41,8 +41,8 @@ func _on_gui_input(event: InputEvent) -> void:
 		clear_callback.call()
 		
 		# place a new unit
-		var screen_coordinates = cubic_coords.cubic_to_pos2D(grid_coordinates)
-		var new_unit = create_unit_at(screen_coordinates, selected_unit)
+		var new_unit = create_unit_at(grid_coordinates, selected_unit)
+		
 		placed_units[grid_coordinates] = new_unit
 		placed_unit_indices[new_unit] = state.selected_index
 	
@@ -73,11 +73,20 @@ func can_clear(coordinates: Vector3i) -> Callable:
 		placed_units.erase(coordinates)
 		unit.queue_free()
 
-func create_unit_at(screen_coordinates: Vector2, unit_type: Unit) -> Node2D:
+func create_unit_at(grid_coordinates: Vector3i, unit_type: Unit) -> Unit:
+	var screen_coordinates = cubic_coords.cubic_to_pos2D(grid_coordinates)
+	
 	var new_unit = unit_type.duplicate()
 	new_unit.position = screen_coordinates
+	new_unit.cubic_pos = grid_coordinates
+	new_unit.army_id = state.current_player
 	add_child(new_unit)
+	
 	return new_unit
 
-func _on_pregame_units_updated(_units: Array[Unit]) -> void:
-	placed_unit_indices = {}
+func _on_pregame_end_of_turn() -> void:
+	# set the placed units
+	for unit in placed_unit_indices:
+		state.current_player_placed.append(unit)
+	
+	placed_unit_indices.clear()

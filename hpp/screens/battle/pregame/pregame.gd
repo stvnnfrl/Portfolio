@@ -2,15 +2,15 @@ class_name Pregame extends Control
 
 signal units_updated(units: Array[Unit])
 signal selected_unit_updated(unit: Unit)
+signal end_of_turn
 
-@export var grid: Node
-
-var current_player: int
+var current_player: int = 0
 
 var current_units: Array[Unit]
 var current_unit_counts: Array[int]
 var selected_unit: Unit
 var selected_index: int
+var current_player_placed: Array[Unit]
 
 # store player info so we can hand it back once we're done
 var _hero1: Hero
@@ -19,6 +19,8 @@ var _units1: Array[Unit]
 var _units2: Array[Unit]
 var _unit_counts1: Array[int]
 var _unit_counts2: Array[int]
+var _player1_placed: Array[Unit] = []
+var _player2_placed: Array[Unit] = []
 
 func init(hero1: Hero, unit_counts1: Array[int], hero2: Hero, unit_counts2: Array[int]):
 	_hero1 = hero1
@@ -35,9 +37,7 @@ func init(hero1: Hero, unit_counts1: Array[int], hero2: Hero, unit_counts2: Arra
 		_units2.append(unit_scene.instantiate())
 	
 	# initialize state
-	current_player = 1
-	change_units_to(_units1)
-	current_unit_counts = _unit_counts1
+	_update_player()
 
 func change_units_to(new_units: Array[Unit]):
 	current_units = new_units
@@ -65,11 +65,20 @@ func can_purchase() -> Callable:
 func can_refund(index: int) -> Callable:
 	return func(): current_unit_counts[index] += 1
 
+func _update_player() -> void:
+	current_player += 1
+	if current_player == 1:
+		current_player_placed = _player1_placed
+		current_unit_counts = _unit_counts1
+		change_units_to(_units1)
+	elif current_player == 2:
+		current_player_placed = _player2_placed
+		current_unit_counts = _unit_counts2
+		change_units_to(_units2)
+	else:
+		SceneManager.load_battlefield(_hero1, _player1_placed, _hero2, _player2_placed)
+
 # handle next button
 func _on_button_pressed() -> void:
-	if current_player == 1:
-		current_player = 2
-		change_units_to(_units2)
-		current_unit_counts = _unit_counts2
-	else:
-		SceneManager.load_game_over()
+	end_of_turn.emit()
+	_update_player()
