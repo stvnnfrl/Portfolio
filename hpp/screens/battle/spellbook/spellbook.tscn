@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://biy8pnjm81qbo"]
+[gd_scene load_steps=6 format=3 uid="uid://biy8pnjm81qbo"]
 
 [ext_resource type="Script" uid="uid://duxfroxnob17l" path="res://screens/battle/spellbook/spellbook.gd" id="1_script"]
-[ext_resource type="Script" uid="uid://ddem4ra2cqk1w" path="res://screens/battle/spellbook/drawing_pad.gd" id="2_nkf7u"]
+[ext_resource type="Script" uid="uid://cetny6c6xtqc2" path="res://screens/battle/spellbook/drawing_controller.gd" id="2_ls8bn"]
+[ext_resource type="Script" path="res://screens/battle/spellbook/drawing_pad.gd" id="2_nkf7u"]
+[ext_resource type="Script" uid="uid://dpjlomwmumppe" path="res://screens/battle/spellbook/gesture_recognizer.gd" id="3_bsilb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_book"]
 content_margin_left = 24.0
@@ -90,6 +92,50 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 2
 
+[node name="Spell1Container" type="PanelContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container"]
+layout_mode = 2
+
+[node name="Spell1Label" type="Label" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spell2Container" type="PanelContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container"]
+layout_mode = 2
+
+[node name="Spell2Label" type="Label" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spell3Container" type="PanelContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container"]
+layout_mode = 2
+
+[node name="Spell3Label" type="Label" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spell4Container" type="PanelContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container"]
+layout_mode = 2
+
+[node name="Spell4Label" type="Label" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
+layout_mode = 2
+
 [node name="Spine" type="VSeparator" parent="BookCenter/BookPanel/BookLayout/Pages"]
 custom_minimum_size = Vector2(4, 0)
 layout_mode = 2
@@ -97,30 +143,12 @@ layout_mode = 2
 [node name="RightPage" type="MarginContainer" parent="BookCenter/BookPanel/BookLayout/Pages"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("2_ls8bn")
 
 [node name="drawingPad" type="Panel" parent="BookCenter/BookPanel/BookLayout/Pages/RightPage"]
 clip_contents = true
 layout_mode = 2
 script = ExtResource("2_nkf7u")
 
-[node name="NavBar" type="HBoxContainer" parent="BookCenter/BookPanel/BookLayout"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="PrevButton" type="Button" parent="BookCenter/BookPanel/BookLayout/NavBar"]
-custom_minimum_size = Vector2(40, 32)
-layout_mode = 2
-text = "<"
-
-[node name="PageLabel" type="Label" parent="BookCenter/BookPanel/BookLayout/NavBar"]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
-text = "1 / 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="NextButton" type="Button" parent="BookCenter/BookPanel/BookLayout/NavBar"]
-custom_minimum_size = Vector2(40, 32)
-layout_mode = 2
-text = ">"
+[node name="gestureRecognizer" type="Node" parent="BookCenter/BookPanel/BookLayout/Pages/RightPage"]
+script = ExtResource("3_bsilb")

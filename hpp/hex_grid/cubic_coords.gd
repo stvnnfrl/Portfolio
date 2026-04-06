@@ -1,6 +1,6 @@
 class_name CubicCoords extends Resource
 
-@export var size: float = 10
+@export var size: float = 10.0
 
 const down_cubic = Vector3(1, 1, -2)/3
 const right_cubic = RIGHT/sqrt(3)

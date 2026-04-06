@@ -15,15 +15,7 @@ var spell_data: Array[Dictionary] = [
 	{"name": "Death by 1000\nPaper Cuts"},
 	{"name": "Hot off the\nPress"},
 	{"name": "Margin\nCollapse"},
-	{"name": "Paper Airplane\nBarrage"},
-	#{"name": "Cold\nLamination"},
-	#{"name": "Three-Hole\nPrison"},
-	#{"name": "Spell 7"},
-	#{"name": "Spell 8"},
-	#{"name": "Spell 9"},
-	#{"name": "Spell 10"},
-	#{"name": "Spell 11"},
-	#{"name": "Spell 12"},
+	{"name": "Paper Airplane\nBarrage"}
 ]
 
 const SPELLS_PER_SPREAD: int = 8  # Both pages combined
@@ -36,17 +28,17 @@ var total_spreads: int = 1
 @onready var dim_bg: ColorRect = $DimBg
 @onready var left_grid: GridContainer = $BookCenter/BookPanel/BookLayout/Pages/LeftPage
 #@onready var right_grid: GridContainer = $BookCenter/BookPanel/BookLayout/Pages/RightPage
-@onready var page_label: Label = $BookCenter/BookPanel/BookLayout/NavBar/PageLabel
-@onready var prev_btn: Button = $BookCenter/BookPanel/BookLayout/NavBar/PrevButton
-@onready var next_btn: Button = $BookCenter/BookPanel/BookLayout/NavBar/NextButton
+#@onready var page_label: Label = $BookCenter/BookPanel/BookLayout/NavBar/PageLabel
+#@onready var prev_btn: Button = $BookCenter/BookPanel/BookLayout/NavBar/PrevButton
+#@onready var next_btn: Button = $BookCenter/BookPanel/BookLayout/NavBar/NextButton
 @onready var latch_btn: Button = $BookCenter/BookPanel/BookLayout/TopBar/LatchButton
 
 
 func _ready() -> void:
 	total_spreads = maxi(1, ceili(float(spell_data.size()) / SPELLS_PER_SPREAD))
 	
-	prev_btn.pressed.connect(_on_prev_pressed)
-	next_btn.pressed.connect(_on_next_pressed)
+	#prev_btn.pressed.connect(_on_prev_pressed)
+	#next_btn.pressed.connect(_on_next_pressed)
 	latch_btn.pressed.connect(close)
 	dim_bg.gui_input.connect(_on_dim_bg_input)
 	
@@ -55,7 +47,7 @@ func _ready() -> void:
 		visible = true
 	else:
 		visible = false
-	_refresh_spells()
+	#_refresh_spells()
 
 
 func open() -> void:
@@ -68,15 +60,15 @@ func close() -> void:
 	closed.emit()
 
 
-func _on_prev_pressed() -> void:
-	if current_spread > 0:
-		current_spread -= 1
-		_refresh_spells()
-
-func _on_next_pressed() -> void:
-	if current_spread < total_spreads - 1:
-		current_spread += 1
-		_refresh_spells()
+#func _on_prev_pressed() -> void:
+	#if current_spread > 0:
+		#current_spread -= 1
+		#_refresh_spells()
+#
+#func _on_next_pressed() -> void:
+	#if current_spread < total_spreads - 1:
+		#current_spread += 1
+		#_refresh_spells()
 
 func _on_dim_bg_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
@@ -103,9 +95,9 @@ func _refresh_spells() -> void:
 		#else:
 			#right_grid.add_child(_create_empty_slot())
 	
-	page_label.text = str(current_spread + 1) + " / " + str(total_spreads)
-	prev_btn.disabled = (current_spread == 0)
-	next_btn.disabled = (current_spread >= total_spreads - 1)
+	#page_label.text = str(current_spread + 1) + " / " + str(total_spreads)
+	#prev_btn.disabled = (current_spread == 0)
+	#next_btn.disabled = (current_spread >= total_spreads - 1)
 
 
 func _create_spell_slot(data: Dictionary, index: int) -> PanelContainer:

@@ -12,7 +12,9 @@ var board_state : Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	cubic.size = 84.0
 	grid_visuals.set_instance_shader_parameter("size", cubic.size)
+	#grid_visuals.set_instance_shader_parameter("size", 100.0)
 	grid_visuals.set_instance_shader_parameter("border_frac", border_frac)
 
 
