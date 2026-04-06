@@ -5,12 +5,11 @@ const DEFAULT_HERO_SCENE_PATH := "res://army/Monarch/monarch.tscn"
 const DEFAULT_MODE := "Multiplayer"
 const DEFAULT_MOVING_PHASE := 0
 const RESTORE_META := "battlefield_restore_state"
+const EMPTY_HERO_DATA := {"scene_path": ""}
 
 @onready var battlefield_manager = $BattlefieldManager
 @onready var game_menu = $UILayer/GameMenu
 
-var _hero_1_scene_path: String = DEFAULT_HERO_SCENE_PATH
-var _hero_2_scene_path: String = DEFAULT_HERO_SCENE_PATH
 var _mode: String = DEFAULT_MODE
 var _pending_battlefield_state: Dictionary = {}
 var _restore_nodes: Array = []
@@ -42,9 +41,7 @@ func _apply_pending_battlefield_state() -> void:
 
 func _on_save_requested(file_name: String) -> void:
 	var save_name := file_name.strip_edges()
-	var save_data := build_save_data(
-		save_name, _mode, battlefield_manager, _hero_1_scene_path, _hero_2_scene_path
-	)
+	var save_data := build_save_data(save_name, _mode, battlefield_manager)
 	if FileManager.save_game(save_data, save_name):
 		print("[Battlefield] Saved game: ", save_name)
 	else:
@@ -55,15 +52,14 @@ func _on_quit_to_menu() -> void:
 	SceneManager.load_main_menu()
 
 func _apply_battlefield_metadata(battlefield_state: Dictionary) -> void:
-	_hero_1_scene_path = String(battlefield_state.get("hero_1_scene", DEFAULT_HERO_SCENE_PATH))
-	_hero_2_scene_path = String(battlefield_state.get("hero_2_scene", DEFAULT_HERO_SCENE_PATH))
 	_mode = String(battlefield_state.get("mode", DEFAULT_MODE))
 
 static func build_runtime_state(hero1, units1: Array, hero2, units2: Array) -> Dictionary:
 	return {
-		"hero_1_scene": _scene_path(hero1, DEFAULT_HERO_SCENE_PATH),
-		"hero_2_scene": _scene_path(hero2, DEFAULT_HERO_SCENE_PATH),
-		"units": _serialize_units(units1, 1) + _serialize_units(units2, 2),
+		"hero1": _hero_state(hero1),
+		"units1": _serialize_units(units1, 1),
+		"hero2": _hero_state(hero2),
+		"units2": _serialize_units(units2, 2),
 		"turn_queue": [],
 		"curr_subturn_index": -1,
 		"current_phase": DEFAULT_MOVING_PHASE,
@@ -75,25 +71,37 @@ static func extract_battlefield_state(save_data: Dictionary) -> Dictionary:
 	var raw_battlefield: Variant = save_data.get("battlefield", {})
 	if raw_battlefield is Dictionary:
 		battlefield = raw_battlefield
+
+	var units1: Array = _unit_states(battlefield.get("units1", []), 1)
+	var units2: Array = _unit_states(battlefield.get("units2", []), 2)
+	if units1.is_empty() and units2.is_empty():
+		var all_units: Array = _unit_states(battlefield.get("units", []))
+		for unit_state in all_units:
+			if int(unit_state.get("army_id", 1)) == 1:
+				units1.append(unit_state)
+			else:
+				units2.append(unit_state)
+
 	return {
-		"hero_1_scene": String(battlefield.get("hero_1_scene", DEFAULT_HERO_SCENE_PATH)),
-		"hero_2_scene": String(battlefield.get("hero_2_scene", DEFAULT_HERO_SCENE_PATH)),
-		"units": _unit_states(battlefield.get("units", [])),
+		"hero1": _hero_data(battlefield.get("hero1", battlefield.get("hero_1_scene", ""))),
+		"units1": units1,
+		"hero2": _hero_data(battlefield.get("hero2", battlefield.get("hero_2_scene", ""))),
+		"units2": units2,
 		"turn_queue": _int_values(battlefield.get("turn_queue", [])),
 		"curr_subturn_index": int(battlefield.get("curr_subturn_index", -1)),
 		"current_phase": int(battlefield.get("current_phase", DEFAULT_MOVING_PHASE)),
 		"mode": String(save_data.get("mode", DEFAULT_MODE)),
 	}
 
-static func build_save_data(save_name: String, mode: String, manager, hero_1_scene: String, hero_2_scene: String) -> Dictionary:
+static func build_save_data(save_name: String, mode: String, manager) -> Dictionary:
 	return {
 		"save_name": save_name,
 		"date": Time.get_datetime_string_from_system(),
 		"mode": mode if mode != "" else DEFAULT_MODE,
-		"battlefield": capture_battlefield_state(manager, hero_1_scene, hero_2_scene),
+		"battlefield": capture_battlefield_state(manager),
 	}
 
-static func capture_battlefield_state(manager, hero_1_scene: String, hero_2_scene: String) -> Dictionary:
+static func capture_battlefield_state(manager) -> Dictionary:
 	var all_units: Array = []
 	var unit_index_by_instance: Dictionary = {}
 	_append_serialized_units(manager.army_1, all_units, unit_index_by_instance)
@@ -105,9 +113,10 @@ static func capture_battlefield_state(manager, hero_1_scene: String, hero_2_scen
 			turn_queue.append(unit_index_by_instance[unit])
 
 	return {
-		"hero_1_scene": hero_1_scene,
-		"hero_2_scene": hero_2_scene,
-		"units": all_units,
+		"hero1": EMPTY_HERO_DATA,
+		"units1": _serialize_units(manager.army_1, 1),
+		"hero2": EMPTY_HERO_DATA,
+		"units2": _serialize_units(manager.army_2, 2),
 		"turn_queue": turn_queue,
 		"curr_subturn_index": manager.curr_subturn_index,
 		"current_phase": int(manager.current_phase),
@@ -117,8 +126,11 @@ static func apply_to_manager(manager, battlefield_state: Dictionary) -> void:
 	var state: Dictionary = extract_battlefield_state({"battlefield": battlefield_state})
 	_reset_manager(manager)
 
+	var all_unit_states: Array = []
+	all_unit_states.append_array(state.get("units1", []))
+	all_unit_states.append_array(state.get("units2", []))
 	var spawned_units: Array = []
-	for unit_state in state.get("units", []):
+	for unit_state in all_unit_states:
 		var unit_instance: Unit = _instantiate_unit(unit_state)
 		if unit_instance == null:
 			continue
@@ -129,17 +141,11 @@ static func apply_to_manager(manager, battlefield_state: Dictionary) -> void:
 
 static func resolve_save_session(save_data: Dictionary) -> Dictionary:
 	var state: Dictionary = extract_battlefield_state(save_data)
-	var hero1: Hero = _instantiate_hero(state.get("hero_1_scene", DEFAULT_HERO_SCENE_PATH))
-	var hero2: Hero = _instantiate_hero(state.get("hero_2_scene", DEFAULT_HERO_SCENE_PATH))
-	var all_units: Array = _instantiate_units(state.get("units", []))
-	var units1: Array = []
-	var units2: Array = []
-	for unit in all_units:
-		if unit.army_id == 1:
-			units1.append(unit)
-		else:
-			units2.append(unit)
-	_attach_restore_state([hero1, hero2] + all_units, state)
+	var hero1: Hero = _instantiate_hero(state.get("hero1", {}))
+	var hero2: Hero = _instantiate_hero(state.get("hero2", {}))
+	var units1: Array = _instantiate_units(state.get("units1", []))
+	var units2: Array = _instantiate_units(state.get("units2", []))
+	_attach_restore_state([hero1, hero2] + units1 + units2, state)
 	return {"hero1": hero1, "hero2": hero2, "units1": units1, "units2": units2}
 
 static func extract_restore_state(nodes: Array) -> Dictionary:
@@ -204,7 +210,11 @@ static func _instantiate_unit(unit_state: Dictionary) -> Unit:
 	unit_instance.health = int(unit_state.get("health", unit_instance.max_health))
 	return unit_instance
 
-static func _instantiate_hero(scene_path: Variant) -> Hero:
+static func _instantiate_hero(hero_data: Variant) -> Hero:
+	var scene_path := String(_hero_data(hero_data).get("scene_path", ""))
+	if scene_path == "":
+		return null
+
 	var hero_scene: PackedScene = load(_scene_path(scene_path, DEFAULT_HERO_SCENE_PATH)) as PackedScene
 	if hero_scene == null:
 		return null
@@ -265,7 +275,7 @@ static func _attach_restore_state(nodes: Array, battlefield_state: Dictionary) -
 			node.set_meta(RESTORE_META, battlefield_state)
 			return
 
-static func _unit_states(raw_units: Variant) -> Array:
+static func _unit_states(raw_units: Variant, default_army_id: int = -1) -> Array:
 	var unit_states: Array = []
 	if raw_units is not Array:
 		return unit_states
@@ -279,7 +289,7 @@ static func _unit_states(raw_units: Variant) -> Array:
 			continue
 		unit_states.append({
 			"scene_path": scene_path,
-			"army_id": int(unit_state.get("army_id", 1)),
+			"army_id": int(unit_state.get("army_id", default_army_id if default_army_id != -1 else 1)),
 			"health": int(unit_state.get("health", 1)),
 			"cubic_pos": _cubic_to_dict(_dict_to_cubic(unit_state.get("cubic_pos", {}))),
 		})
@@ -302,6 +312,19 @@ static func _scene_path(value, fallback: String) -> String:
 	if value is Node and value.scene_file_path != "":
 		return value.scene_file_path
 	return fallback
+
+static func _hero_state(hero) -> Dictionary:
+	var scene_path := ""
+	if hero != null:
+		scene_path = _scene_path(hero, "")
+	return {"scene_path": scene_path}
+
+static func _hero_data(raw_hero: Variant) -> Dictionary:
+	if raw_hero is Dictionary:
+		return {"scene_path": String(raw_hero.get("scene_path", ""))}
+	if raw_hero is String:
+		return {"scene_path": String(raw_hero)}
+	return {"scene_path": ""}
 
 static func _unit_scene_path(unit: Unit) -> String:
 	if unit.has_meta("source_scene_path"):
