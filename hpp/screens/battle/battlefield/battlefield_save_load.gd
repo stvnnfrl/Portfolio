@@ -1,7 +1,6 @@
 extends Node2D
 class_name BattlefieldSaveLoad
 
-const DEFAULT_HERO_SCENE_PATH := "res://army/Monarch/monarch.tscn"
 const UNIT_SCENE_DIR := "res://army/units/"
 const DEFAULT_MODE := "Multiplayer"
 const DEFAULT_MOVING_PHASE := 0
@@ -57,9 +56,9 @@ func _apply_battlefield_metadata(battlefield_state: Dictionary) -> void:
 
 static func build_runtime_state(hero1, units1: Array, hero2, units2: Array) -> Dictionary:
 	return {
-		"hero1": _hero_state(hero1),
+		"hero1": EMPTY_HERO_DATA,
 		"units1": _serialize_units(units1, 1),
-		"hero2": _hero_state(hero2),
+		"hero2": EMPTY_HERO_DATA,
 		"units2": _serialize_units(units2, 2),
 		"turn_queue": [],
 		"curr_subturn_index": -1,
@@ -84,9 +83,9 @@ static func extract_battlefield_state(save_data: Dictionary) -> Dictionary:
 				units2.append(unit_state)
 
 	return {
-		"hero1": _hero_data(battlefield.get("hero1", battlefield.get("hero_1_scene", ""))),
+		"hero1": EMPTY_HERO_DATA,
 		"units1": units1,
-		"hero2": _hero_data(battlefield.get("hero2", battlefield.get("hero_2_scene", ""))),
+		"hero2": EMPTY_HERO_DATA,
 		"units2": units2,
 		"turn_queue": _int_values(battlefield.get("turn_queue", [])),
 		"curr_subturn_index": int(battlefield.get("curr_subturn_index", -1)),
@@ -142,8 +141,8 @@ static func apply_to_manager(manager, battlefield_state: Dictionary) -> void:
 
 static func resolve_save_session(save_data: Dictionary) -> Dictionary:
 	var state: Dictionary = extract_battlefield_state(save_data)
-	var hero1: Hero = _instantiate_hero(state.get("hero1", {}))
-	var hero2: Hero = _instantiate_hero(state.get("hero2", {}))
+	var hero1: Hero = null
+	var hero2: Hero = null
 	var units1: Array = _instantiate_units(state.get("units1", []))
 	var units2: Array = _instantiate_units(state.get("units2", []))
 	_attach_restore_state([hero1, hero2] + units1 + units2, state)
@@ -160,7 +159,7 @@ static func _serialize_units(units: Array, army_id: int) -> Array:
 	for unit in units:
 		if not is_instance_valid(unit):
 			continue
-		var unit_name := _saved_unit_name(unit)
+		var unit_name: String = String(unit.unit_name)
 		if unit_name == "":
 			continue
 		serialized.append({
@@ -175,7 +174,7 @@ static func _append_serialized_units(units: Array, serialized: Array, unit_index
 	for unit in units:
 		if not is_instance_valid(unit):
 			continue
-		var unit_name := _saved_unit_name(unit)
+		var unit_name: String = String(unit.unit_name)
 		if unit_name == "":
 			continue
 		unit_index_by_instance[unit] = serialized.size()
@@ -222,16 +221,6 @@ static func _instantiate_unit(unit_state: Dictionary) -> Unit:
 	unit_instance.army_id = int(unit_state.get("army_id", 1))
 	unit_instance.health = int(unit_state.get("health", unit_instance.max_health))
 	return unit_instance
-
-static func _instantiate_hero(hero_data: Variant) -> Hero:
-	var scene_path := String(_hero_data(hero_data).get("scene_path", ""))
-	if scene_path == "":
-		return null
-
-	var hero_scene: PackedScene = load(_scene_path(scene_path, DEFAULT_HERO_SCENE_PATH)) as PackedScene
-	if hero_scene == null:
-		return null
-	return hero_scene.instantiate() as Hero
 
 static func _reset_manager(manager) -> void:
 	manager._clear_highlights()
@@ -319,25 +308,6 @@ static func _int_values(raw_array: Variant) -> Array:
 		values.append(int(value))
 	return values
 
-static func _scene_path(value, fallback: String) -> String:
-	if value == null:
-		return fallback
-	if value is String and value != "":
-		return value
-	if value is Node and value.scene_file_path != "":
-		return value.scene_file_path
-	return fallback
-
-static func _hero_state(hero) -> Dictionary:
-	return {}
-
-static func _hero_data(raw_hero: Variant) -> Dictionary:
-	if raw_hero is Dictionary:
-		return {"scene_path": String(raw_hero.get("scene_path", ""))}
-	if raw_hero is String:
-		return {"scene_path": String(raw_hero)}
-	return {"scene_path": ""}
-
 static func _unit_scene_path(unit: Unit) -> String:
 	if unit.has_meta("source_scene_path"):
 		var meta_path := String(unit.get_meta("source_scene_path"))
@@ -346,9 +316,6 @@ static func _unit_scene_path(unit: Unit) -> String:
 	if unit.scene_file_path != "":
 		return unit.scene_file_path
 	return ""
-
-static func _saved_unit_name(unit: Unit) -> String:
-	return unit.unit_name
 
 static func _dict_to_cubic(raw_coords: Variant) -> Vector3i:
 	if raw_coords is not Dictionary:
