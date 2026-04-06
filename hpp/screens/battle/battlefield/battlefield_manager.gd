@@ -35,39 +35,65 @@ func _ready() -> void:
 	call_deferred("_setup_army")
 
 func _setup_army() -> void:
-	# this will have to be changed when we receive data through the scene manager
-	# army 1
-	_instantiate_unit_scene(minelayer_scene, Vector3i(4, -1, -3), 1)
-	_instantiate_unit_scene(pawn_scene, Vector3i(5, 0, -5), 1)
+	## this will have to be changed when we receive data through the scene manager
+	## army 1
+	#_instantiate_unit_scene(minelayer_scene, Vector3i(4, -1, -3), 1)
+	#_instantiate_unit_scene(pawn_scene, Vector3i(5, 0, -5), 1)
+	#
+	## army 2
+	#_instantiate_unit_scene(pawn_scene, Vector3i(7, -4, -3), 2)
+	#_instantiate_unit_scene(minelayer_scene, Vector3i(8, -3, -5), 2)
 	
-	# army 2
-	_instantiate_unit_scene(pawn_scene, Vector3i(7, -4, -3), 2)
-	_instantiate_unit_scene(minelayer_scene, Vector3i(8, -3, -5), 2)
+	var battlefield_root = get_parent() as Battlefield
+	
+	for unit in battlefield_root.army_1:
+		_setup_pregame_unit(unit, 1)
+			
+	for unit in battlefield_root.army_2:
+		_setup_pregame_unit(unit, 2)
 	
 	# start game loop
 	_init_turn_queue()
 	_start_next_sub_turn()
 	
-
-func _instantiate_unit_scene(scene_to_spawn : PackedScene, hex_coords : Vector3i, army : int) -> void:
 	
-	var unit_instance = scene_to_spawn.instantiate() as Unit
+func _setup_pregame_unit(unit_instance: Unit, army: int) -> void:
+	
 	units_layer.add_child(unit_instance)
 	
-	# set attributes
-	unit_instance.cubic_pos = hex_coords
+	# Set attributes
 	unit_instance.army_id = army
-	unit_instance.position = grid.cubic.cubic_to_pos2D(hex_coords)
+	unit_instance.position = grid.cubic.cubic_to_pos2D(unit_instance.cubic_pos)
 	
 	_set_normal_color(unit_instance)
 	
 	# update the grid manager
-	grid.board_state[hex_coords] = unit_instance
+	grid.board_state[unit_instance.cubic_pos] = unit_instance
 	
 	if army == 1:
 		army_1.append(unit_instance)
 	else:
 		army_2.append(unit_instance)
+
+#func _instantiate_unit_scene(scene_to_spawn : PackedScene, hex_coords : Vector3i, army : int) -> void:
+	#
+	#var unit_instance = scene_to_spawn.instantiate() as Unit
+	#units_layer.add_child(unit_instance)
+	#
+	## set attributes
+	#unit_instance.cubic_pos = hex_coords
+	#unit_instance.army_id = army
+	#unit_instance.position = grid.cubic.cubic_to_pos2D(hex_coords)
+	#
+	#_set_normal_color(unit_instance)
+	#
+	## update the grid manager
+	#grid.board_state[hex_coords] = unit_instance
+	#
+	#if army == 1:
+		#army_1.append(unit_instance)
+	#else:
+		#army_2.append(unit_instance)
 
 func _set_normal_color(unit : Unit):
 	if unit.army_id == 1:
