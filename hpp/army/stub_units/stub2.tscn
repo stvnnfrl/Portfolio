@@ -25,17 +25,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="MineLayer" instance=ExtResource("1_sdb37")]
+[node name="MineLayer" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_sdb37")]
 unit_name = "stub2"
-flavor_text = "Well, I'm the second one!"
 max_health = 10
 speed = 3
 movement = 3
 dmg_min = 2
 dmg_max = 3
-defense = 2
 reach = 1
 cost = 10
+anim_sprite = NodePath("AnimatedPixelArt")
+hex_halo = NodePath("HexHalo")
+health_bar = NodePath("HealthBar")
 
 [node name="HexHalo" parent="." index="0"]
 modulate = Color(0, 0.41941375, 0.9970935, 1)

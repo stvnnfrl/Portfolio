@@ -6,7 +6,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jiyr"]
 bg_color = Color(0.09019608, 0.73333335, 0.34117648, 1)
 
-[node name="Unit" type="Node2D"]
+[node name="Unit" type="Node2D" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar")]
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_tcvd8")
 max_health = null
@@ -16,6 +16,9 @@ dmg_min = null
 dmg_max = null
 reach = null
 cost = null
+anim_sprite = NodePath("AnimatedPixelArt")
+hex_halo = NodePath("HexHalo")
+health_bar = NodePath("HealthBar")
 
 [node name="HexHalo" type="Sprite2D" parent="."]
 texture = ExtResource("2_3jiyr")

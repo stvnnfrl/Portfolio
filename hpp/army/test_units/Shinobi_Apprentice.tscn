@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ch7p6wu7r7cs8"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_apprentice"]
-[ext_resource type="Texture2D" path="res://army/test_units/Shinobi_Apprentice.png" id="2_apprentice"]
+[ext_resource type="Texture2D" uid="uid://b2hud4iblxssf" path="res://army/test_units/Shinobi_Apprentice.png" id="2_apprentice"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_apprentice_0"]
 atlas = ExtResource("2_apprentice")
@@ -39,7 +39,7 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="Shinobi_Apprentice" instance=ExtResource("1_apprentice")]
+[node name="Shinobi_Apprentice" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_apprentice")]
 unit_name = "Shinobi_Apprentice"
 description = "Shinobi apprentice using copied Eager Apprentice idle frames."
 max_health = 5
@@ -49,9 +49,12 @@ dmg_min = 3
 dmg_max = 5
 reach = 1
 cost = 6
+anim_sprite = NodePath("AnimatedPixelArt")
+hex_halo = NodePath("HexHalo")
+health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 position = Vector2(0, -10)
-scale = Vector2(3.0, 3.0)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_apprentice")
 animation = &"idle"

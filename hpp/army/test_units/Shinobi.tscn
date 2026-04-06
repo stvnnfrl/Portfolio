@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dmos3s7xkp2yy"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_shinobi"]
-[ext_resource type="Texture2D" path="res://army/test_units/Shinobi.png" id="2_shinobi"]
+[ext_resource type="Texture2D" uid="uid://g2ugxg3dg5at" path="res://army/test_units/Shinobi.png" id="2_shinobi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shinobi_0"]
 atlas = ExtResource("2_shinobi")
@@ -39,7 +39,7 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="Shinobi" instance=ExtResource("1_shinobi")]
+[node name="Shinobi" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_shinobi")]
 unit_name = "Shinobi"
 description = "Shinobi unit using the idle sheet from the ninja asset pack."
 max_health = 6
@@ -49,6 +49,9 @@ dmg_min = 4
 dmg_max = 6
 reach = 1
 cost = 7
+anim_sprite = NodePath("AnimatedPixelArt")
+hex_halo = NodePath("HexHalo")
+health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 position = Vector2(-4, -14)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cih7g3n3g4wra"]
 
-[ext_resource type="PackedScene" path="res://army/base_unit/unit.tscn" id="1_knight"]
-[ext_resource type="Texture2D" path="res://army/test_units/knight.png" id="2_knight"]
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_knight"]
+[ext_resource type="Texture2D" uid="uid://32oe2bhj7wca" path="res://army/test_units/knight.png" id="2_knight"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_knight_0"]
 atlas = ExtResource("2_knight")
@@ -25,7 +25,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Knight" instance=ExtResource("1_knight")]
+[node name="Knight" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_knight")]
 unit_name = "Knight"
 description = "Placeholder knight unit for battlefield testing."
 max_health = 9
@@ -35,9 +35,11 @@ dmg_min = 4
 dmg_max = 6
 reach = 1
 cost = 7
+anim_sprite = NodePath("AnimatedPixelArt")
+hex_halo = NodePath("HexHalo")
+health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
-position = Vector2(0, 0)
 scale = Vector2(2.8, 2.8)
 sprite_frames = SubResource("SpriteFrames_knight")
 animation = &"idle"

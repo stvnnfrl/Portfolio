@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dvxm1ik0p1s5b"]
 
-[ext_resource type="PackedScene" path="res://army/base_unit/unit.tscn" id="1_bishop"]
-[ext_resource type="Texture2D" path="res://army/test_units/bishop.png" id="2_bishop"]
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_bishop"]
+[ext_resource type="Texture2D" uid="uid://tjtxdn51sshp" path="res://army/test_units/bishop.png" id="2_bishop"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bishop_0"]
 atlas = ExtResource("2_bishop")
@@ -25,7 +25,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Bishop" instance=ExtResource("1_bishop")]
+[node name="Bishop" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_bishop")]
 unit_name = "Bishop"
 description = "Placeholder bishop unit for battlefield testing."
 max_health = 7
@@ -35,9 +35,11 @@ dmg_min = 3
 dmg_max = 5
 reach = 2
 cost = 6
+anim_sprite = NodePath("AnimatedPixelArt")
+hex_halo = NodePath("HexHalo")
+health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
-position = Vector2(0, 0)
-scale = Vector2(3.0, 3.0)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_bishop")
 animation = &"idle"
