@@ -15,19 +15,11 @@ var spell_data: Array[Dictionary] = [
 	{"name": "Death by 1000\nPaper Cuts"},
 	{"name": "Hot off the\nPress"},
 	{"name": "Margin\nCollapse"},
-	{"name": "Paper Airplane\nBarrage"},
-	{"name": "Cold\nLamination"},
-	{"name": "Three-Hole\nPrison"},
-	{"name": "Spell 7"},
-	{"name": "Spell 8"},
-	{"name": "Spell 9"},
-	{"name": "Spell 10"},
-	{"name": "Spell 11"},
-	{"name": "Spell 12"},
+	{"name": "Paper Airplane\nBarrage"}
 ]
 
-const SPELLS_PER_SPREAD: int = 12  # Both pages combined
-const SPELLS_PER_PAGE: int = 6     # 2 columns x 3 rows
+const SPELLS_PER_SPREAD: int = 8  # Both pages combined
+const SPELLS_PER_PAGE: int = 4     # 2 columns x 3 rows
 const GRID_COLS: int = 2
 
 var current_spread: int = 0
@@ -35,18 +27,18 @@ var total_spreads: int = 1
 
 @onready var dim_bg: ColorRect = $DimBg
 @onready var left_grid: GridContainer = $BookCenter/BookPanel/BookLayout/Pages/LeftPage
-@onready var right_grid: GridContainer = $BookCenter/BookPanel/BookLayout/Pages/RightPage
-@onready var page_label: Label = $BookCenter/BookPanel/BookLayout/NavBar/PageLabel
-@onready var prev_btn: Button = $BookCenter/BookPanel/BookLayout/NavBar/PrevButton
-@onready var next_btn: Button = $BookCenter/BookPanel/BookLayout/NavBar/NextButton
+#@onready var right_grid: GridContainer = $BookCenter/BookPanel/BookLayout/Pages/RightPage
+#@onready var page_label: Label = $BookCenter/BookPanel/BookLayout/NavBar/PageLabel
+#@onready var prev_btn: Button = $BookCenter/BookPanel/BookLayout/NavBar/PrevButton
+#@onready var next_btn: Button = $BookCenter/BookPanel/BookLayout/NavBar/NextButton
 @onready var latch_btn: Button = $BookCenter/BookPanel/BookLayout/TopBar/LatchButton
 
 
 func _ready() -> void:
 	total_spreads = maxi(1, ceili(float(spell_data.size()) / SPELLS_PER_SPREAD))
 	
-	prev_btn.pressed.connect(_on_prev_pressed)
-	next_btn.pressed.connect(_on_next_pressed)
+	#prev_btn.pressed.connect(_on_prev_pressed)
+	#next_btn.pressed.connect(_on_next_pressed)
 	latch_btn.pressed.connect(close)
 	dim_bg.gui_input.connect(_on_dim_bg_input)
 	
@@ -55,7 +47,7 @@ func _ready() -> void:
 		visible = true
 	else:
 		visible = false
-	_refresh_spells()
+	#_refresh_spells()
 
 
 func open() -> void:
@@ -68,15 +60,15 @@ func close() -> void:
 	closed.emit()
 
 
-func _on_prev_pressed() -> void:
-	if current_spread > 0:
-		current_spread -= 1
-		_refresh_spells()
-
-func _on_next_pressed() -> void:
-	if current_spread < total_spreads - 1:
-		current_spread += 1
-		_refresh_spells()
+#func _on_prev_pressed() -> void:
+	#if current_spread > 0:
+		#current_spread -= 1
+		#_refresh_spells()
+#
+#func _on_next_pressed() -> void:
+	#if current_spread < total_spreads - 1:
+		#current_spread += 1
+		#_refresh_spells()
 
 func _on_dim_bg_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
@@ -85,7 +77,7 @@ func _on_dim_bg_input(event: InputEvent) -> void:
 
 func _refresh_spells() -> void:
 	_clear_grid(left_grid)
-	_clear_grid(right_grid)
+	#_clear_grid(right_grid)
 	
 	var start: int = current_spread * SPELLS_PER_SPREAD
 	
@@ -96,21 +88,21 @@ func _refresh_spells() -> void:
 		else:
 			left_grid.add_child(_create_empty_slot())
 	
-	for i in range(SPELLS_PER_PAGE):
-		var spell_index: int = start + SPELLS_PER_PAGE + i
-		if spell_index < spell_data.size():
-			right_grid.add_child(_create_spell_slot(spell_data[spell_index], spell_index))
-		else:
-			right_grid.add_child(_create_empty_slot())
+	#for i in range(SPELLS_PER_PAGE):
+		#var spell_index: int = start + SPELLS_PER_PAGE + i
+		#if spell_index < spell_data.size():
+			#right_grid.add_child(_create_spell_slot(spell_data[spell_index], spell_index))
+		#else:
+			#right_grid.add_child(_create_empty_slot())
 	
-	page_label.text = str(current_spread + 1) + " / " + str(total_spreads)
-	prev_btn.disabled = (current_spread == 0)
-	next_btn.disabled = (current_spread >= total_spreads - 1)
+	#page_label.text = str(current_spread + 1) + " / " + str(total_spreads)
+	#prev_btn.disabled = (current_spread == 0)
+	#next_btn.disabled = (current_spread >= total_spreads - 1)
 
 
 func _create_spell_slot(data: Dictionary, index: int) -> PanelContainer:
 	var slot := PanelContainer.new()
-	slot.custom_minimum_size = Vector2(120, 140)
+	slot.custom_minimum_size = Vector2(200, 300)
 	slot.mouse_filter = Control.MOUSE_FILTER_STOP
 	
 	var style := StyleBoxFlat.new()
@@ -133,7 +125,7 @@ func _create_spell_slot(data: Dictionary, index: int) -> PanelContainer:
 	
 	# Placeholder — replace with TextureRect when spell icons are ready
 	var icon_placeholder := ColorRect.new()
-	icon_placeholder.custom_minimum_size = Vector2(70, 70)
+	icon_placeholder.custom_minimum_size = Vector2(120, 120)
 	icon_placeholder.color = Color(0.65, 0.70, 0.80)
 	icon_placeholder.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	icon_placeholder.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -142,8 +134,10 @@ func _create_spell_slot(data: Dictionary, index: int) -> PanelContainer:
 	var label := Label.new()
 	label.text = data["name"]
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override("font_size", 13)
+	label.add_theme_font_size_override("font_size", 18)
 	label.add_theme_color_override("font_color", Color(0.2, 0.2, 0.2))
+	var font = load("res://screens/resources/Excalifont-Regular.woff2")
+	label.add_theme_font_override("font", font)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vbox.add_child(label)
 	

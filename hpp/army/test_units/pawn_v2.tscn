@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://j452vswcug0"]
+
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_pawn_v2"]
+[ext_resource type="Texture2D" path="res://army/test_units/pawn_v2.png" id="2_pawn_v2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pawn_v2_0"]
+atlas = ExtResource("2_pawn_v2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pawn_v2_1"]
+atlas = ExtResource("2_pawn_v2")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pawn_v2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pawn_v2_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pawn_v2_1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Pawn_V2" instance=ExtResource("1_pawn_v2")]
+unit_name = "Pawn_V2"
+description = "Chess-piece based pawn variant for battlefield testing."
+max_health = 4
+speed = 6
+movement = 1
+dmg_min = 5
+dmg_max = 10
+reach = 1
+cost = 1
+
+[node name="AnimatedPixelArt" parent="." index="1"]
+position = Vector2(0, 0)
+scale = Vector2(2.4, 2.4)
+sprite_frames = SubResource("SpriteFrames_pawn_v2")
+animation = &"idle"

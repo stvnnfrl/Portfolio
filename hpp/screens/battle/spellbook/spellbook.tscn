@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://biy8pnjm81qbo"]
+[gd_scene load_steps=6 format=3 uid="uid://biy8pnjm81qbo"]
 
-[ext_resource type="Script" uid="uid://bq4lf142jryln" path="res://screens/battle/spellbook/spellbook.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://duxfroxnob17l" path="res://screens/battle/spellbook/spellbook.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://cetny6c6xtqc2" path="res://screens/battle/spellbook/drawing_controller.gd" id="2_ls8bn"]
+[ext_resource type="Script" path="res://screens/battle/spellbook/drawing_pad.gd" id="2_nkf7u"]
+[ext_resource type="Script" uid="uid://dpjlomwmumppe" path="res://screens/battle/spellbook/gesture_recognizer.gd" id="3_bsilb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_book"]
 content_margin_left = 24.0
@@ -18,7 +21,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[node name="SpellBook" type="Control" unique_id=6204019]
+[node name="SpellBook" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,7 +30,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="DimBg" type="ColorRect" parent="." unique_id=199930683]
+[node name="DimBg" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +39,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
 
-[node name="BookCenter" type="CenterContainer" parent="." unique_id=914033222]
+[node name="BookCenter" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,80 +47,108 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BookPanel" type="PanelContainer" parent="BookCenter" unique_id=884839565]
-custom_minimum_size = Vector2(720, 540)
+[node name="BookPanel" type="PanelContainer" parent="BookCenter"]
+custom_minimum_size = Vector2(900, 700)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_book")
 
-[node name="BookLayout" type="VBoxContainer" parent="BookCenter/BookPanel" unique_id=876354000]
+[node name="BookLayout" type="VBoxContainer" parent="BookCenter/BookPanel"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TopBar" type="HBoxContainer" parent="BookCenter/BookPanel/BookLayout" unique_id=1693852665]
+[node name="TopBar" type="HBoxContainer" parent="BookCenter/BookPanel/BookLayout"]
 layout_mode = 2
 
-[node name="LatchButton" type="Button" parent="BookCenter/BookPanel/BookLayout/TopBar" unique_id=28903194]
+[node name="LatchButton" type="Button" parent="BookCenter/BookPanel/BookLayout/TopBar"]
 custom_minimum_size = Vector2(36, 28)
 layout_mode = 2
 tooltip_text = "Close Spell Book"
 text = "X"
 
-[node name="TopSpacer" type="Control" parent="BookCenter/BookPanel/BookLayout/TopBar" unique_id=1361090982]
+[node name="TopSpacer" type="Control" parent="BookCenter/BookPanel/BookLayout/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TitleLabel" type="Label" parent="BookCenter/BookPanel/BookLayout/TopBar" unique_id=1522447924]
+[node name="TitleLabel" type="Label" parent="BookCenter/BookPanel/BookLayout/TopBar"]
 layout_mode = 2
 text = "Spell Book"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TopSpacer2" type="Control" parent="BookCenter/BookPanel/BookLayout/TopBar" unique_id=925187343]
+[node name="TopSpacer2" type="Control" parent="BookCenter/BookPanel/BookLayout/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Pages" type="HBoxContainer" parent="BookCenter/BookPanel/BookLayout" unique_id=1688333069]
+[node name="Pages" type="HBoxContainer" parent="BookCenter/BookPanel/BookLayout"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="LeftPage" type="GridContainer" parent="BookCenter/BookPanel/BookLayout/Pages" unique_id=1958215060]
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 2
-
-[node name="Spine" type="VSeparator" parent="BookCenter/BookPanel/BookLayout/Pages" unique_id=1419816787]
-custom_minimum_size = Vector2(4, 0)
-layout_mode = 2
-
-[node name="RightPage" type="GridContainer" parent="BookCenter/BookPanel/BookLayout/Pages" unique_id=588325355]
+[node name="LeftPage" type="GridContainer" parent="BookCenter/BookPanel/BookLayout/Pages"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="NavBar" type="HBoxContainer" parent="BookCenter/BookPanel/BookLayout" unique_id=2059918526]
+[node name="Spell1Container" type="PanelContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
 layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="PrevButton" type="Button" parent="BookCenter/BookPanel/BookLayout/NavBar" unique_id=1549017538]
-custom_minimum_size = Vector2(40, 32)
+[node name="VBoxContainer" type="VBoxContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container"]
 layout_mode = 2
-text = "<"
 
-[node name="PageLabel" type="Label" parent="BookCenter/BookPanel/BookLayout/NavBar" unique_id=930631455]
-custom_minimum_size = Vector2(60, 0)
+[node name="Spell1Label" type="Label" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
 layout_mode = 2
-text = "1 / 1"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="NextButton" type="Button" parent="BookCenter/BookPanel/BookLayout/NavBar" unique_id=2069212520]
-custom_minimum_size = Vector2(40, 32)
+[node name="Spell2Container" type="PanelContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
 layout_mode = 2
-text = ">"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container"]
+layout_mode = 2
+
+[node name="Spell2Label" type="Label" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spell3Container" type="PanelContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container"]
+layout_mode = 2
+
+[node name="Spell3Label" type="Label" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spell4Container" type="PanelContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container"]
+layout_mode = 2
+
+[node name="Spell4Label" type="Label" parent="BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spine" type="VSeparator" parent="BookCenter/BookPanel/BookLayout/Pages"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="RightPage" type="MarginContainer" parent="BookCenter/BookPanel/BookLayout/Pages"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_ls8bn")
+
+[node name="drawingPad" type="Panel" parent="BookCenter/BookPanel/BookLayout/Pages/RightPage"]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("2_nkf7u")
+
+[node name="gestureRecognizer" type="Node" parent="BookCenter/BookPanel/BookLayout/Pages/RightPage"]
+script = ExtResource("3_bsilb")
