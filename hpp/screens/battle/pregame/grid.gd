@@ -1,4 +1,4 @@
-extends ColorRect
+extends Control
 
 @export var state: Pregame
 @export var cubic_coords: CubicCoords
@@ -75,6 +75,8 @@ func can_clear(coordinates: Vector3i) -> Callable:
 
 func create_unit_at(grid_coordinates: Vector3i, unit_type: Unit) -> Unit:
 	var screen_coordinates = cubic_coords.cubic_to_pos2D(grid_coordinates)
+	
+	# TODO: rescale to grid size
 	
 	var new_unit = unit_type.duplicate()
 	new_unit.position = screen_coordinates
