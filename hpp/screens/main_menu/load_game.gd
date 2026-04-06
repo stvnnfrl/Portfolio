@@ -14,6 +14,7 @@ const BattlefieldSaveLoad = preload("res://screens/battle/battlefield/battlefiel
 # Saves data
 var saves_data : Array = []
 var current_selected_save : Dictionary = {}
+var current_selected_slot = null
 
 func _ready():
 	# Populate dropdown menu
@@ -91,15 +92,16 @@ func populate_saves_list(data_to_display : Array):
 		var slot = save_slot_scene.instantiate()
 		saves_container.add_child(slot)
 		slot.setup(metadata)
-		slot.pressed.connect(_on_save_slot_pressed.bind(metadata))
+		slot.pressed.connect(_on_save_slot_pressed.bind(metadata, slot))
 
 # Signals functions
 func _on_search_or_filter_changed(_value_passed_by_signal):
 	update_saves_list()
 
-func _on_save_slot_pressed(metadata: Dictionary):
+func _on_save_slot_pressed(metadata: Dictionary, slot):
 	print("Player clicked on: ", metadata["save_name"])
 	current_selected_save = metadata
+	_select_slot(slot)
 	delete_button.disabled = false
 	resume_button.disabled = false
 	
@@ -126,6 +128,14 @@ func _on_delete_button_pressed():
 	
 	# Refresh UI
 	update_saves_list()
+
+func _select_slot(slot) -> void:
+	if current_selected_slot != null and is_instance_valid(current_selected_slot):
+		current_selected_slot.set_selected(false)
+
+	current_selected_slot = slot
+	if current_selected_slot != null and is_instance_valid(current_selected_slot):
+		current_selected_slot.set_selected(true)
 
 func _on_resume_button_pressed():
 	if current_selected_save.is_empty():
