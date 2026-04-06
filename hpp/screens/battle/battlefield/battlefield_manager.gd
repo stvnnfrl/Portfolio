@@ -3,8 +3,10 @@ class_name BattlefieldManager
 
 # this will have to be changed in the future. Only for demo purposes. 
 # Have to think of a better way because 20 variables for all different unit types is propably not the best
-@export var minelayer_scene : PackedScene
-@export var pawn_scene : PackedScene
+@export var shock_trooper_scene : PackedScene
+@export var shinobi_scene : PackedScene
+@export var shinobi_apprentice_scene : PackedScene
+@export var ninja_master_scene : PackedScene
 
 @export var highlight_scene : PackedScene
 
@@ -37,12 +39,12 @@ func _ready() -> void:
 func _setup_army() -> void:
 	# this will have to be changed when we receive data through the scene manager
 	# army 1
-	_instantiate_unit_scene(minelayer_scene, Vector3i(4, -1, -3), 1)
-	_instantiate_unit_scene(pawn_scene, Vector3i(5, 0, -5), 1)
+	_instantiate_unit_scene(shock_trooper_scene, Vector3i(4, -1, -3), 1)
+	_instantiate_unit_scene(shinobi_scene, Vector3i(5, 0, -5), 1)
 	
 	# army 2
-	_instantiate_unit_scene(pawn_scene, Vector3i(7, -4, -3), 2)
-	_instantiate_unit_scene(minelayer_scene, Vector3i(8, -3, -5), 2)
+	_instantiate_unit_scene(shinobi_apprentice_scene, Vector3i(7, -4, -3), 2)
+	_instantiate_unit_scene(ninja_master_scene, Vector3i(8, -3, -5), 2)
 	
 	# start game loop
 	_init_turn_queue()
@@ -53,6 +55,7 @@ func _instantiate_unit_scene(scene_to_spawn : PackedScene, hex_coords : Vector3i
 	
 	var unit_instance = scene_to_spawn.instantiate() as Unit
 	units_layer.add_child(unit_instance)
+	unit_instance._ensure_node_refs()
 	
 	# set attributes
 	unit_instance.cubic_pos = hex_coords

@@ -2,10 +2,11 @@ extends Node2D
 class_name BattlefieldSaveLoad
 
 const DEFAULT_HERO_SCENE_PATH := "res://army/Monarch/monarch.tscn"
+const UNIT_SCENE_DIR := "res://army/units/"
 const DEFAULT_MODE := "Multiplayer"
 const DEFAULT_MOVING_PHASE := 0
 const RESTORE_META := "battlefield_restore_state"
-const EMPTY_HERO_DATA := {"scene_path": ""}
+const EMPTY_HERO_DATA := {}
 
 @onready var battlefield_manager = $BattlefieldManager
 @onready var game_menu = $UILayer/GameMenu
@@ -159,11 +160,11 @@ static func _serialize_units(units: Array, army_id: int) -> Array:
 	for unit in units:
 		if not is_instance_valid(unit):
 			continue
-		var scene_path := _unit_scene_path(unit)
-		if scene_path == "":
+		var unit_name := _saved_unit_name(unit)
+		if unit_name == "":
 			continue
 		serialized.append({
-			"scene_path": scene_path,
+			"unit_name": unit_name,
 			"army_id": army_id,
 			"health": unit.health if unit.health > 0 else unit.max_health,
 			"cubic_pos": _cubic_to_dict(unit.cubic_pos),
@@ -174,9 +175,12 @@ static func _append_serialized_units(units: Array, serialized: Array, unit_index
 	for unit in units:
 		if not is_instance_valid(unit):
 			continue
+		var unit_name := _saved_unit_name(unit)
+		if unit_name == "":
+			continue
 		unit_index_by_instance[unit] = serialized.size()
 		serialized.append({
-			"scene_path": _unit_scene_path(unit),
+			"unit_name": unit_name,
 			"army_id": unit.army_id,
 			"health": unit.health,
 			"cubic_pos": _cubic_to_dict(unit.cubic_pos),
@@ -191,7 +195,16 @@ static func _instantiate_units(raw_units: Variant) -> Array:
 	return units
 
 static func _instantiate_unit(unit_state: Dictionary) -> Unit:
-	var scene_path := String(unit_state.get("scene_path", ""))
+	var unit_name := String(unit_state.get("unit_name", ""))
+	var scene_path := ""
+	if unit_name != "":
+		scene_path = UNIT_SCENE_DIR + unit_name + ".tscn"
+	if scene_path == "":
+		scene_path = String(unit_state.get("scene_path", ""))
+	if scene_path.begins_with("res://army/test_units/"):
+		var moved_scene_path := UNIT_SCENE_DIR + scene_path.get_file()
+		if ResourceLoader.exists(moved_scene_path):
+			scene_path = moved_scene_path
 	if scene_path == "":
 		return null
 
@@ -284,10 +297,12 @@ static func _unit_states(raw_units: Variant, default_army_id: int = -1) -> Array
 		if raw_unit is not Dictionary:
 			continue
 		var unit_state := raw_unit as Dictionary
+		var unit_name := String(unit_state.get("unit_name", ""))
 		var scene_path := String(unit_state.get("scene_path", ""))
-		if scene_path == "":
+		if unit_name == "" and scene_path == "":
 			continue
 		unit_states.append({
+			"unit_name": unit_name,
 			"scene_path": scene_path,
 			"army_id": int(unit_state.get("army_id", default_army_id if default_army_id != -1 else 1)),
 			"health": int(unit_state.get("health", 1)),
@@ -314,10 +329,7 @@ static func _scene_path(value, fallback: String) -> String:
 	return fallback
 
 static func _hero_state(hero) -> Dictionary:
-	var scene_path := ""
-	if hero != null:
-		scene_path = _scene_path(hero, "")
-	return {"scene_path": scene_path}
+	return {}
 
 static func _hero_data(raw_hero: Variant) -> Dictionary:
 	if raw_hero is Dictionary:
@@ -334,6 +346,9 @@ static func _unit_scene_path(unit: Unit) -> String:
 	if unit.scene_file_path != "":
 		return unit.scene_file_path
 	return ""
+
+static func _saved_unit_name(unit: Unit) -> String:
+	return unit.unit_name
 
 static func _dict_to_cubic(raw_coords: Variant) -> Vector3i:
 	if raw_coords is not Dictionary:
