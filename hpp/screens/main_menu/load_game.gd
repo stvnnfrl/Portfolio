@@ -74,15 +74,12 @@ func apply_search(data: Array) -> Array:
 	if query == "": #or "Search Saves ...":
 		return data
 		
-	return data.filter(func(save): return query in save["save_name"].to_lower())
 
 func apply_mode_filter(data: Array) -> Array:
 	var filter_idx = filter_dropdown.selected
 	
 	if filter_idx == 1:
-		return data.filter(func(save): return save["mode"] == "Singleplayer")
 	elif filter_idx == 2:
-		return data.filter(func(save): return save["mode"] == "Multiplayer")
 		
 	return data
 
@@ -90,13 +87,9 @@ func apply_sorting(data: Array) -> Array:
 	var sort_idx = sort_dropdown.selected
 	
 	if sort_idx == 0: 
-		data.sort_custom(func(a, b): return a["date"] > b["date"])
 	elif sort_idx == 1: 
-		data.sort_custom(func(a, b): return a["date"] < b["date"])
 	elif sort_idx == 2: 
-		data.sort_custom(func(a, b): return a["save_name"] < b["save_name"])
 	elif sort_idx == 3: 
-		data.sort_custom(func(a, b): return a["save_name"] > b["save_name"])
 		
 	return data
 
@@ -110,19 +103,16 @@ func populate_saves_list(data_to_display : Array):
 		var slot = save_slot_scene.instantiate()
 		saves_container.add_child(slot)
 		slot.setup(metadata)
-		slot.pressed.connect(_on_save_slot_pressed.bind(metadata))
 
 # Signals functions
 func _on_search_or_filter_changed(_value_passed_by_signal):
 	update_saves_list()
 
-func _on_save_slot_pressed(metadata: Dictionary):
 	print("Player clicked on: ", metadata["save_name"])
 	current_selected_save = metadata
 	delete_button.disabled = false
 	
 func _on_delete_button_pressed():
-	# Double check we have something selected
 	if current_selected_save.is_empty():
 		return
 		
@@ -144,6 +134,49 @@ func _on_delete_button_pressed():
 	
 	# Refresh UI
 	update_saves_list()
+
+
+func _on_resume_button_pressed():
+	if current_selected_save.is_empty():
+		return
+
+	var file_path := String(current_selected_save.get("file_path", ""))
+	if file_path == "":
+		return
+
+	var save_data := FileManager.load_single_save(file_path)
+	if save_data.is_empty():
+		push_warning("Unable to resume the selected save.")
+		return
+
+	var save_session := BattlefieldSaveLoad.resolve_save_session(save_data)
+	var hero1 := save_session.get("hero1", null) as Hero
+	var units1 := _to_unit_array(save_session.get("units1", []))
+	var hero2 := save_session.get("hero2", null) as Hero
+	var units2 := _to_unit_array(save_session.get("units2", []))
+	SceneManager.load_battlefield(hero1, units1, hero2, units2)
+
+
+func _select_slot(slot) -> void:
+	if current_selected_slot != null and is_instance_valid(current_selected_slot):
+		current_selected_slot.set_selected(false)
+
+	current_selected_slot = slot
+	if current_selected_slot != null and is_instance_valid(current_selected_slot):
+		current_selected_slot.set_selected(true)
+
+
+func _to_unit_array(raw_units: Variant) -> Array[Unit]:
+	var units: Array[Unit] = []
+	if raw_units is not Array:
+		return units
+
+	for raw_unit in raw_units:
+		if raw_unit is Unit:
+			units.append(raw_unit)
+
+	return units
+
 
 #func _on_search_focus_entered():
 	#if search_bar.text == "Search Saves...":
