@@ -202,7 +202,6 @@ static func _instantiate_unit(unit_state: Dictionary) -> Unit:
 	unit_instance.cubic_pos = _dict_to_cubic(unit_state.get("cubic_pos", {}))
 	unit_instance.army_id = int(unit_state.get("army_id", 1))
 	unit_instance.health = int(unit_state.get("health", unit_instance.max_health))
-	unit_instance.sync_runtime_state()
 	return unit_instance
 
 static func _instantiate_hero(scene_path: Variant) -> Hero:
@@ -225,7 +224,12 @@ static func _reset_manager(manager) -> void:
 		child.queue_free()
 
 static func _add_unit_to_manager(manager, unit_instance: Unit) -> void:
+	var saved_health := unit_instance.health
 	manager.units_layer.add_child(unit_instance)
+	unit_instance.health = saved_health
+	if unit_instance.health_bar:
+		unit_instance.health_bar.max_value = unit_instance.max_health
+		unit_instance.health_bar.value = unit_instance.health
 	unit_instance.position = manager.grid.cubic.cubic_to_pos2D(unit_instance.cubic_pos)
 	manager._set_normal_color(unit_instance)
 	manager.grid.board_state[unit_instance.cubic_pos] = unit_instance
