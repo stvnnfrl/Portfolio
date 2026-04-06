@@ -8,6 +8,7 @@ const BattlefieldSaveLoad = preload("res://screens/battle/battlefield/battlefiel
 @onready var search_bar = $HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer/SearchBar
 @onready var filter_dropdown = $HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer/FilterHBox/Filter
 @onready var sort_dropdown = $HBoxContainer/NavigationContainer/VBoxContainer/SearchVContainer/FilterHBox/Sort
+@onready var preview_image = $HBoxContainer/PreviewContainer/VBoxContainer/PanelContainer/PreviewImage
 @onready var delete_button = $HBoxContainer/PreviewContainer/VBoxContainer/HBoxContainer/DeleteButton
 @onready var resume_button = $HBoxContainer/PreviewContainer/VBoxContainer/HBoxContainer/ResumeGameButton
 
@@ -28,6 +29,7 @@ func _ready():
 	resume_button.pressed.connect(_on_resume_button_pressed)
 	delete_button.disabled = true
 	resume_button.disabled = true
+	_clear_preview()
 	
 	# Get saves from
 	# Call to load manager autoload
@@ -102,6 +104,7 @@ func _on_save_slot_pressed(metadata: Dictionary, slot):
 	print("Player clicked on: ", metadata["save_name"])
 	current_selected_save = metadata
 	_select_slot(slot)
+	_update_preview(metadata)
 	delete_button.disabled = false
 	resume_button.disabled = false
 	
@@ -123,6 +126,7 @@ func _on_delete_button_pressed():
 			
 	# Clear selection and button
 	current_selected_save = {}
+	_clear_preview()
 	delete_button.disabled = true
 	resume_button.disabled = true
 	
@@ -167,3 +171,14 @@ func _to_unit_array(raw_units: Variant) -> Array[Unit]:
 			units.append(raw_unit)
 
 	return units
+
+func _update_preview(metadata: Dictionary) -> void:
+	var file_path := String(metadata.get("file_path", ""))
+	if file_path == "":
+		_clear_preview()
+		return
+
+	preview_image.texture = FileManager.load_photo_texture(file_path)
+
+func _clear_preview() -> void:
+	preview_image.texture = null

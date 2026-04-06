@@ -1,11 +1,13 @@
 extends Node
 
 const SAVE_DIR := "user://saved_games/"
+const PHOTO_DIR := "user://saved_game_photos/"
 const TEMP_SAVE_PATH := SAVE_DIR + "temp_save.json"
 
 func _ready() -> void:
 	# We need to make sure the saves directory exists when we load the game
 	_ensure_save_dir()
+	_ensure_photo_dir()
 
 
 func _ensure_save_dir() -> void:
@@ -13,6 +15,13 @@ func _ensure_save_dir() -> void:
 		return
 
 	DirAccess.make_dir_absolute(SAVE_DIR)
+
+
+func _ensure_photo_dir() -> void:
+	if DirAccess.dir_exists_absolute(PHOTO_DIR):
+		return
+
+	DirAccess.make_dir_absolute(PHOTO_DIR)
 
 
 # Loading
@@ -121,6 +130,34 @@ func get_save_path(file_name: String) -> String:
 	return SAVE_DIR + _build_target_file_name(file_name)
 
 
+func get_photo_path(file_name: String) -> String:
+	return PHOTO_DIR + _build_photo_file_name(file_name)
+
+
+func get_photo_path_from_save(file_path: String) -> String:
+	return PHOTO_DIR + file_path.get_file().get_basename() + ".png"
+
+
+func save_photo(image: Image, file_name: String) -> bool:
+	if image == null or image.is_empty():
+		return false
+
+	_ensure_photo_dir()
+	return image.save_png(get_photo_path(file_name)) == OK
+
+
+func load_photo_texture(file_path: String) -> Texture2D:
+	var photo_path := get_photo_path_from_save(file_path)
+	if not FileAccess.file_exists(photo_path):
+		return null
+
+	var image := Image.load_from_file(photo_path)
+	if image == null or image.is_empty():
+		return null
+
+	return ImageTexture.create_from_image(image)
+
+
 func _build_target_file_name(file_name: String) -> String:
 	var trimmed_name := file_name.strip_edges()
 	if trimmed_name == "":
@@ -129,6 +166,10 @@ func _build_target_file_name(file_name: String) -> String:
 		trimmed_name += ".json"
 
 	return _sanitize_file_name(trimmed_name)
+
+
+func _build_photo_file_name(file_name: String) -> String:
+	return _build_target_file_name(file_name).get_basename() + ".png"
 
 
 func _build_file_timestamp() -> String:
@@ -152,8 +193,11 @@ func _is_loadable_save_data(raw_data: Variant) -> bool:
 # Delete
 func delete_save(file_path: String) -> bool:
 	if FileAccess.file_exists(file_path):
+		var photo_path := get_photo_path_from_save(file_path)
 		var err = DirAccess.remove_absolute(file_path)
 		if err == OK:
+			if FileAccess.file_exists(photo_path):
+				DirAccess.remove_absolute(photo_path)
 			print("Successfully deleted save: ", file_path)
 			return true
 		else:

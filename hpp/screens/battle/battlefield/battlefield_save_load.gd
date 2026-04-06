@@ -43,6 +43,7 @@ func _on_save_requested(file_name: String) -> void:
 	var save_name := file_name.strip_edges()
 	var save_data := build_save_data(save_name, _mode, battlefield_manager)
 	if FileManager.save_game(save_data, save_name):
+		await _save_screenshot(save_name)
 		print("[Battlefield] Saved game: ", save_name)
 	else:
 		push_warning("[Battlefield] Failed to save current game state.")
@@ -53,6 +54,20 @@ func _on_quit_to_menu() -> void:
 
 func _apply_battlefield_metadata(battlefield_state: Dictionary) -> void:
 	_mode = String(battlefield_state.get("mode", DEFAULT_MODE))
+
+func _save_screenshot(file_name: String) -> void:
+	if game_menu != null:
+		game_menu.visible = false
+
+	await RenderingServer.frame_post_draw
+
+	var image := get_viewport().get_texture().get_image()
+	if image != null and not image.is_empty():
+		image.resize(320, 180, Image.INTERPOLATE_LANCZOS)
+		FileManager.save_photo(image, file_name)
+
+	if game_menu != null:
+		game_menu.visible = true
 
 static func build_runtime_state(hero1, units1: Array, hero2, units2: Array) -> Dictionary:
 	return {
