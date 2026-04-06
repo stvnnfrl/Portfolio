@@ -14,7 +14,6 @@ signal quit_to_menu
 @onready var save_btn: Button = $DimBg/CenterContainer/MenuPanel/ButtonBox/SaveButton
 @onready var quit_btn: Button = $DimBg/CenterContainer/MenuPanel/ButtonBox/QuitButton
 
-
 func _ready() -> void:
 	resume_btn.pressed.connect(_on_resume_pressed)
 	save_btn.pressed.connect(_on_save_pressed)

@@ -145,7 +145,6 @@ func _on_delete_button_pressed():
 	# Refresh UI
 	update_saves_list()
 
-
 #func _on_search_focus_entered():
 	#if search_bar.text == "Search Saves...":
 		#search_bar.text = ""
