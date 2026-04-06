@@ -89,6 +89,6 @@ func create_unit_at(grid_coordinates: Vector3i, unit_type: Unit) -> Unit:
 func _on_pregame_end_of_turn() -> void:
 	# set the placed units
 	for unit in placed_unit_indices:
-		state.current_player_placed.append(unit)
+		state.current_player_placed.append(unit.duplicate())
 	
 	placed_unit_indices.clear()
