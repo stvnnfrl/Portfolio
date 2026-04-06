@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b1ulqunccq7na"]
+[gd_scene load_steps=13 format=3 uid="uid://ckxdweclt3pqc"]
 
 [ext_resource type="Script" uid="uid://5tolt38mvh3k" path="res://screens/battle/battlefield/grid_manager.gd" id="1_o47rj"]
 [ext_resource type="Script" uid="uid://bbdw8iygx22i4" path="res://screens/battle/battlefield/battlefield_manager.gd" id="1_qow86"]
@@ -28,7 +28,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[node name="Battlefield" type="Node2D"]
+[node name="battlefield" type="Node2D"]
 
 [node name="BattlefieldManager" type="Node" parent="."]
 script = ExtResource("1_qow86")
