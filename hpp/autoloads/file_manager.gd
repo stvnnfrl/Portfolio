@@ -4,6 +4,7 @@ const SAVE_DIR := "user://saved_games/"
 const TEMP_SAVE_PATH := SAVE_DIR + "temp_save.json"
 
 func _ready() -> void:
+	# We need to make sure the saves directory exists when we load the game
 	_ensure_save_dir()
 
 
@@ -14,6 +15,9 @@ func _ensure_save_dir() -> void:
 	DirAccess.make_dir_absolute(SAVE_DIR)
 
 
+# Loading
+
+# Load all the saves in the SAVE_DIR using load_single_save()
 func get_all_saves() -> Array:
 	var saves_list: Array = []
 	_ensure_save_dir()
@@ -29,6 +33,7 @@ func get_all_saves() -> Array:
 				var full_path = SAVE_DIR + file_name
 				var save_data = load_single_save(full_path)
 				
+				# If the load was successful, inject the file path so the UI knows exactly what file this is
 				if not save_data.is_empty():
 					save_data["file_path"] = full_path
 					saves_list.append(save_data)
@@ -40,6 +45,7 @@ func get_all_saves() -> Array:
 	return saves_list
 
 
+# Load single save
 func load_single_save(file_path: String) -> Dictionary:
 	if not FileAccess.file_exists(file_path):
 		return {}
@@ -70,6 +76,9 @@ func load_single_save(file_path: String) -> Dictionary:
 	return save_data
 
 
+# Saving
+
+## Saves a dictionary to a specific filename in the save directory
 func save_game(save_data: Dictionary, file_name: String = "") -> bool:
 	_ensure_save_dir()
 
@@ -139,6 +148,8 @@ func _is_loadable_save_data(raw_data: Variant) -> bool:
 	var data: Dictionary = raw_data
 	return data.get("battlefield", null) is Dictionary
 
+
+# Delete
 func delete_save(file_path: String) -> bool:
 	if FileAccess.file_exists(file_path):
 		var err = DirAccess.remove_absolute(file_path)
