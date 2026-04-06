@@ -1,8 +1,7 @@
-extends Sprite2D
+extends Node2D
 
-var units: Array[Variant]
-
-@export var unset_unit_texture: Texture2D
+# unit sprite size
+# TODO: should probably be relative to grid size
 @export var size: Vector2 = Vector2(100, 100)
 
 # resize the sprite to get a consistent size
@@ -10,24 +9,30 @@ var units: Array[Variant]
 # we can add scale multipliers to the unit
 var base_scale: Vector2 = Vector2.ONE
 
-func init(units_: Array[Dictionary]) -> void:
-	units = units_
-	unset_unit()
+var unit_preview: Unit = null
 
-func _on_unit_selector_selected_unit_changed(index: int) -> void:
-	set_unit_to(index)
-
-func unset_unit() -> void:
-	set_unit_to(-1)
-
-func set_unit_to(index: int) -> void:
-	if index < 0:
-		texture = unset_unit_texture
-	else:
-		var unit = units[index]
-		texture = unit.texture
+func _on_pregame_selected_unit_updated(unit: Unit) -> void:
+	if unit_preview != null:
+		unit_preview.queue_free()
 	
-	base_scale = size / texture.get_size()
+	if unit == null:
+		return
+	
+	base_scale = Vector2.ONE
+	if unit.anim_sprite != null:
+		unit_preview = unit.duplicate()
+		base_scale /= unit.anim_sprite.scale
+		var base_texture = unit.anim_sprite.sprite_frames.get_frame_texture("idle", 0)
+		base_scale *= size / base_texture.get_size()
+	elif unit.get("texture") != null:  # Sprite2D Unit fallback
+		unit_preview = unit.duplicate()
+		var base_texture = unit_preview.texture
+		base_scale *= size / base_texture.get_size()
+	
+	if unit_preview == null:
+		return
+	
+	add_child(unit_preview)
 
 
 # drag animation

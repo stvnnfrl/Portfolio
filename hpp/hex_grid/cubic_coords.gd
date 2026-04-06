@@ -1,6 +1,6 @@
 class_name CubicCoords extends Resource
 
-@export var size: float = 10.0
+@export var size: float = 128
 
 const down_cubic = Vector3(1, 1, -2)/3
 const right_cubic = RIGHT/sqrt(3)
@@ -21,7 +21,7 @@ func pos2D_to_cubic(pos: Vector2) -> Vector3:
 	return (pos.x * right_cubic + pos.y * down_cubic)/size
 func cubic_to_pos2D(pos: Vector3) -> Vector2:
 	return size * (x_2d * pos.x + y_2d * pos.y + z_2d * pos.z)
-func cubic_round(pos: Vector3) -> Vector3:
+func cubic_round(pos: Vector3) -> Vector3i:
 	# credit to redblobgames.com/grids/hexagons
 	var rounded = round(pos)
 	var diff = abs(rounded - pos)
@@ -31,4 +31,4 @@ func cubic_round(pos: Vector3) -> Vector3:
 		rounded.y = -rounded.x-rounded.z
 	else:
 		rounded.z = -rounded.x-rounded.y
-	return rounded
+	return Vector3i(rounded)
