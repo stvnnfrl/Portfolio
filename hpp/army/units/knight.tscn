@@ -26,7 +26,7 @@ animations = [{
 }]
 
 [node name="Knight" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_knight")]
-unit_name = "Knight"
+unit_name = "knight"
 description = "Placeholder knight unit for battlefield testing."
 max_health = 9
 speed = 5

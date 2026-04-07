@@ -26,7 +26,7 @@ animations = [{
 }]
 
 [node name="Pawn_V2" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_pawn_v2")]
-unit_name = "Pawn_V2"
+unit_name = "pawn"
 description = "Chess-piece based pawn variant for battlefield testing."
 max_health = 4
 speed = 6

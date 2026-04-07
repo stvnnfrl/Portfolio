@@ -40,7 +40,7 @@ animations = [{
 }]
 
 [node name="Unit" instance=ExtResource("1_2hpdd")]
-unit_name = "Lich"
+unit_name = "lich"
 description = "tbd"
 max_health = 5
 speed = 3

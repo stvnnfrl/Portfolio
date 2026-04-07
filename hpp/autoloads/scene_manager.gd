@@ -26,11 +26,10 @@ func load_battlefield(
 	turn_queue: Array[int] = [],
 	curr_subturn_index: int = -1,
 	current_phase: int = 0,
-	mode: String = "Multiplayer",
-	is_loadgame: bool = false
+	mode: String = "Multiplayer"
 ):
 	var battlefield_scene = battlefield.instantiate()
-	battlefield_scene.init(hero1, units1, hero2, units2, turn_queue, curr_subturn_index, current_phase, mode, is_loadgame)
+	battlefield_scene.init(hero1, units1, hero2, units2, turn_queue, curr_subturn_index, current_phase, mode)
 	_swap_to(battlefield_scene)
 
 func load_game_over(game_result : String, text_color : Color):

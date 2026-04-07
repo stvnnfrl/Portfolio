@@ -27,11 +27,15 @@ var current_phase : SubTurnPhase = SubTurnPhase.MOVING
 var curr_subturn_index : int = -1
 var active_unit : Unit
 
-func _ready() -> void:
-	# call_deferred to ensure the GridManager finishes its own _ready setup first
-	call_deferred("_setup_army")
-
-func _setup_army() -> void:
+func setup_battlefield(
+	hero1: Hero,
+	army1: Array[Unit],
+	hero2: Hero,
+	army2: Array[Unit],
+	saved_turn_queue: Array[int] = [],
+	saved_subturn_index: int = -1,
+	saved_phase: int = SubTurnPhase.MOVING
+) -> void:
 	## this will have to be changed when we receive data through the scene manager
 	## army 1
 	#_instantiate_unit_scene(minelayer_scene, Vector3i(4, -1, -3), 1)
@@ -40,21 +44,56 @@ func _setup_army() -> void:
 	## army 2
 	#_instantiate_unit_scene(pawn_scene, Vector3i(7, -4, -3), 2)
 	#_instantiate_unit_scene(minelayer_scene, Vector3i(8, -3, -5), 2)
-	
-	var battlefield_root = get_parent() as BattlefieldSaveLoad
-	
-	hero_1 = battlefield_root.hero_1
-	hero_2 = battlefield_root.hero_2
-	
-	for unit in battlefield_root.army_1:
-		_setup_pregame_unit(unit, 1)
-			
-	for unit in battlefield_root.army_2:
-		_setup_pregame_unit(unit, 2)
+
+	hero_1 = hero1
+	hero_2 = hero2
+
+	_setup_army(army1, army2)
 	
 	# start game loop
 	_init_turn_queue()
-	_start_next_sub_turn()
+	if saved_turn_queue.is_empty() or saved_subturn_index < 0:
+		_start_next_sub_turn()
+		return
+
+	_load_saved_turn_state(saved_turn_queue, saved_subturn_index, saved_phase)
+
+func _setup_army(army1: Array[Unit], army2: Array[Unit]) -> void:
+	for unit in army1:
+		_setup_pregame_unit(unit, 1)
+			
+	for unit in army2:
+		_setup_pregame_unit(unit, 2)
+
+func _load_saved_turn_state(saved_turn_queue: Array[int], saved_subturn_index: int, saved_phase: int) -> void:
+	if active_unit != null:
+		_set_normal_color(active_unit)
+
+	_clear_highlights()
+	turn_queue.clear()
+
+	var all_units: Array[Unit] = []
+	all_units.append_array(army_1)
+	all_units.append_array(army_2)
+
+	for unit_index in saved_turn_queue:
+		if unit_index >= 0 and unit_index < all_units.size():
+			turn_queue.append(all_units[unit_index])
+
+	for unit in all_units:
+		if not turn_queue.has(unit):
+			turn_queue.append(unit)
+
+	if turn_queue.is_empty():
+		_start_next_sub_turn()
+		return
+
+	curr_subturn_index = clamp(saved_subturn_index, 0, turn_queue.size() - 1)
+	current_phase = saved_phase
+	active_unit = turn_queue[curr_subturn_index]
+	_activate_unit_color()
+	if current_phase == SubTurnPhase.MOVING:
+		_draw_reachable_hexes()
 	
 	
 func _setup_pregame_unit(unit_instance: Unit, army: int) -> void:

@@ -161,7 +161,7 @@ func _on_resume_button_pressed():
 	var curr_subturn_index := int(save_session.get("curr_subturn_index", -1))
 	var current_phase := int(save_session.get("current_phase", 0))
 	var mode := String(save_session.get("mode", "Multiplayer"))
-	SceneManager.load_battlefield(hero1, units1, hero2, units2, turn_queue, curr_subturn_index, current_phase, mode, true)
+	SceneManager.load_battlefield(hero1, units1, hero2, units2, turn_queue, curr_subturn_index, current_phase, mode)
 
 func _to_unit_array(raw_units: Variant) -> Array[Unit]:
 	var units: Array[Unit] = []

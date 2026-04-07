@@ -198,7 +198,7 @@ animations = [{
 }]
 
 [node name="Unit" instance=ExtResource("1_4w3at")]
-unit_name = "Soul Well"
+unit_name = "soul_well"
 description = "The well of souls"
 max_health = 10
 dmg_min = 5

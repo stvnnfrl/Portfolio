@@ -5,6 +5,16 @@ const UNIT_SCENE_DIR := "res://army/units/"
 const DEFAULT_MODE := "Multiplayer"
 const DEFAULT_MOVING_PHASE := 0
 const EMPTY_HERO_DATA := {}
+const LEGACY_UNIT_NAME_MAP := {
+	"Pawn_V2": "pawn",
+	"Knight": "knight",
+	"Bishop": "bishop",
+	"Queen": "queen",
+	"Lich": "lich",
+	"Soul Well": "soul_well",
+	"Spectral Rider": "spectral_rider",
+	"Minelayer": "mine_layer",
+}
 
 @onready var battlefield_manager = $BattlefieldManager
 @onready var game_menu = $UILayer/GameMenu
@@ -13,7 +23,6 @@ var _mode: String = DEFAULT_MODE
 var _turn_queue: Array[int] = []
 var _curr_subturn_index: int = -1
 var _current_phase: int = DEFAULT_MOVING_PHASE
-var is_loadgame: bool = false
 
 # Vince added for init
 var hero_1 : Hero
@@ -30,8 +39,7 @@ func init(
 	turn_queue: Array[int] = [],
 	curr_subturn_index: int = -1,
 	current_phase: int = DEFAULT_MOVING_PHASE,
-	mode: String = DEFAULT_MODE,
-	loadgame: bool = false
+	mode: String = DEFAULT_MODE
 ) -> void:
 	# Vince added for init
 	hero_1 = hero1
@@ -42,13 +50,11 @@ func init(
 	_curr_subturn_index = curr_subturn_index
 	_current_phase = current_phase
 	_mode = mode
-	is_loadgame = loadgame
 	
 
 func _ready() -> void:
 	_connect_game_menu()
-	if is_loadgame:
-		call_deferred("_finish_loadgame_setup")
+	battlefield_manager.setup_battlefield(hero_1, army_1, hero_2, army_2, _turn_queue, _curr_subturn_index, _current_phase)
 
 func _connect_game_menu() -> void:
 	if game_menu == null:
@@ -201,6 +207,8 @@ static func _instantiate_unit(unit_state: Dictionary) -> Unit:
 	var unit_name := String(unit_state.get("unit_name", ""))
 	var scene_path := ""
 	if unit_name != "":
+		if LEGACY_UNIT_NAME_MAP.has(unit_name):
+			unit_name = LEGACY_UNIT_NAME_MAP[unit_name]
 		scene_path = UNIT_SCENE_DIR + unit_name + ".tscn"
 	if scene_path == "":
 		scene_path = String(unit_state.get("scene_path", ""))
@@ -264,34 +272,3 @@ static func _dict_to_cubic(raw_coords: Variant) -> Vector3i:
 
 static func _cubic_to_dict(coords: Vector3i) -> Dictionary:
 	return {"x": coords.x, "y": coords.y, "z": coords.z}
-
-func _finish_loadgame_setup() -> void:
-	if _turn_queue.is_empty():
-		return
-
-	battlefield_manager._clear_highlights()
-	battlefield_manager.turn_queue.clear()
-
-	var all_units: Array[Unit] = []
-	all_units.append_array(battlefield_manager.army_1)
-	all_units.append_array(battlefield_manager.army_2)
-
-	for unit_index in _turn_queue:
-		if unit_index >= 0 and unit_index < all_units.size():
-			battlefield_manager.turn_queue.append(all_units[unit_index])
-	for unit in all_units:
-		if not battlefield_manager.turn_queue.has(unit):
-			battlefield_manager.turn_queue.append(unit)
-
-	if battlefield_manager.turn_queue.is_empty():
-		return
-
-	if battlefield_manager.active_unit != null:
-		battlefield_manager._set_normal_color(battlefield_manager.active_unit)
-
-	battlefield_manager.curr_subturn_index = clamp(_curr_subturn_index, 0, battlefield_manager.turn_queue.size() - 1)
-	battlefield_manager.current_phase = _current_phase
-	battlefield_manager.active_unit = battlefield_manager.turn_queue[battlefield_manager.curr_subturn_index]
-	battlefield_manager._activate_unit_color()
-	if battlefield_manager.current_phase == battlefield_manager.SubTurnPhase.MOVING:
-		battlefield_manager._draw_reachable_hexes()

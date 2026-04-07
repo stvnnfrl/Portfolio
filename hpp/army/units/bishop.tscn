@@ -26,7 +26,7 @@ animations = [{
 }]
 
 [node name="Bishop" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_bishop")]
-unit_name = "Bishop"
+unit_name = "bishop"
 description = "Placeholder bishop unit for battlefield testing."
 max_health = 7
 speed = 4

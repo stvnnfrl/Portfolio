@@ -26,7 +26,7 @@ animations = [{
 }]
 
 [node name="MineLayer" instance=ExtResource("1_pucm5")]
-unit_name = "Minelayer"
+unit_name = "mine_layer"
 max_health = 10
 speed = 3
 movement = 3
