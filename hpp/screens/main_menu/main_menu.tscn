@@ -662,6 +662,11 @@ theme_override_constants/separation = 15
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="PreviewImage" type="TextureRect" parent="Screens/LoadGame/HBoxContainer/PreviewContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Screens/LoadGame/HBoxContainer/PreviewContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2

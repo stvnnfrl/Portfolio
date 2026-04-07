@@ -1,11 +1,6 @@
 extends Node
 class_name BattlefieldManager
 
-# this will have to be changed in the future. Only for demo purposes. 
-# Have to think of a better way because 20 variables for all different unit types is propably not the best
-@export var minelayer_scene : PackedScene
-@export var pawn_scene : PackedScene
-
 @export var highlight_scene : PackedScene
 
 @onready var grid : GridManager = $"../GridManager"
@@ -44,7 +39,7 @@ func _setup_army() -> void:
 	#_instantiate_unit_scene(pawn_scene, Vector3i(7, -4, -3), 2)
 	#_instantiate_unit_scene(minelayer_scene, Vector3i(8, -3, -5), 2)
 	
-	var battlefield_root = get_parent() as Battlefield
+	var battlefield_root = get_parent() as BattlefieldSaveLoad
 	
 	for unit in battlefield_root.army_1:
 		_setup_pregame_unit(unit, 1)
@@ -60,6 +55,7 @@ func _setup_army() -> void:
 func _setup_pregame_unit(unit_instance: Unit, army: int) -> void:
 	
 	units_layer.add_child(unit_instance)
+	unit_instance._ensure_node_refs()
 	
 	# Set attributes
 	unit_instance.army_id = army
