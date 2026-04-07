@@ -4,15 +4,16 @@ class_name BattlefieldSaveLoad
 const UNIT_SCENE_DIR := "res://army/units/"
 const DEFAULT_MODE := "Multiplayer"
 const DEFAULT_MOVING_PHASE := 0
-const RESTORE_META := "battlefield_restore_state"
 const EMPTY_HERO_DATA := {}
 
 @onready var battlefield_manager = $BattlefieldManager
 @onready var game_menu = $UILayer/GameMenu
 
 var _mode: String = DEFAULT_MODE
-var _pending_battlefield_state: Dictionary = {}
-var _restore_nodes: Array = []
+var _turn_queue: Array[int] = []
+var _curr_subturn_index: int = -1
+var _current_phase: int = DEFAULT_MOVING_PHASE
+var is_loadgame: bool = false
 
 # Vince added for init
 var hero_1 : Hero
@@ -21,26 +22,33 @@ var army_1 : Array[Unit] = []
 var army_2 : Array[Unit] = []
 
 
-func init(hero1: Hero, units1: Array[Unit], hero2: Hero, units2: Array[Unit]) -> void:
+func init(
+	hero1: Hero,
+	units1: Array[Unit],
+	hero2: Hero,
+	units2: Array[Unit],
+	turn_queue: Array[int] = [],
+	curr_subturn_index: int = -1,
+	current_phase: int = DEFAULT_MOVING_PHASE,
+	mode: String = DEFAULT_MODE,
+	loadgame: bool = false
+) -> void:
 	# Vince added for init
 	hero_1 = hero1
 	hero_2 = hero2
 	army_1 = units1
 	army_2 = units2
-	
-	_restore_nodes = [hero1, hero2] + units1 + units2
-	_pending_battlefield_state = build_runtime_state(hero1, units1, hero2, units2)
-	_apply_battlefield_metadata(_pending_battlefield_state)
+	_turn_queue = turn_queue
+	_curr_subturn_index = curr_subturn_index
+	_current_phase = current_phase
+	_mode = mode
+	is_loadgame = loadgame
 	
 
 func _ready() -> void:
 	_connect_game_menu()
-	var restore_state := extract_restore_state(_restore_nodes)
-	if not restore_state.is_empty():
-		_pending_battlefield_state = restore_state
-		_apply_battlefield_metadata(restore_state)
-	#if not _pending_battlefield_state.is_empty():
-		#call_deferred("_apply_pending_battlefield_state")
+	if is_loadgame:
+		call_deferred("_finish_loadgame_setup")
 
 func _connect_game_menu() -> void:
 	if game_menu == null:
@@ -49,9 +57,6 @@ func _connect_game_menu() -> void:
 		game_menu.save_requested.connect(_on_save_requested)
 	if not game_menu.quit_to_menu.is_connected(_on_quit_to_menu):
 		game_menu.quit_to_menu.connect(_on_quit_to_menu)
-
-#func _apply_pending_battlefield_state() -> void:
-	#apply_to_manager(battlefield_manager, _pending_battlefield_state)
 
 func _on_save_requested(file_name: String) -> void:
 	var save_name := file_name.strip_edges()
@@ -66,9 +71,6 @@ func _on_quit_to_menu() -> void:
 	get_tree().paused = false
 	SceneManager.load_main_menu()
 
-func _apply_battlefield_metadata(battlefield_state: Dictionary) -> void:
-	_mode = String(battlefield_state.get("mode", DEFAULT_MODE))
-
 func _save_screenshot(file_name: String) -> void:
 	if game_menu != null:
 		game_menu.visible = false
@@ -82,18 +84,6 @@ func _save_screenshot(file_name: String) -> void:
 
 	if game_menu != null:
 		game_menu.visible = true
-
-static func build_runtime_state(hero1, units1: Array, hero2, units2: Array) -> Dictionary:
-	return {
-		"hero1": EMPTY_HERO_DATA,
-		"units1": _serialize_units(units1, 1),
-		"hero2": EMPTY_HERO_DATA,
-		"units2": _serialize_units(units2, 2),
-		"turn_queue": [],
-		"curr_subturn_index": -1,
-		"current_phase": DEFAULT_MOVING_PHASE,
-		"mode": DEFAULT_MODE,
-	}
 
 static func extract_battlefield_state(save_data: Dictionary) -> Dictionary:
 	var battlefield: Dictionary = {}
@@ -151,37 +141,22 @@ static func capture_battlefield_state(manager) -> Dictionary:
 		"current_phase": int(manager.current_phase),
 	}
 
-#static func apply_to_manager(manager, battlefield_state: Dictionary) -> void:
-	#var state: Dictionary = extract_battlefield_state({"battlefield": battlefield_state})
-	#_reset_manager(manager)
-#
-	#var all_unit_states: Array = []
-	#all_unit_states.append_array(state.get("units1", []))
-	#all_unit_states.append_array(state.get("units2", []))
-	#var spawned_units: Array = []
-	#for unit_state in all_unit_states:
-		#var unit_instance: Unit = _instantiate_unit(unit_state)
-		#if unit_instance == null:
-			#continue
-		#_add_unit_to_manager(manager, unit_instance)
-		#spawned_units.append(unit_instance)
-#
-	#_restore_turn_state(manager, spawned_units, state)
-
 static func resolve_save_session(save_data: Dictionary) -> Dictionary:
 	var state: Dictionary = extract_battlefield_state(save_data)
 	var hero1: Hero = null
 	var hero2: Hero = null
 	var units1: Array = _instantiate_units(state.get("units1", []))
 	var units2: Array = _instantiate_units(state.get("units2", []))
-	_attach_restore_state([hero1, hero2] + units1 + units2, state)
-	return {"hero1": hero1, "hero2": hero2, "units1": units1, "units2": units2}
-
-static func extract_restore_state(nodes: Array) -> Dictionary:
-	for node in nodes:
-		if node != null and node.has_meta(RESTORE_META):
-			return node.get_meta(RESTORE_META)
-	return {}
+	return {
+		"hero1": hero1,
+		"hero2": hero2,
+		"units1": units1,
+		"units2": units2,
+		"turn_queue": state.get("turn_queue", []),
+		"curr_subturn_index": state.get("curr_subturn_index", -1),
+		"current_phase": state.get("current_phase", DEFAULT_MOVING_PHASE),
+		"mode": state.get("mode", DEFAULT_MODE),
+	}
 
 static func _serialize_units(units: Array, army_id: int) -> Array:
 	var serialized: Array = []
@@ -251,61 +226,6 @@ static func _instantiate_unit(unit_state: Dictionary) -> Unit:
 	unit_instance.health = int(unit_state.get("health", unit_instance.max_health))
 	return unit_instance
 
-static func _reset_manager(manager) -> void:
-	manager._clear_highlights()
-	manager.active_reachable_hexes.clear()
-	manager.grid.board_state.clear()
-	manager.turn_queue.clear()
-	manager.army_1.clear()
-	manager.army_2.clear()
-	manager.active_unit = null
-	manager.curr_subturn_index = -1
-	manager.current_phase = manager.SubTurnPhase.MOVING
-	for child in manager.units_layer.get_children():
-		child.queue_free()
-
-static func _add_unit_to_manager(manager, unit_instance: Unit) -> void:
-	var saved_health := unit_instance.health
-	manager.units_layer.add_child(unit_instance)
-	unit_instance.health = saved_health
-	if unit_instance.health_bar:
-		unit_instance.health_bar.max_value = unit_instance.max_health
-		unit_instance.health_bar.value = unit_instance.health
-	unit_instance.position = manager.grid.cubic.cubic_to_pos2D(unit_instance.cubic_pos)
-	manager._set_normal_color(unit_instance)
-	manager.grid.board_state[unit_instance.cubic_pos] = unit_instance
-	if unit_instance.army_id == 1:
-		manager.army_1.append(unit_instance)
-	else:
-		manager.army_2.append(unit_instance)
-
-static func _restore_turn_state(manager, spawned_units: Array, state: Dictionary) -> void:
-	var turn_queue: Array = _int_values(state.get("turn_queue", []))
-	if turn_queue.is_empty():
-		manager._init_turn_queue()
-		manager._start_next_sub_turn()
-		return
-
-	for unit_index in turn_queue:
-		if unit_index >= 0 and unit_index < spawned_units.size():
-			manager.turn_queue.append(spawned_units[unit_index])
-	for unit in spawned_units:
-		if not manager.turn_queue.has(unit):
-			manager.turn_queue.append(unit)
-
-	manager.curr_subturn_index = clamp(int(state.get("curr_subturn_index", 0)), 0, manager.turn_queue.size() - 1)
-	manager.current_phase = int(state.get("current_phase", DEFAULT_MOVING_PHASE))
-	manager.active_unit = manager.turn_queue[manager.curr_subturn_index]
-	manager._activate_unit_color()
-	if manager.current_phase == manager.SubTurnPhase.MOVING:
-		manager._draw_reachable_hexes()
-
-static func _attach_restore_state(nodes: Array, battlefield_state: Dictionary) -> void:
-	for node in nodes:
-		if node != null:
-			node.set_meta(RESTORE_META, battlefield_state)
-			return
-
 static func _unit_states(raw_units: Variant, default_army_id: int = -1) -> Array:
 	var unit_states: Array = []
 	if raw_units is not Array:
@@ -337,15 +257,6 @@ static func _int_values(raw_array: Variant) -> Array:
 		values.append(int(value))
 	return values
 
-static func _unit_scene_path(unit: Unit) -> String:
-	if unit.has_meta("source_scene_path"):
-		var meta_path := String(unit.get_meta("source_scene_path"))
-		if meta_path != "":
-			return meta_path
-	if unit.scene_file_path != "":
-		return unit.scene_file_path
-	return ""
-
 static func _dict_to_cubic(raw_coords: Variant) -> Vector3i:
 	if raw_coords is not Dictionary:
 		return Vector3i.ZERO
@@ -353,3 +264,34 @@ static func _dict_to_cubic(raw_coords: Variant) -> Vector3i:
 
 static func _cubic_to_dict(coords: Vector3i) -> Dictionary:
 	return {"x": coords.x, "y": coords.y, "z": coords.z}
+
+func _finish_loadgame_setup() -> void:
+	if _turn_queue.is_empty():
+		return
+
+	battlefield_manager._clear_highlights()
+	battlefield_manager.turn_queue.clear()
+
+	var all_units: Array[Unit] = []
+	all_units.append_array(battlefield_manager.army_1)
+	all_units.append_array(battlefield_manager.army_2)
+
+	for unit_index in _turn_queue:
+		if unit_index >= 0 and unit_index < all_units.size():
+			battlefield_manager.turn_queue.append(all_units[unit_index])
+	for unit in all_units:
+		if not battlefield_manager.turn_queue.has(unit):
+			battlefield_manager.turn_queue.append(unit)
+
+	if battlefield_manager.turn_queue.is_empty():
+		return
+
+	if battlefield_manager.active_unit != null:
+		battlefield_manager._set_normal_color(battlefield_manager.active_unit)
+
+	battlefield_manager.curr_subturn_index = clamp(_curr_subturn_index, 0, battlefield_manager.turn_queue.size() - 1)
+	battlefield_manager.current_phase = _current_phase
+	battlefield_manager.active_unit = battlefield_manager.turn_queue[battlefield_manager.curr_subturn_index]
+	battlefield_manager._activate_unit_color()
+	if battlefield_manager.current_phase == battlefield_manager.SubTurnPhase.MOVING:
+		battlefield_manager._draw_reachable_hexes()

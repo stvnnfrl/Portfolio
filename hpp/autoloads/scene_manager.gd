@@ -18,9 +18,19 @@ func load_pre_game(hero1: Hero, unit_counts1 : Array[int], hero2: Hero, unit_cou
 	pregame_scene.init(hero1, unit_counts1, hero2, unit_counts2)
 	_swap_to(pregame_scene)
 
-func load_battlefield(hero1: Hero, units1: Array[Unit], hero2: Hero, units2: Array[Unit]):
+func load_battlefield(
+	hero1: Hero,
+	units1: Array[Unit],
+	hero2: Hero,
+	units2: Array[Unit],
+	turn_queue: Array[int] = [],
+	curr_subturn_index: int = -1,
+	current_phase: int = 0,
+	mode: String = "Multiplayer",
+	is_loadgame: bool = false
+):
 	var battlefield_scene = battlefield.instantiate()
-	battlefield_scene.init(hero1, units1, hero2, units2)
+	battlefield_scene.init(hero1, units1, hero2, units2, turn_queue, curr_subturn_index, current_phase, mode, is_loadgame)
 	_swap_to(battlefield_scene)
 
 func load_game_over(game_result : String, text_color : Color):

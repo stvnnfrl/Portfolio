@@ -1,7 +1,5 @@
 extends MarginContainer
 
-const BattlefieldSaveLoad = preload("res://screens/battle/battlefield/battlefield_save_load.gd")
-
 @export var save_slot_scene : PackedScene
 
 @onready var saves_container = $HBoxContainer/NavigationContainer/VBoxContainer/ScrollContainer/SavesContainer
@@ -159,7 +157,11 @@ func _on_resume_button_pressed():
 	var units1 := _to_unit_array(save_session.get("units1", []))
 	var hero2 := save_session.get("hero2", null) as Hero
 	var units2 := _to_unit_array(save_session.get("units2", []))
-	SceneManager.load_battlefield(hero1, units1, hero2, units2)
+	var turn_queue := _to_int_array(save_session.get("turn_queue", []))
+	var curr_subturn_index := int(save_session.get("curr_subturn_index", -1))
+	var current_phase := int(save_session.get("current_phase", 0))
+	var mode := String(save_session.get("mode", "Multiplayer"))
+	SceneManager.load_battlefield(hero1, units1, hero2, units2, turn_queue, curr_subturn_index, current_phase, mode, true)
 
 func _to_unit_array(raw_units: Variant) -> Array[Unit]:
 	var units: Array[Unit] = []
@@ -171,6 +173,16 @@ func _to_unit_array(raw_units: Variant) -> Array[Unit]:
 			units.append(raw_unit)
 
 	return units
+
+func _to_int_array(raw_values: Variant) -> Array[int]:
+	var values: Array[int] = []
+	if raw_values is not Array:
+		return values
+
+	for raw_value in raw_values:
+		values.append(int(raw_value))
+
+	return values
 
 func _update_preview(metadata: Dictionary) -> void:
 	var file_path := String(metadata.get("file_path", ""))
