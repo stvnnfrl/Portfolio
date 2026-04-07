@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5pmbreieytsd"]
+
+[ext_resource type="PackedScene" uid="uid://dgo42mrokcow6" path="res://army/base_hero/hero.tscn" id="1_1wkgs"]
+[ext_resource type="PackedScene" uid="uid://b7r5q3e6mjqwj" path="res://army/units/Shock_Trooper.tscn" id="2_arp6l"]
+[ext_resource type="PackedScene" uid="uid://djy3tn7w8mt30" path="res://army/units/mine_layer.tscn" id="3_rwx0g"]
+
+[node name="Hero" instance=ExtResource("1_1wkgs")]
+hero_name = "General"
+description = "Leads the most scrap army"
+units = Array[PackedScene]([ExtResource("2_arp6l"), ExtResource("3_rwx0g")])
+spells = Array[String](["Spell_1", "Spell_2", "Spell_3", "Spell_4"])

@@ -1,3 +1,0 @@
-extends Hero
-
-#TODO everything

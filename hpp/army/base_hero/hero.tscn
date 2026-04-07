@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgo42mrokcow6"]
+
+[ext_resource type="Script" uid="uid://6t3vhpqhegoj" path="res://army/base_hero/hero.gd" id="1_38haa"]
+
+[node name="Hero" type="Node2D"]
+script = ExtResource("1_38haa")

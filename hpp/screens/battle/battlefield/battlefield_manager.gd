@@ -11,7 +11,9 @@ var active_highlights : Array = []
 var active_reachable_hexes : Dictionary = {}
 
 var turn_queue : Array[Unit] = []
+var hero_1 : Hero
 var army_1 : Array[Unit] = []
+var hero_2 : Hero
 var army_2 : Array[Unit] = []
 
 # Army colors
@@ -40,6 +42,9 @@ func _setup_army() -> void:
 	#_instantiate_unit_scene(minelayer_scene, Vector3i(8, -3, -5), 2)
 	
 	var battlefield_root = get_parent() as BattlefieldSaveLoad
+	
+	hero_1 = battlefield_root.hero_1
+	hero_2 = battlefield_root.hero_2
 	
 	for unit in battlefield_root.army_1:
 		_setup_pregame_unit(unit, 1)

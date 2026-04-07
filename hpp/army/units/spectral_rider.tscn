@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://bj7u6cw7q4ako"]
+
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_h15sy"]
+[ext_resource type="Texture2D" uid="uid://bgh4460pk53to" path="res://army/units/SpectralRider.png" id="2_htees"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lavic"]
+atlas = ExtResource("2_htees")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44xsa"]
+atlas = ExtResource("2_htees")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rovj0"]
+atlas = ExtResource("2_htees")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnpvd"]
+atlas = ExtResource("2_htees")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tg3va"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lavic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44xsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rovj0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnpvd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Unit" instance=ExtResource("1_h15sy")]
+unit_name = "Spectral Rider"
+description = "TBD"
+max_health = 7
+speed = 5
+movement = 4
+dmg_min = 1
+dmg_max = 3
+reach = 1
+cost = 15
+
+[node name="AnimatedPixelArt" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_tg3va")
+animation = &"idle"
