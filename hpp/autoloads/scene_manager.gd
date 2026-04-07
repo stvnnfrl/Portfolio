@@ -4,7 +4,7 @@ var main_menu_path : String = "res://screens/main_menu/main_menu.tscn"
 var match_setup_path : String = "res://screens/match_setup/match_setup.tscn"
 var pre_game : PackedScene = preload("res://screens/battle/pregame/pregame.tscn")
 var battlefield : PackedScene = preload("res://screens/battle/battlefield/battlefield.tscn")
-var ending_screen_path : String = "res://screens/battle/end_screen/end_screen.tscn"
+var end_screen : PackedScene = preload("res://screens/battle/end_screen/end_screen.tscn")
 
 
 func load_main_menu():
@@ -23,8 +23,11 @@ func load_battlefield(hero1: Hero, units1: Array[Unit], hero2: Hero, units2: Arr
 	battlefield_scene.init(hero1, units1, hero2, units2)
 	_swap_to(battlefield_scene)
 
-func load_game_over():
-	get_tree().change_scene_to_file(ending_screen_path)
+func load_game_over(game_result : String, text_color : Color):
+	#get_tree().change_scene_to_file(ending_screen_path)
+	var end_screen_scene = end_screen.instantiate()
+	end_screen_scene.init(game_result, text_color)
+	_swap_to(end_screen_scene)
 
 
 #func _swap_to(initialized_scene: Node) -> void:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dmos3s7xkp2yy"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_shinobi"]
-[ext_resource type="Texture2D" uid="uid://g2ugxg3dg5at" path="res://army/test_units/Shinobi.png" id="2_shinobi"]
+[ext_resource type="Texture2D" uid="uid://g2ugxg3dg5at" path="res://army/units/Shinobi.png" id="2_shinobi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shinobi_0"]
 atlas = ExtResource("2_shinobi")

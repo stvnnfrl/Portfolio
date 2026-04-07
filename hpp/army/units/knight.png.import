@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du2swt8k8e5du"
-path="res://.godot/imported/pawn.png-8ad226a542769d724152d02f4769176d.ctex"
+uid="uid://32oe2bhj7wca"
+path="res://.godot/imported/knight.png-c666b155baee99ab189f7e5933d690d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/test_units/pawn.png"
-dest_files=["res://.godot/imported/pawn.png-8ad226a542769d724152d02f4769176d.ctex"]
+source_file="res://army/units/knight.png"
+dest_files=["res://.godot/imported/knight.png-c666b155baee99ab189f7e5933d690d3.ctex"]
 
 [params]
 

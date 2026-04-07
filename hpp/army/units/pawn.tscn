@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://j452vswcug0"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_pawn_v2"]
-[ext_resource type="Texture2D" uid="uid://bn22lvu4bfgqm" path="res://army/test_units/pawn_v2.png" id="2_pawn_v2"]
+[ext_resource type="Texture2D" uid="uid://bn22lvu4bfgqm" path="res://army/units/pawn.png" id="2_pawn_v2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pawn_v2_0"]
 atlas = ExtResource("2_pawn_v2")

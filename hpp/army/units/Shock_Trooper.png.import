@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjyaxdifbl0n4"
-path="res://.godot/imported/minelayer.png-f337f76bed9e3e0c020ba5af4bfbbcc7.ctex"
+uid="uid://qjrfym4q47se"
+path="res://.godot/imported/Shock_Trooper.png-4ce8eadf3e60d6ca8c5ac38053ee1701.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/test_units/minelayer.png"
-dest_files=["res://.godot/imported/minelayer.png-f337f76bed9e3e0c020ba5af4bfbbcc7.ctex"]
+source_file="res://army/units/Shock_Trooper.png"
+dest_files=["res://.godot/imported/Shock_Trooper.png-4ce8eadf3e60d6ca8c5ac38053ee1701.ctex"]
 
 [params]
 

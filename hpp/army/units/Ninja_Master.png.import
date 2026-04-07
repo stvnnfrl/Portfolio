@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4acqxwwi4rpd"
-path="res://.godot/imported/queen.png-7f1bc6f4ffa4740cd8c5511c9a28fe80.ctex"
+uid="uid://b8iblo2nqhqmh"
+path="res://.godot/imported/Ninja_Master.png-c8bba7884032f288e0d51da50e8b869a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/test_units/queen.png"
-dest_files=["res://.godot/imported/queen.png-7f1bc6f4ffa4740cd8c5511c9a28fe80.ctex"]
+source_file="res://army/units/Ninja_Master.png"
+dest_files=["res://.godot/imported/Ninja_Master.png-c8bba7884032f288e0d51da50e8b869a.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bn22lvu4bfgqm"
-path="res://.godot/imported/pawn_v2.png-849d82e9f76b3607847c409648adc001.ctex"
+path="res://.godot/imported/pawn.png-d75d990bb5da65f106e6dbe9ded1b33f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/test_units/pawn_v2.png"
-dest_files=["res://.godot/imported/pawn_v2.png-849d82e9f76b3607847c409648adc001.ctex"]
+source_file="res://army/units/pawn.png"
+dest_files=["res://.godot/imported/pawn.png-d75d990bb5da65f106e6dbe9ded1b33f.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b7r5q3e6mjqwj"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_shock"]
-[ext_resource type="Texture2D" uid="uid://qjrfym4q47se" path="res://army/test_units/Shock_Trooper.png" id="2_shock"]
+[ext_resource type="Texture2D" uid="uid://qjrfym4q47se" path="res://army/units/Shock_Trooper.png" id="2_shock"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shock_0"]
 atlas = ExtResource("2_shock")

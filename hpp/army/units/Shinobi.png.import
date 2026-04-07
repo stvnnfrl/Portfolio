@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://32oe2bhj7wca"
-path="res://.godot/imported/knight.png-463429dae7f92daae611796849412a7d.ctex"
+uid="uid://g2ugxg3dg5at"
+path="res://.godot/imported/Shinobi.png-d68de0796aa2f0a32cbb0d0954010771.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/test_units/knight.png"
-dest_files=["res://.godot/imported/knight.png-463429dae7f92daae611796849412a7d.ctex"]
+source_file="res://army/units/Shinobi.png"
+dest_files=["res://.godot/imported/Shinobi.png-d68de0796aa2f0a32cbb0d0954010771.ctex"]
 
 [params]
 

@@ -213,8 +213,20 @@ func _kill_unit(unit: Unit) -> void:
 	# Delete the node
 	unit.queue_free()
 	
+	# TODO this check placement might get changed in the future when spells are involved
+	# Check if one army has won
+	_check_winning_condition()
+	
 
-func _draw_reachable_hexes() -> void:
+func _check_winning_condition():
+	if army_1.is_empty():
+		print("Army 2 wins")
+		SceneManager.load_game_over("Army 2 wins", army_2_color_active)
+	elif army_2.is_empty():
+		print("Army 1 wins")
+		SceneManager.load_game_over("Army 1 wins", army_1_color_active)
+
+func _draw_reachable_hexes():
 	# clean up just in case
 	_clear_highlights() 
 	

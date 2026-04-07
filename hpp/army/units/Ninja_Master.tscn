@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bn2k3sna5bg5q"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_ninja"]
-[ext_resource type="Texture2D" uid="uid://b8iblo2nqhqmh" path="res://army/test_units/Ninja_Master.png" id="2_ninja"]
+[ext_resource type="Texture2D" uid="uid://b8iblo2nqhqmh" path="res://army/units/Ninja_Master.png" id="2_ninja"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ninja_0"]
 atlas = ExtResource("2_ninja")
