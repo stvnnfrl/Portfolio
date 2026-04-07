@@ -6,13 +6,10 @@ extends GridContainer
 # Maps OptionButton index to Hero scene path.
 # Update these paths as new army scenes are created.
 const HERO_SCENES: Array[String] = [
-	"res://army/Monarch/monarch.tscn",   # 0: Scrap (TODO: replace)
-	"res://army/Monarch/monarch.tscn",   # 1: Monarch
-	"res://army/Monarch/monarch.tscn",   # 2: Undead (TODO: replace)
-	
-	"res://army/stub_units/heroStub.tscn" # Added stub Hero for testing
-	
-	#"res://army/Monarch/monarch.tscn",   # 3: Ninjas (TODO: replace)
+	"res://army/heroes/general.tscn",
+	"res://army/heroes/king.tscn",
+	"res://army/heroes/samourai.tscn",
+	"res://army/heroes/soul.tscn"
 ]
 
 @onready var troop_labels = [$Troop1, $Troop2, $Troop3, $Troop4]
