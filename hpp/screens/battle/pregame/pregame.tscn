@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://2n3ubcoaq1l"]
+[gd_scene load_steps=12 format=3 uid="uid://2n3ubcoaq1l"]
 
 [ext_resource type="Script" uid="uid://5efmd7mno0ok" path="res://screens/battle/pregame/pregame.gd" id="1_k75mm"]
 [ext_resource type="Theme" uid="uid://cgfpt6lxvjk8f" path="res://screens/battle/pregame/main_theme.tres" id="1_ug2bj"]
 [ext_resource type="ButtonGroup" uid="uid://c1c4e40h75iab" path="res://screens/battle/pregame/selected_unit.tres" id="2_ote4s"]
 [ext_resource type="Script" uid="uid://p2gqkn7gn1a1" path="res://screens/battle/pregame/unit_info.gd" id="3_5qa4y"]
 [ext_resource type="Script" uid="uid://cfe1mjyw2cuqm" path="res://screens/battle/pregame/grid.gd" id="3_u80o1"]
+[ext_resource type="PackedScene" uid="uid://xcq67l2wb3g2" path="res://hex_grid/hex_grid_render.tscn" id="4_2edq3"]
 [ext_resource type="Script" uid="uid://cj2rbjop1ymw7" path="res://hex_grid/cubic_coords.gd" id="4_jfu4o"]
 [ext_resource type="Script" uid="uid://bv71pol8nortl" path="res://screens/battle/pregame/unit_selector.gd" id="4_wxa71"]
 [ext_resource type="Script" uid="uid://c7pcefq1w8xsf" path="res://screens/battle/pregame/cursor_unit_preview.gd" id="6_5qa4y"]
@@ -24,17 +25,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k75mm")
 
-[node name="Grid" type="ColorRect" parent="." node_paths=PackedStringArray("state")]
+[node name="Grid" type="Control" parent="." node_paths=PackedStringArray("state")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.9490196, 0.9019608, 0.8901961, 1)
 script = ExtResource("3_u80o1")
 state = NodePath("..")
 cubic_coords = SubResource("Resource_2edq3")
+
+[node name="HexGridRender" parent="Grid" instance=ExtResource("4_2edq3")]
 
 [node name="Main" type="MarginContainer" parent="."]
 layout_mode = 1
