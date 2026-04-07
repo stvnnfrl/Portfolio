@@ -27,8 +27,16 @@ func load_game_over():
 	get_tree().change_scene_to_file(ending_screen_path)
 
 
+#func _swap_to(initialized_scene: Node) -> void:
+	#var tree = get_tree()
+	#tree.unload_current_scene()
+	#tree.call_deferred("set_current_scene", initialized_scene)  # "tree.current_scene = pregame" doesn't seem to work here
+	#tree.root.add_child(initialized_scene)
+	
+# TODO Temp change to make the connection work. Will need to investigate more
 func _swap_to(initialized_scene: Node) -> void:
 	var tree = get_tree()
-	tree.unload_current_scene()
-	tree.call_deferred("set_current_scene", initialized_scene)  # "tree.current_scene = pregame" doesn't seem to work here
+	var current_scene = tree.current_scene
 	tree.root.add_child(initialized_scene)
+	tree.current_scene = initialized_scene
+	current_scene.queue_free()

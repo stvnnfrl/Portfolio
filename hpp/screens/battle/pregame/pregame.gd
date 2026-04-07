@@ -76,6 +76,11 @@ func _update_player() -> void:
 		current_unit_counts = _unit_counts2
 		change_units_to(_units2)
 	else:
+		# TODO Temp change to make the connection work. Will need to investigate more
+		for unit in _player1_placed:
+			unit.get_parent().remove_child(unit)
+		for unit in _player2_placed:
+			unit.get_parent().remove_child(unit)
 		SceneManager.load_battlefield(_hero1, _player1_placed, _hero2, _player2_placed)
 
 # handle next button
