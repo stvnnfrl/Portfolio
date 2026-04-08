@@ -5,16 +5,6 @@ const UNIT_SCENE_DIR := "res://army/units/"
 const DEFAULT_MODE := "Multiplayer"
 const DEFAULT_MOVING_PHASE := 0
 const EMPTY_HERO_DATA := {}
-const LEGACY_UNIT_NAME_MAP := {
-	"Pawn_V2": "pawn",
-	"Knight": "knight",
-	"Bishop": "bishop",
-	"Queen": "queen",
-	"Lich": "lich",
-	"Soul Well": "soul_well",
-	"Spectral Rider": "spectral_rider",
-	"Minelayer": "mine_layer",
-}
 
 @onready var battlefield_manager = $BattlefieldManager
 @onready var game_menu = $UILayer/GameMenu
@@ -207,8 +197,6 @@ static func _instantiate_unit(unit_state: Dictionary) -> Unit:
 	var unit_name := String(unit_state.get("unit_name", ""))
 	var scene_path := ""
 	if unit_name != "":
-		if LEGACY_UNIT_NAME_MAP.has(unit_name):
-			unit_name = LEGACY_UNIT_NAME_MAP[unit_name]
 		scene_path = UNIT_SCENE_DIR + unit_name + ".tscn"
 	if scene_path == "":
 		scene_path = String(unit_state.get("scene_path", ""))
