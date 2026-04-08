@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmos3s7xkp2yy"]
+[gd_scene load_steps=13 format=3 uid="uid://fhwouucvaqti"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_shinobi"]
-[ext_resource type="Texture2D" uid="uid://g2ugxg3dg5at" path="res://army/units/Shinobi.png" id="2_shinobi"]
+[ext_resource type="Texture2D" uid="uid://g2ugxg3dg5at" path="res://army/units/shinobi.png" id="2_shinobi"]
+[ext_resource type="Texture2D" path="res://army/units/shinobi_attack.png" id="3_shinobi_attack"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shinobi_0"]
 atlas = ExtResource("2_shinobi")
@@ -19,8 +20,41 @@ region = Rect2(0, 64, 32, 32)
 atlas = ExtResource("2_shinobi")
 region = Rect2(0, 96, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_shinobi_attack_0"]
+atlas = ExtResource("3_shinobi_attack")
+region = Rect2(0, 0, 42, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shinobi_attack_1"]
+atlas = ExtResource("3_shinobi_attack")
+region = Rect2(42, 0, 42, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shinobi_attack_2"]
+atlas = ExtResource("3_shinobi_attack")
+region = Rect2(84, 0, 42, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shinobi_attack_3"]
+atlas = ExtResource("3_shinobi_attack")
+region = Rect2(126, 0, 42, 26)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_shinobi"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shinobi_attack_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shinobi_attack_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shinobi_attack_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shinobi_attack_3")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_shinobi_0")
@@ -39,7 +73,8 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="Shinobi" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_shinobi")]
+[node name="shinobi" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_shinobi")]
+unit_id = "shinobi"
 unit_name = "Shinobi"
 description = "Shinobi unit using the idle sheet from the ninja asset pack."
 max_health = 6

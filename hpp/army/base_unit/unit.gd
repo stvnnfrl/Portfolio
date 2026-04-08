@@ -1,5 +1,6 @@
 class_name Unit extends Node2D
 
+@export var unit_id : String
 @export var unit_name : String
 @export var description : String
 

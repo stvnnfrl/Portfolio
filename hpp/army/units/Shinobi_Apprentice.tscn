@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ch7p6wu7r7cs8"]
+[gd_scene load_steps=8 format=3 uid="uid://by2ypu5mweusl"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_apprentice"]
-[ext_resource type="Texture2D" uid="uid://b2hud4iblxssf" path="res://army/units/Shinobi_Apprentice.png" id="2_apprentice"]
+[ext_resource type="Texture2D" uid="uid://b2hud4iblxssf" path="res://army/units/shinobi_apprentice.png" id="2_apprentice"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_apprentice_0"]
 atlas = ExtResource("2_apprentice")
@@ -40,7 +40,8 @@ animations = [{
 }]
 
 [node name="Shinobi_Apprentice" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_apprentice")]
-unit_name = "Shinobi_Apprentice"
+unit_id = "shinobi_apprentice"
+unit_name = "Shinobi Apprentice"
 description = "Shinobi apprentice using copied Eager Apprentice idle frames."
 max_health = 5
 speed = 7

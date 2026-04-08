@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://djy3tn7w8mt30"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_pucm5"]
-[ext_resource type="Texture2D" uid="uid://bjyaxdifbl0n4" path="res://army/units/minelayer.png" id="2_s2jsv"]
+[ext_resource type="Texture2D" uid="uid://bjyaxdifbl0n4" path="res://army/units/mine_layer.png" id="2_s2jsv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pucm5"]
 atlas = ExtResource("2_s2jsv")
@@ -25,8 +25,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="MineLayer" instance=ExtResource("1_pucm5")]
-unit_name = "mine_layer"
+[node name="mine_layer" instance=ExtResource("1_pucm5")]
+unit_id = "mine_layer"
+unit_name = "Mine Layer"
 max_health = 10
 speed = 3
 movement = 3
