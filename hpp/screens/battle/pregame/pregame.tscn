@@ -57,7 +57,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -187.0
+offset_top = -287.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("1_ug2bj")
@@ -71,12 +71,12 @@ layout_mode = 2
 [node name="Main" type="HBoxContainer" parent="Main/Padding"]
 layout_mode = 2
 
-[node name="Info" type="VBoxContainer" parent="Main/Padding/Main" node_paths=PackedStringArray("name_label", "flavor_label", "health_label", "speed_label", "movement_label", "damage_label", "reach_label")]
+[node name="Info" type="VBoxContainer" parent="Main/Padding/Main" node_paths=PackedStringArray("name_label", "description_label", "health_label", "speed_label", "movement_label", "damage_label", "reach_label")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("3_5qa4y")
 name_label = NodePath("Name")
-flavor_label = NodePath("FlavorPadding/Flavor")
+description_label = NodePath("DescriptionPadding/Description")
 health_label = NodePath("Stats/Health/Amount")
 speed_label = NodePath("Stats/Speed/Amount")
 movement_label = NodePath("Stats/Movement/Amount")
@@ -88,14 +88,14 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Name"
 
-[node name="FlavorPadding" type="MarginContainer" parent="Main/Padding/Main/Info"]
+[node name="DescriptionPadding" type="MarginContainer" parent="Main/Padding/Main/Info"]
 layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Flavor" type="Label" parent="Main/Padding/Main/Info/FlavorPadding"]
+[node name="Description" type="Label" parent="Main/Padding/Main/Info/DescriptionPadding"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.7647059)
 text = "flavor text flavor text flavor text"
