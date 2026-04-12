@@ -3,6 +3,7 @@ class_name Pregame extends Control
 signal units_updated(units: Array[Unit])
 signal selected_unit_updated(unit: Unit)
 signal end_of_turn
+signal counts_updated
 
 var current_player: int = 0
 
@@ -43,7 +44,8 @@ func change_units_to(new_units: Array[Unit]):
 	current_units = new_units
 	
 	change_selected_unit_to(-1)  # unselect
-	units_updated.emit(current_units)
+	units_updated.emit()
+	counts_updated.emit()
 
 func change_selected_unit_to(index: int):
 	selected_index = index
@@ -57,13 +59,17 @@ func change_selected_unit_to(index: int):
 # returns a callback to purchase a unit if it can be afforded
 func can_purchase() -> Callable:
 	if current_unit_counts[selected_index] > 0:
-		return func(): current_unit_counts[selected_index] -= 1
+		return func(): 
+			current_unit_counts[selected_index] -= 1
+			counts_updated.emit()
 	
 	return Callable()  # equivalent to null
 
 # returns a callback to refund a unit
 func can_refund(index: int) -> Callable:
-	return func(): current_unit_counts[index] += 1
+	return func(): 
+		current_unit_counts[index] += 1
+		counts_updated.emit()
 
 func _update_player() -> void:
 	current_player += 1
@@ -76,6 +82,11 @@ func _update_player() -> void:
 		current_unit_counts = _unit_counts2
 		change_units_to(_units2)
 	else:
+		# TODO Temp change to make the connection work. Will need to investigate more
+		for unit in _player1_placed:
+			unit.get_parent().remove_child(unit)
+		for unit in _player2_placed:
+			unit.get_parent().remove_child(unit)
 		SceneManager.load_battlefield(_hero1, _player1_placed, _hero2, _player2_placed)
 
 # handle next button

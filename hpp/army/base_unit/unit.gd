@@ -21,6 +21,7 @@ var army_id : int
 @export var health_bar : ProgressBar
 
 func _ready() -> void:
+	_ensure_node_refs()
 	health = max_health
 
 	if anim_sprite:
@@ -29,6 +30,14 @@ func _ready() -> void:
 	if health_bar:
 		health_bar.max_value = max_health
 		health_bar.value = health
+
+func _ensure_node_refs() -> void:
+	if anim_sprite == null:
+		anim_sprite = get_node_or_null("AnimatedPixelArt")
+	if hex_halo == null:
+		hex_halo = get_node_or_null("HexHalo")
+	if health_bar == null:
+		health_bar = get_node_or_null("HealthBar")
 
 # functions
 		

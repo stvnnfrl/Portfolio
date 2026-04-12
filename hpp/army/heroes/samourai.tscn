@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://cn3lospq3uk2t"]
+
+[ext_resource type="PackedScene" uid="uid://dgo42mrokcow6" path="res://army/base_hero/hero.tscn" id="1_4ay1l"]
+[ext_resource type="PackedScene" uid="uid://bn2k3sna5bg5q" path="res://army/units/Ninja_Master.tscn" id="2_iutpn"]
+[ext_resource type="PackedScene" uid="uid://dmos3s7xkp2yy" path="res://army/units/Shinobi.tscn" id="3_qcoq6"]
+[ext_resource type="PackedScene" uid="uid://ch7p6wu7r7cs8" path="res://army/units/Shinobi_Apprentice.tscn" id="4_hnsan"]
+
+[node name="Hero" instance=ExtResource("1_4ay1l")]
+hero_name = "Samourai"
+description = "Too smart"
+units = Array[PackedScene]([ExtResource("2_iutpn"), ExtResource("3_qcoq6"), ExtResource("4_hnsan")])
+spells = Array[String](["Spell_1", "Spell_2", "Spell_3", "Spell_4"])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://chntssu1jcnmy"]
+[gd_scene load_steps=9 format=3 uid="uid://chntssu1jcnmy"]
 
 [ext_resource type="Texture2D" uid="uid://bu2d7bdhap8ic" path="res://screens/resources/crumpled_background.jpg" id="1_55b8l"]
 [ext_resource type="Script" uid="uid://b13dxfh5313rr" path="res://screens/match_setup/match_setup.gd" id="1_qg401"]
@@ -6,9 +6,11 @@
 [ext_resource type="Script" uid="uid://c8j5pcwyyx1bf" path="res://screens/match_setup/selection_P1.gd" id="4_xuxei"]
 [ext_resource type="Script" uid="uid://ef2gssr54kvg" path="res://screens/match_setup/selection_P2.gd" id="5_qenjy"]
 
-[sub_resource type="Theme" id="Theme_1t3eg"]
-default_font = ExtResource("2_qg401")
-default_font_size = 26
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g6l2n"]
+bg_color = Color(0.36282945, 0.36282948, 0.36282933, 1)
+
+[sub_resource type="Theme" id="Theme_wsmik"]
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_g6l2n")
 
 [sub_resource type="Theme" id="Theme_1id3h"]
 default_font = ExtResource("2_qg401")
@@ -29,6 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = SubResource("Theme_wsmik")
 script = ExtResource("1_qg401")
 
 [node name="ColorRect" type="TextureRect" parent="."]
@@ -50,7 +53,7 @@ offset_right = 1922.0
 offset_bottom = 153.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_qg401")
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 90
 text = "Match Setup"
 horizontal_alignment = 1
 
@@ -73,32 +76,11 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_qg401")
 theme_override_font_sizes/font_size = 50
-text = "CP: 150"
+text = "Initial CP: 150"
 
 [node name="Spacer2" type="Control" parent="MatchSettings"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="OpponentType" type="Label" parent="MatchSettings"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_qg401")
-theme_override_font_sizes/font_size = 40
-text = "Opponent Type:   "
-
-[node name="ComputerOrHuman" type="OptionButton" parent="MatchSettings"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme = SubResource("Theme_1t3eg")
-theme_override_fonts/font = ExtResource("2_qg401")
-theme_override_font_sizes/font_size = 30
-selected = 0
-item_count = 2
-popup/item_0/text = "Computer"
-popup/item_0/id = 0
-popup/item_1/text = "Human"
-popup/item_1/id = 1
 
 [node name="Spacer4" type="Control" parent="MatchSettings"]
 layout_mode = 2
@@ -157,13 +139,13 @@ text = "Hero/Army"
 layout_mode = 2
 selected = 0
 item_count = 4
-popup/item_0/text = "Scrap"
+popup/item_0/text = "General"
 popup/item_0/id = 0
-popup/item_1/text = "Monarch"
+popup/item_1/text = "King"
 popup/item_1/id = 1
-popup/item_2/text = "Undead"
+popup/item_2/text = "Samourai"
 popup/item_2/id = 2
-popup/item_3/text = "Ninjas"
+popup/item_3/text = "Soul"
 popup/item_3/id = 3
 
 [node name="Cost" type="Label" parent="ArmySetup/SelectionP1"]
@@ -331,13 +313,13 @@ text = "Hero/Army"
 layout_mode = 2
 selected = 0
 item_count = 4
-popup/item_0/text = "Scrap"
+popup/item_0/text = "General"
 popup/item_0/id = 0
-popup/item_1/text = "Monarch"
+popup/item_1/text = "King"
 popup/item_1/id = 1
-popup/item_2/text = "Undead"
+popup/item_2/text = "Samourai"
 popup/item_2/id = 2
-popup/item_3/text = "Ninjas"
+popup/item_3/text = "Soul"
 popup/item_3/id = 3
 
 [node name="Cost" type="Label" parent="ArmySetup/SelectionP2"]

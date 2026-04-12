@@ -2,11 +2,13 @@ extends CanvasItem
 
 @export var cubic: CubicCoords
 @export var color: Color = Color.BLACK
-@export var border_frac: float = 0.9
+@export var border_frac: float = 0.93
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.material = load("res://hex_grid/hex_grid_render.tres")
+	# TODO validate final hex grid size to be consistent with battlefield
+	cubic.size = 84.0
 	set_instance_shader_parameter("size", cubic.size)
 	set_instance_shader_parameter("border_frac", border_frac)
 	pass # Replace with function body.

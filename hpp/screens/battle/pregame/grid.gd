@@ -8,6 +8,9 @@ var placed_units: Dictionary[Vector3i, Unit]
 # indices for the current player - reset when players switch
 var placed_unit_indices: Dictionary[Unit, int]
 
+func _ready() -> void:
+	cubic_coords.size = 84.0
+
 func _on_gui_input(event: InputEvent) -> void:
 	if event is not InputEventMouseButton:
 		return
@@ -89,6 +92,8 @@ func create_unit_at(grid_coordinates: Vector3i, unit_type: Unit) -> Unit:
 func _on_pregame_end_of_turn() -> void:
 	# set the placed units
 	for unit in placed_unit_indices:
-		state.current_player_placed.append(unit.duplicate())
+		# TODO Temp change to make the connection work. Will need to investigate more
+		#state.current_player_placed.append(unit.duplicate())
+		state.current_player_placed.append(unit)
 	
 	placed_unit_indices.clear()

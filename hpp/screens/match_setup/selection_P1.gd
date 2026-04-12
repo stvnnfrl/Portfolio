@@ -6,13 +6,10 @@ extends GridContainer
 # Maps OptionButton index to Hero scene path.
 # Update these paths as new army scenes are created.
 const HERO_SCENES: Array[String] = [
-	"res://army/Monarch/monarch.tscn",   # 0: Scrap (TODO: replace)
-	"res://army/Monarch/monarch.tscn",   # 1: Monarch
-	"res://army/Monarch/monarch.tscn",   # 2: Undead (TODO: replace)
-	
-	"res://army/stub_units/heroStub.tscn" # Added stub Hero for testing
-	
-	#"res://army/Monarch/monarch.tscn",   # 3: Ninjas (TODO: replace)
+	"res://army/heroes/general.tscn",
+	"res://army/heroes/king.tscn",
+	"res://army/heroes/samourai.tscn",
+	"res://army/heroes/soul.tscn"
 ]
 
 @onready var troop_labels = [$Troop1, $Troop2, $Troop3, $Troop4]
@@ -47,6 +44,8 @@ func _ready():
 		var idx = i  # capture for lambda
 		btn_pairs[i][0].pressed.connect(func(): _change_qty(idx, -1))
 		btn_pairs[i][1].pressed.connect(func(): _change_qty(idx, 1))
+		
+	_setup_dropdown_tooltips()
 
 	hero_option.item_selected.connect(_on_hero_selected)
 	money = _parse_money(money_label.text)
@@ -75,6 +74,8 @@ func _on_hero_selected(index: int) -> void:
 	if selected_hero == null:
 		push_warning("Hero scene did not return a Hero instance")
 		return
+		
+	hero_option.tooltip_text = selected_hero.description
 
 	unit_count = mini(selected_hero.units.size(), 4)
 
@@ -121,3 +122,15 @@ func _update_ui() -> void:
 func _parse_money(text: String) -> int:
 	var parts = text.split(":")
 	return int(parts[1].strip_edges())
+	
+
+func _setup_dropdown_tooltips() -> void:
+	for i in range(hero_option.item_count):
+		if i < HERO_SCENES.size():
+			var hero_scene = load(HERO_SCENES[i])
+			if hero_scene:
+				var temp_hero = hero_scene.instantiate() as Hero
+				# Set the tooltip for the specific item in the dropdown list
+				hero_option.set_item_tooltip(i, temp_hero.description)
+				# delete the temp hero instance
+				temp_hero.queue_free()

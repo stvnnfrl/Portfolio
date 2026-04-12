@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8we0cnsj2qoh"]
+
+[ext_resource type="PackedScene" uid="uid://dgo42mrokcow6" path="res://army/base_hero/hero.tscn" id="1_66j1m"]
+[ext_resource type="PackedScene" uid="uid://0offbspc4q8p" path="res://army/units/lich.tscn" id="2_oritp"]
+[ext_resource type="PackedScene" uid="uid://biou13j46jdf5" path="res://army/units/soul_well.tscn" id="3_domi8"]
+[ext_resource type="PackedScene" uid="uid://bj7u6cw7q4ako" path="res://army/units/spectral_rider.tscn" id="4_n61da"]
+
+[node name="Hero" instance=ExtResource("1_66j1m")]
+hero_name = "Soul"
+description = "Can see your soul"
+units = Array[PackedScene]([ExtResource("2_oritp"), ExtResource("3_domi8"), ExtResource("4_n61da")])
+spells = Array[String](["Spell_1", "Spell_2", "Spell_3", "Spell_4"])

@@ -1,11 +1,6 @@
 extends Node
 class_name BattlefieldManager
 
-# this will have to be changed in the future. Only for demo purposes. 
-# Have to think of a better way because 20 variables for all different unit types is propably not the best
-@export var minelayer_scene : PackedScene
-@export var pawn_scene : PackedScene
-
 @export var highlight_scene : PackedScene
 
 @onready var grid : GridManager = $"../GridManager"
@@ -16,7 +11,9 @@ var active_highlights : Array = []
 var active_reachable_hexes : Dictionary = {}
 
 var turn_queue : Array[Unit] = []
+var hero_1 : Hero
 var army_1 : Array[Unit] = []
+var hero_2 : Hero
 var army_2 : Array[Unit] = []
 
 # Army colors
@@ -30,44 +27,113 @@ var current_phase : SubTurnPhase = SubTurnPhase.MOVING
 var curr_subturn_index : int = -1
 var active_unit : Unit
 
-func _ready() -> void:
-	# call_deferred to ensure the GridManager finishes its own _ready setup first
-	call_deferred("_setup_army")
+func setup_battlefield(
+	hero1: Hero,
+	army1: Array[Unit],
+	hero2: Hero,
+	army2: Array[Unit],
+	saved_turn_queue: Array[int] = [],
+	saved_subturn_index: int = -1,
+	saved_phase: int = SubTurnPhase.MOVING
+) -> void:
+	## this will have to be changed when we receive data through the scene manager
+	## army 1
+	#_instantiate_unit_scene(minelayer_scene, Vector3i(4, -1, -3), 1)
+	#_instantiate_unit_scene(pawn_scene, Vector3i(5, 0, -5), 1)
+	#
+	## army 2
+	#_instantiate_unit_scene(pawn_scene, Vector3i(7, -4, -3), 2)
+	#_instantiate_unit_scene(minelayer_scene, Vector3i(8, -3, -5), 2)
 
-func _setup_army() -> void:
-	# this will have to be changed when we receive data through the scene manager
-	# army 1
-	_instantiate_unit_scene(minelayer_scene, Vector3i(4, -1, -3), 1)
-	_instantiate_unit_scene(pawn_scene, Vector3i(5, 0, -5), 1)
-	
-	# army 2
-	_instantiate_unit_scene(pawn_scene, Vector3i(7, -4, -3), 2)
-	_instantiate_unit_scene(minelayer_scene, Vector3i(8, -3, -5), 2)
+	hero_1 = hero1
+	hero_2 = hero2
+
+	_setup_army(army1, army2)
 	
 	# start game loop
 	_init_turn_queue()
-	_start_next_sub_turn()
-	
+	if saved_turn_queue.is_empty() or saved_subturn_index < 0:
+		_start_next_sub_turn()
+		return
 
-func _instantiate_unit_scene(scene_to_spawn : PackedScene, hex_coords : Vector3i, army : int) -> void:
+	_load_saved_turn_state(saved_turn_queue, saved_subturn_index, saved_phase)
+
+func _setup_army(army1: Array[Unit], army2: Array[Unit]) -> void:
+	for unit in army1:
+		_setup_pregame_unit(unit, 1)
+			
+	for unit in army2:
+		_setup_pregame_unit(unit, 2)
+
+func _load_saved_turn_state(saved_turn_queue: Array[int], saved_subturn_index: int, saved_phase: int) -> void:
+	if active_unit != null:
+		_set_normal_color(active_unit)
+
+	_clear_highlights()
+	turn_queue.clear()
+
+	var all_units: Array[Unit] = []
+	all_units.append_array(army_1)
+	all_units.append_array(army_2)
+
+	for unit_index in saved_turn_queue:
+		if unit_index >= 0 and unit_index < all_units.size():
+			turn_queue.append(all_units[unit_index])
+
+	for unit in all_units:
+		if not turn_queue.has(unit):
+			turn_queue.append(unit)
+
+	if turn_queue.is_empty():
+		_start_next_sub_turn()
+		return
+
+	curr_subturn_index = clamp(saved_subturn_index, 0, turn_queue.size() - 1)
+	current_phase = saved_phase
+	active_unit = turn_queue[curr_subturn_index]
+	_activate_unit_color()
+	if current_phase == SubTurnPhase.MOVING:
+		_draw_reachable_hexes()
 	
-	var unit_instance = scene_to_spawn.instantiate() as Unit
+	
+func _setup_pregame_unit(unit_instance: Unit, army: int) -> void:
+	
 	units_layer.add_child(unit_instance)
+	unit_instance._ensure_node_refs()
 	
-	# set attributes
-	unit_instance.cubic_pos = hex_coords
+	# Set attributes
 	unit_instance.army_id = army
-	unit_instance.position = grid.cubic.cubic_to_pos2D(hex_coords)
+	unit_instance.position = grid.cubic.cubic_to_pos2D(unit_instance.cubic_pos)
 	
 	_set_normal_color(unit_instance)
 	
 	# update the grid manager
-	grid.board_state[hex_coords] = unit_instance
+	grid.board_state[unit_instance.cubic_pos] = unit_instance
 	
 	if army == 1:
 		army_1.append(unit_instance)
 	else:
 		army_2.append(unit_instance)
+
+#func _instantiate_unit_scene(scene_to_spawn : PackedScene, hex_coords : Vector3i, army : int) -> void:
+	#
+	#var unit_instance = scene_to_spawn.instantiate() as Unit
+	#units_layer.add_child(unit_instance)
+	#
+	## set attributes
+	#unit_instance.cubic_pos = hex_coords
+	#unit_instance.army_id = army
+	#unit_instance.position = grid.cubic.cubic_to_pos2D(hex_coords)
+	#
+	#_set_normal_color(unit_instance)
+	#
+	## update the grid manager
+	#grid.board_state[hex_coords] = unit_instance
+	#
+	#if army == 1:
+		#army_1.append(unit_instance)
+	#else:
+		#army_2.append(unit_instance)
 
 func _set_normal_color(unit : Unit):
 	if unit.army_id == 1:
@@ -191,8 +257,20 @@ func _kill_unit(unit: Unit) -> void:
 	# Delete the node
 	unit.queue_free()
 	
+	# TODO this check placement might get changed in the future when spells are involved
+	# Check if one army has won
+	_check_winning_condition()
+	
 
-func _draw_reachable_hexes() -> void:
+func _check_winning_condition():
+	if army_1.is_empty():
+		print("Army 2 wins")
+		SceneManager.load_game_over("Army 2 wins", army_2_color_active)
+	elif army_2.is_empty():
+		print("Army 1 wins")
+		SceneManager.load_game_over("Army 1 wins", army_1_color_active)
+
+func _draw_reachable_hexes():
 	# clean up just in case
 	_clear_highlights() 
 	

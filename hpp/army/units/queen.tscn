@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cj6m3o4y4q1m7"]
+
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_queen"]
+[ext_resource type="Texture2D" uid="uid://4acqxwwi4rpd" path="res://army/units/queen.png" id="2_queen"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_queen_0"]
+atlas = ExtResource("2_queen")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_queen_1"]
+atlas = ExtResource("2_queen")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_queen"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_queen_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_queen_1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Queen" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_queen")]
+unit_name = "queen"
+description = "Placeholder queen unit for battlefield testing."
+max_health = 10
+speed = 6
+movement = 3
+dmg_min = 5
+dmg_max = 7
+reach = 2
+cost = 8
+anim_sprite = NodePath("AnimatedPixelArt")
+hex_halo = NodePath("HexHalo")
+health_bar = NodePath("HealthBar")
+
+[node name="AnimatedPixelArt" parent="." index="1"]
+scale = Vector2(2.9, 2.9)
+sprite_frames = SubResource("SpriteFrames_queen")
+animation = &"idle"
