@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://by2ypu5mweusl"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_apprentice"]
-[ext_resource type="Texture2D" path="res://army/units/shinobi_apprentice.png" id="2_apprentice"]
+[ext_resource type="Texture2D" path="res://army/units/Shinobi_Apprentice.png" id="2_apprentice"]
 [ext_resource type="Texture2D" path="res://army/units/shinobi_apprentice_attack.png" id="3_apprentice_attack"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_apprentice_0"]
