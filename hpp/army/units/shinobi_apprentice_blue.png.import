@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c08xlfd2538fg"
-path="res://.godot/imported/shinobi_apprentice.png-59500faaa12f09caa4c4430bd1ca003f.ctex"
+uid="uid://d3k7o73sw4kof"
+path="res://.godot/imported/shinobi_apprentice_blue.png-21c06329512b1b567485c56ad0baa7f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/units/shinobi_apprentice.png"
-dest_files=["res://.godot/imported/shinobi_apprentice.png-59500faaa12f09caa4c4430bd1ca003f.ctex"]
+source_file="res://army/units/shinobi_apprentice_blue.png"
+dest_files=["res://.godot/imported/shinobi_apprentice_blue.png-21c06329512b1b567485c56ad0baa7f2.ctex"]
 
 [params]
 
