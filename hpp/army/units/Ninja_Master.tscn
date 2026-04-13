@@ -1,72 +1,72 @@
 [gd_scene load_steps=15 format=3 uid="uid://bn2k3sna5bg5q"]
 
-[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_ninja"]
-[ext_resource type="Texture2D" uid="uid://b8iblo2nqhqmh" path="res://army/units/Ninja_Master.png" id="2_ninja"]
-[ext_resource type="Texture2D" uid="uid://cekefvh0d7e8v" path="res://army/units/ninja_master_attack.png" id="3_ninja_attack"]
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_s4jlwm"]
+[ext_resource type="Texture2D" uid="uid://b8iblo2nqhqmh" path="res://army/units/Ninja_Master.png" id="2_e8prc"]
+[ext_resource type="Texture2D" uid="uid://cekefvh0d7e8v" path="res://army/units/ninja_master_attack.png" id="3_f6kvd"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_0"]
-atlas = ExtResource("2_ninja")
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3rbq"]
+atlas = ExtResource("2_e8prc")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_1"]
-atlas = ExtResource("2_ninja")
+[sub_resource type="AtlasTexture" id="AtlasTexture_muus5"]
+atlas = ExtResource("2_e8prc")
 region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_2"]
-atlas = ExtResource("2_ninja")
+[sub_resource type="AtlasTexture" id="AtlasTexture_277cz"]
+atlas = ExtResource("2_e8prc")
 region = Rect2(0, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_attack_0"]
-atlas = ExtResource("3_ninja_attack")
+[sub_resource type="AtlasTexture" id="AtlasTexture_4l0hf"]
+atlas = ExtResource("3_f6kvd")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_attack_1"]
-atlas = ExtResource("3_ninja_attack")
+[sub_resource type="AtlasTexture" id="AtlasTexture_thagk"]
+atlas = ExtResource("3_f6kvd")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_attack_2"]
-atlas = ExtResource("3_ninja_attack")
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsxqr"]
+atlas = ExtResource("3_f6kvd")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_attack_3"]
-atlas = ExtResource("3_ninja_attack")
+[sub_resource type="AtlasTexture" id="AtlasTexture_t72dz"]
+atlas = ExtResource("3_f6kvd")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_attack_4"]
-atlas = ExtResource("3_ninja_attack")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ueog7"]
+atlas = ExtResource("3_f6kvd")
 region = Rect2(128, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_attack_5"]
-atlas = ExtResource("3_ninja_attack")
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ebzk"]
+atlas = ExtResource("3_f6kvd")
 region = Rect2(160, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ninja_attack_6"]
-atlas = ExtResource("3_ninja_attack")
+[sub_resource type="AtlasTexture" id="AtlasTexture_pptfa"]
+atlas = ExtResource("3_f6kvd")
 region = Rect2(192, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ninja"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_u3mxa"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ninja_attack_0")
+"texture": SubResource("AtlasTexture_4l0hf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ninja_attack_1")
+"texture": SubResource("AtlasTexture_thagk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ninja_attack_2")
+"texture": SubResource("AtlasTexture_rsxqr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ninja_attack_3")
+"texture": SubResource("AtlasTexture_t72dz")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ninja_attack_4")
+"texture": SubResource("AtlasTexture_ueog7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ninja_attack_5")
+"texture": SubResource("AtlasTexture_8ebzk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ninja_attack_6")
+"texture": SubResource("AtlasTexture_pptfa")
 }],
 "loop": false,
 "name": &"attack",
@@ -74,20 +74,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ninja_0")
+"texture": SubResource("AtlasTexture_w3rbq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ninja_1")
+"texture": SubResource("AtlasTexture_muus5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ninja_2")
+"texture": SubResource("AtlasTexture_277cz")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[node name="ninja_master" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_ninja")]
+[node name="ninja_master" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_s4jlwm")]
 unit_id = "ninja_master"
 unit_name = "Ninja Master"
 description = "Ninja Master unit using the first idle row from Ninja_Animations."
@@ -104,5 +104,5 @@ health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(3, 3)
-sprite_frames = SubResource("SpriteFrames_ninja")
+sprite_frames = SubResource("SpriteFrames_u3mxa")
 animation = &"idle"

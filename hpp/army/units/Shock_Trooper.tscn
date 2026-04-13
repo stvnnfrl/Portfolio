@@ -1,31 +1,31 @@
 [gd_scene load_steps=6 format=3 uid="uid://b7r5q3e6mjqwj"]
 
-[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_shock"]
-[ext_resource type="Texture2D" uid="uid://qjrfym4q47se" path="res://army/units/shock_trooper.png" id="2_shock"]
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_p4vks"]
+[ext_resource type="Texture2D" uid="uid://qjrfym4q47se" path="res://army/units/shock_trooper.png" id="2_j6rnh"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_shock_0"]
-atlas = ExtResource("2_shock")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxo90"]
+atlas = ExtResource("2_j6rnh")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_shock_1"]
-atlas = ExtResource("2_shock")
+[sub_resource type="AtlasTexture" id="AtlasTexture_vplu8"]
+atlas = ExtResource("2_j6rnh")
 region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_shock"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_c8mqt"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_shock_0")
+"texture": SubResource("AtlasTexture_cxo90")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_shock_1")
+"texture": SubResource("AtlasTexture_vplu8")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[node name="shock_trooper" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_shock")]
+[node name="shock_trooper" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_p4vks")]
 unit_id = "shock_trooper"
 unit_name = "Shock Trooper"
 description = "Shock Trooper using The Mandalorian Top Down front idle frames."
@@ -43,5 +43,5 @@ health_bar = NodePath("HealthBar")
 [node name="AnimatedPixelArt" parent="." index="1"]
 position = Vector2(0, -14)
 scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_shock")
+sprite_frames = SubResource("SpriteFrames_c8mqt")
 animation = &"idle"
