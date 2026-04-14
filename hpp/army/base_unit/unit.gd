@@ -1,10 +1,11 @@
 class_name Unit extends Node2D
 
+@export var unit_id : String
 @export var unit_name : String
 @export var description : String
 
 @export var max_health : int
-var health : int
+var health : int = -1
 @export var speed : int
 @export var movement : int
 @export var dmg_min : int
@@ -22,7 +23,8 @@ var army_id : int
 
 func _ready() -> void:
 	_ensure_node_refs()
-	health = max_health
+	if health < 0:
+		health = max_health
 
 	if anim_sprite:
 		anim_sprite.play("idle")

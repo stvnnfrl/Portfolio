@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgh4460pk53to"
-path="res://.godot/imported/SpectralRider.png-408a60236f2265f87393cc2dc5553bfc.ctex"
+uid="uid://cp0ibmbo31nls"
+path="res://.godot/imported/ninja.png-bf14a493d66ae6514a28472d0d9ff1e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/units/SpectralRider.png"
-dest_files=["res://.godot/imported/SpectralRider.png-408a60236f2265f87393cc2dc5553bfc.ctex"]
+source_file="res://army/units/ninja.png"
+dest_files=["res://.godot/imported/ninja.png-bf14a493d66ae6514a28472d0d9ff1e9.ctex"]
 
 [params]
 
