@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj7plsvwk0r8t"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_pd1ni"]
+[ext_resource type="Texture2D" uid="uid://csh2xaal35di5" path="res://spells/DetonationProtocol.png" id="2_m34g8"]
+
+[node name="Spell" instance=ExtResource("1_pd1ni")]
+texture = ExtResource("2_m34g8")
+spell_name = "Detonation Protocol"

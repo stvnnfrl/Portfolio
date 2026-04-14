@@ -29,9 +29,20 @@ func _process(delta: float) -> void:
 
 # helper functions
 
+# Regular distance
 func get_cubic_distance(a: Vector3i, b: Vector3i) -> int:
 	return maxi(maxi(abs(a.x - b.x), abs(a.y - b.y)), abs(a.z - b.z))
 
+
+# Range (without taking into account obstacles)
+func get_hexes_in_range(center: Vector3i, radius: int) -> Array[Vector3i]:
+	var results: Array[Vector3i] = []
+	for dx in range(-radius, radius + 1):
+		for dy in range(max(-radius, -dx - radius), min(radius, -dx + radius) + 1):
+			var dz = -dx - dy
+			results.append(center + Vector3i(dx, dy, dz))
+	return results
+	
 
 func get_entity_at_hex(target_hex: Vector3i) -> Node:
 	if board_state.has(target_hex):

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfojrofjouerp"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_2j67r"]
+[ext_resource type="Texture2D" uid="uid://2ujlxmed5kov" path="res://spells/Surge.png" id="2_3k7v1"]
+
+[node name="Spell" instance=ExtResource("1_2j67r")]
+texture = ExtResource("2_3k7v1")
+spell_name = "Surge"

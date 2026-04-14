@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dduf4qnkiabv6"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_mx7f0"]
+[ext_resource type="Texture2D" uid="uid://dr8evuqbr2t2o" path="res://spells/Bulwark.png" id="2_aafwq"]
+
+[node name="Spell" instance=ExtResource("1_mx7f0")]
+texture = ExtResource("2_aafwq")
+spell_name = "Bulwark"

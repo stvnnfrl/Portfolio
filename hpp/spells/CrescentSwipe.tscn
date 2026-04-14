@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://hsm0u25eyers"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_jilmv"]
+[ext_resource type="Texture2D" uid="uid://u01qlrgkwlgc" path="res://spells/CrescentSwipe.png" id="2_1s1fa"]
+
+[node name="Spell" instance=ExtResource("1_jilmv")]
+texture = ExtResource("2_1s1fa")
+spell_name = "Crescent Swipe"

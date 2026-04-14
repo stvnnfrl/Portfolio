@@ -93,7 +93,7 @@ func _load_saved_turn_state(saved_turn_queue: Array[int], saved_subturn_index: i
 	active_unit = turn_queue[curr_subturn_index]
 	_activate_unit_color()
 	if current_phase == SubTurnPhase.MOVING:
-		_draw_reachable_hexes()
+		_draw_phase_highlights()
 	
 	
 func _setup_pregame_unit(unit_instance: Unit, army: int) -> void:
@@ -114,26 +114,7 @@ func _setup_pregame_unit(unit_instance: Unit, army: int) -> void:
 		army_1.append(unit_instance)
 	else:
 		army_2.append(unit_instance)
-
-#func _instantiate_unit_scene(scene_to_spawn : PackedScene, hex_coords : Vector3i, army : int) -> void:
-	#
-	#var unit_instance = scene_to_spawn.instantiate() as Unit
-	#units_layer.add_child(unit_instance)
-	#
-	## set attributes
-	#unit_instance.cubic_pos = hex_coords
-	#unit_instance.army_id = army
-	#unit_instance.position = grid.cubic.cubic_to_pos2D(hex_coords)
-	#
-	#_set_normal_color(unit_instance)
-	#
-	## update the grid manager
-	#grid.board_state[hex_coords] = unit_instance
-	#
-	#if army == 1:
-		#army_1.append(unit_instance)
-	#else:
-		#army_2.append(unit_instance)
+		
 
 func _set_normal_color(unit : Unit):
 	if unit.army_id == 1:
@@ -161,7 +142,7 @@ func _start_next_sub_turn():
 	active_unit = turn_queue[curr_subturn_index]
 	current_phase = SubTurnPhase.MOVING
 	_activate_unit_color()
-	_draw_reachable_hexes()
+	_draw_phase_highlights()
 
 func _activate_unit_color():
 	if active_unit.army_id == 1:
@@ -204,18 +185,21 @@ func _attempt_move(target_hex: Vector3i) -> void:
 		
 		_clear_highlights()
 		current_phase = SubTurnPhase.ATTACKING
+		_draw_phase_highlights()
 		
 	# Skip movement if they click the tile they are already standing on
 	elif target_hex == active_unit.cubic_pos:
 		print("movement skipped")
 		_clear_highlights()
 		current_phase = SubTurnPhase.ATTACKING 
+		_draw_phase_highlights()
 
 
 func _attempt_attack(target_hex: Vector3i) -> void:
 	# Skip attack if they click on the current unit hex
 	if target_hex == active_unit.cubic_pos:
 		print("Attack skipped")
+		_clear_highlights()
 		_start_next_sub_turn()
 		return
 		
@@ -235,6 +219,7 @@ func _attempt_attack(target_hex: Vector3i) -> void:
 			if target_entity.health <= 0:
 				_kill_unit(target_entity)
 				
+			_clear_highlights()
 			_start_next_sub_turn()
 		else:
 			print("Invalid target")
@@ -260,7 +245,6 @@ func _kill_unit(unit: Unit) -> void:
 	# TODO this check placement might get changed in the future when spells are involved
 	# Check if one army has won
 	_check_winning_condition()
-	
 
 func _check_winning_condition():
 	if army_1.is_empty():
@@ -270,14 +254,28 @@ func _check_winning_condition():
 		print("Army 1 wins")
 		SceneManager.load_game_over("Army 1 wins", army_1_color_active)
 
-func _draw_reachable_hexes():
+
+func _draw_phase_highlights() -> void:
 	# clean up just in case
 	_clear_highlights() 
 	
-	# get reachable hexes with BFS
-	active_reachable_hexes = grid.calculate_reachable_hexes(active_unit.cubic_pos, active_unit.movement)
+	var hexes_to_highlight: Array = []
+	var highlight_color: Color
 	
-	for hex_coord in active_reachable_hexes.keys():
+	# Determine hexes and colors based on the current phase
+	if current_phase == SubTurnPhase.MOVING:
+		# get reachable hexes with BFS
+		active_reachable_hexes = grid.calculate_reachable_hexes(active_unit.cubic_pos, active_unit.movement)
+		hexes_to_highlight = active_reachable_hexes.keys()
+		highlight_color = Color(0.37, 0.37, 0.37, 1.0)
+		
+	elif current_phase == SubTurnPhase.ATTACKING:
+		# Calculate distance for ranged attacks
+		hexes_to_highlight = grid.get_hexes_in_range(active_unit.cubic_pos, active_unit.reach)
+		highlight_color = Color(0.851, 0.412, 0.325, 0.718)
+	
+	# draw
+	for hex_coord in hexes_to_highlight:
 		# skip active unit coordinates (i.e. don't want to "overwrite" unit)
 		if hex_coord == active_unit.cubic_pos:
 			continue
@@ -285,7 +283,7 @@ func _draw_reachable_hexes():
 		var h_instance = highlight_scene.instantiate()
 		highlight_layer.add_child(h_instance)
 		h_instance.position = grid.cubic.cubic_to_pos2D(hex_coord)
-		h_instance.modulate = Color(0.37, 0.37, 0.37, 1.0)
+		h_instance.modulate = highlight_color
 		
 		active_highlights.append(h_instance)
 

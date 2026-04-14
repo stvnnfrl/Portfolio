@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjonvqxm4h30i"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_1426q"]
+[ext_resource type="Texture2D" uid="uid://br6s33j171hnv" path="res://spells/Quicken.png" id="2_d15gf"]
+
+[node name="Spell" instance=ExtResource("1_1426q")]
+texture = ExtResource("2_d15gf")
+spell_name = "Quicken"

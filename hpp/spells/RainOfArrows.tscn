@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://damh1xj3b8ytp"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_x5nab"]
+[ext_resource type="Texture2D" uid="uid://ce7jumn0swnem" path="res://spells/RainofArrows.png" id="2_esbq6"]
+
+[node name="Spell" instance=ExtResource("1_x5nab")]
+texture = ExtResource("2_esbq6")
+spell_name = "Rain of Arrows"
