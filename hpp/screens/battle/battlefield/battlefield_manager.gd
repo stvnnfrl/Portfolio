@@ -277,7 +277,7 @@ func _draw_phase_highlights() -> void:
 	elif current_phase == SubTurnPhase.ATTACKING:
 		# Calculate distance for ranged attacks
 		hexes_to_highlight = grid.get_hexes_in_range(active_unit.cubic_pos, active_unit.reach)
-		highlight_color = Color(0.851, 0.412, 0.325, 0.718)
+		highlight_color = Color(0.369, 0.369, 0.369, 0.867)
 	
 	# draw
 	for hex_coord in hexes_to_highlight:

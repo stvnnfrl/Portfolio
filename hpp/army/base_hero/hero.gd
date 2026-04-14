@@ -4,4 +4,4 @@ class_name Hero extends Node2D
 @export var description : String
 
 @export var units : Array[PackedScene]
-@export var spells : Array[String]
+@export var spells : Array[PackedScene]

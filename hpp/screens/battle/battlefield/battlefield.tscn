@@ -179,7 +179,6 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="SpellBookMenu" type="Control" parent="UILayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

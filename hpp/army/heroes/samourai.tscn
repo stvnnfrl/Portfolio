@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cn3lospq3uk2t"]
+[gd_scene load_steps=10 format=3 uid="uid://cn3lospq3uk2t"]
 
 [ext_resource type="PackedScene" uid="uid://dgo42mrokcow6" path="res://army/base_hero/hero.tscn" id="1_4ay1l"]
 [ext_resource type="PackedScene" uid="uid://bn2k3sna5bg5q" path="res://army/units/Ninja_Master.tscn" id="2_iutpn"]
 [ext_resource type="PackedScene" uid="uid://fhwouucvaqti" path="res://army/units/Shinobi.tscn" id="3_qcoq6"]
 [ext_resource type="PackedScene" uid="uid://by2ypu5mweusl" path="res://army/units/Shinobi_Apprentice.tscn" id="4_hnsan"]
-[ext_resource type="PackedScene" uid="uid://d3ti7x6u87b3p" path="res://army/units/Ninja.tscn" id="5_v2qhr"]
+[ext_resource type="PackedScene" uid="uid://ckkvjpostk6q8" path="res://army/units/Ninja.tscn" id="5_v2qhr"]
+[ext_resource type="PackedScene" uid="uid://bjonvqxm4h30i" path="res://spells/Quicken.tscn" id="6_ty3li"]
+[ext_resource type="PackedScene" uid="uid://rkpqnax8udt7" path="res://spells/Smokescreen.tscn" id="7_jel5n"]
+[ext_resource type="PackedScene" uid="uid://dc8tska2wfkyk" path="res://spells/Sunder.tscn" id="8_wyiuq"]
+[ext_resource type="PackedScene" uid="uid://bht4vlildc4lh" path="res://spells/SwitchTechnique.tscn" id="9_yqx4q"]
 
 [node name="Hero" instance=ExtResource("1_4ay1l")]
 hero_name = "Samourai"
 description = "Too smart"
 units = Array[PackedScene]([ExtResource("2_iutpn"), ExtResource("3_qcoq6"), ExtResource("4_hnsan"), ExtResource("5_v2qhr")])
-spells = Array[String](["Spell_1", "Spell_2", "Spell_3", "Spell_4"])
+spells = Array[PackedScene]([ExtResource("6_ty3li"), ExtResource("7_jel5n"), ExtResource("8_wyiuq"), ExtResource("9_yqx4q")])
