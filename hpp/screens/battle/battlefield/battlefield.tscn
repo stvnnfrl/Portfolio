@@ -263,7 +263,14 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container"]
 layout_mode = 2
 
-[node name="Spell1Label" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
+[node name="SpellDrawing" type="TextureRect" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
 layout_mode = 2
 
 [node name="Spell2Container" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
@@ -274,7 +281,14 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container"]
 layout_mode = 2
 
-[node name="Spell2Label" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
+[node name="SpellDrawing" type="TextureRect" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
 layout_mode = 2
 
 [node name="Spell3Container" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
@@ -285,7 +299,14 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container"]
 layout_mode = 2
 
-[node name="Spell3Label" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
+[node name="SpellDrawing" type="TextureRect" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
 layout_mode = 2
 
 [node name="Spell4Container" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
@@ -296,7 +317,14 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container"]
 layout_mode = 2
 
-[node name="Spell4Label" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
+[node name="SpellDrawing" type="TextureRect" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
 layout_mode = 2
 
 [node name="Spine" type="VSeparator" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages"]

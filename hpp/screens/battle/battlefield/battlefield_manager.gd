@@ -26,6 +26,7 @@ enum SubTurnPhase {MOVING, ATTACKING, ANIMATING}
 var current_phase : SubTurnPhase = SubTurnPhase.MOVING
 var curr_subturn_index : int = -1
 var active_unit : Unit
+var active_hero : Hero
 
 func setup_battlefield(
 	hero1: Hero,
@@ -36,15 +37,7 @@ func setup_battlefield(
 	saved_subturn_index: int = -1,
 	saved_phase: int = SubTurnPhase.MOVING
 ) -> void:
-	## this will have to be changed when we receive data through the scene manager
-	## army 1
-	#_instantiate_unit_scene(minelayer_scene, Vector3i(4, -1, -3), 1)
-	#_instantiate_unit_scene(pawn_scene, Vector3i(5, 0, -5), 1)
-	#
-	## army 2
-	#_instantiate_unit_scene(pawn_scene, Vector3i(7, -4, -3), 2)
-	#_instantiate_unit_scene(minelayer_scene, Vector3i(8, -3, -5), 2)
-
+	
 	hero_1 = hero1
 	hero_2 = hero2
 
@@ -140,8 +133,18 @@ func _start_next_sub_turn():
 		print("round done")
 		
 	active_unit = turn_queue[curr_subturn_index]
-	current_phase = SubTurnPhase.MOVING
+	if active_unit.army_id == 1:
+		active_hero = hero_1
+	else:
+		active_hero = hero_2
+	
 	_activate_unit_color()
+	
+	if active_unit.movement <= 0:
+		current_phase = SubTurnPhase.ATTACKING
+	else:
+		current_phase = SubTurnPhase.MOVING
+	
 	_draw_phase_highlights()
 
 func _activate_unit_color():
@@ -297,3 +300,25 @@ func _draw_phase_highlights() -> void:
 
 func sort_by_movement_speed(unit_1 : Unit, unit_2 : Unit) -> bool:
 	return unit_1.speed > unit_2.speed
+	
+
+func get_current_hero_spells() -> Array[Dictionary]:
+	var hero_spells_data: Array[Dictionary] = []
+	
+	if active_hero == null:
+		return hero_spells_data
+		
+	for spell_scene in active_hero.spells: 
+		if spell_scene != null:
+
+			var spell_instance = spell_scene.instantiate()
+			
+			hero_spells_data.append({
+				"name": spell_instance.spell_name, 
+				"description": spell_instance.description,
+				"texture": spell_instance.texture 
+			})
+			
+			spell_instance.queue_free()
+			
+	return hero_spells_data
