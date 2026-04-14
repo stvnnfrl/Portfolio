@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br7kyrduon67w"
-path="res://.godot/imported/Shinobi.png-d68de0796aa2f0a32cbb0d0954010771.ctex"
+uid="uid://bjyaxdifbl0n4"
+path="res://.godot/imported/mine_layer.png-b2defdab9d1265bf515e154110d63bea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/units/Shinobi.png"
-dest_files=["res://.godot/imported/Shinobi.png-d68de0796aa2f0a32cbb0d0954010771.ctex"]
+source_file="res://army/units/mine_layer.png"
+dest_files=["res://.godot/imported/mine_layer.png-b2defdab9d1265bf515e154110d63bea.ctex"]
 
 [params]
 

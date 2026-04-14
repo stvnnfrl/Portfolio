@@ -159,11 +159,11 @@ static func _serialize_units(units: Array, army_id: int) -> Array:
 	for unit in units:
 		if not is_instance_valid(unit):
 			continue
-		var unit_name: String = String(unit.unit_name)
-		if unit_name == "":
+		var unit_id: String = String(unit.unit_id)
+		if unit_id == "":
 			continue
 		serialized.append({
-			"unit_name": unit_name,
+			"unit_id": unit_id,
 			"army_id": army_id,
 			"health": unit.health if unit.health > 0 else unit.max_health,
 			"cubic_pos": _cubic_to_dict(unit.cubic_pos),
@@ -174,12 +174,12 @@ static func _append_serialized_units(units: Array, serialized: Array, unit_index
 	for unit in units:
 		if not is_instance_valid(unit):
 			continue
-		var unit_name: String = String(unit.unit_name)
-		if unit_name == "":
+		var unit_id: String = String(unit.unit_id)
+		if unit_id == "":
 			continue
 		unit_index_by_instance[unit] = serialized.size()
 		serialized.append({
-			"unit_name": unit_name,
+			"unit_id": unit_id,
 			"army_id": unit.army_id,
 			"health": unit.health,
 			"cubic_pos": _cubic_to_dict(unit.cubic_pos),
@@ -194,10 +194,10 @@ static func _instantiate_units(raw_units: Variant) -> Array:
 	return units
 
 static func _instantiate_unit(unit_state: Dictionary) -> Unit:
-	var unit_name := String(unit_state.get("unit_name", ""))
+	var unit_id := String(unit_state.get("unit_id", ""))
 	var scene_path := ""
-	if unit_name != "":
-		scene_path = UNIT_SCENE_DIR + unit_name + ".tscn"
+	if unit_id != "":
+		scene_path = UNIT_SCENE_DIR + unit_id + ".tscn"
 	if scene_path == "":
 		scene_path = String(unit_state.get("scene_path", ""))
 	if scene_path.begins_with("res://army/test_units/"):
@@ -231,12 +231,12 @@ static func _unit_states(raw_units: Variant, default_army_id: int = -1) -> Array
 		if raw_unit is not Dictionary:
 			continue
 		var unit_state := raw_unit as Dictionary
-		var unit_name := String(unit_state.get("unit_name", ""))
+		var unit_id := String(unit_state.get("unit_id", ""))
 		var scene_path := String(unit_state.get("scene_path", ""))
-		if unit_name == "" and scene_path == "":
+		if unit_id == "" and scene_path == "":
 			continue
 		unit_states.append({
-			"unit_name": unit_name,
+			"unit_id": unit_id,
 			"scene_path": scene_path,
 			"army_id": int(unit_state.get("army_id", default_army_id if default_army_id != -1 else 1)),
 			"health": int(unit_state.get("health", 1)),

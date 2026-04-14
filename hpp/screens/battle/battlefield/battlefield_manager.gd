@@ -89,7 +89,7 @@ func _load_saved_turn_state(saved_turn_queue: Array[int], saved_subturn_index: i
 		return
 
 	curr_subturn_index = clamp(saved_subturn_index, 0, turn_queue.size() - 1)
-	current_phase = saved_phase
+	current_phase = saved_phase as SubTurnPhase
 	active_unit = turn_queue[curr_subturn_index]
 	_activate_unit_color()
 	if current_phase == SubTurnPhase.MOVING:
@@ -212,6 +212,7 @@ func _attempt_attack(target_hex: Vector3i) -> void:
 		
 		# attack only is another unit and enemy unit
 		if target_entity is Unit and target_entity.army_id != active_unit.army_id:
+			#active_unit.play_attack_animation()
 			var damage = active_unit.get_attack_damage()
 			target_entity.take_damage(damage)
 			

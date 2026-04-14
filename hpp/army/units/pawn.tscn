@@ -1,32 +1,33 @@
 [gd_scene load_steps=6 format=3 uid="uid://j452vswcug0"]
 
-[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_pawn"]
-[ext_resource type="Texture2D" uid="uid://bn22lvu4bfgqm" path="res://army/units/pawn.png" id="2_pawn"]
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_m2qvf"]
+[ext_resource type="Texture2D" uid="uid://bn22lvu4bfgqm" path="res://army/units/pawn.png" id="2_s7kdn"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pawn_0"]
-atlas = ExtResource("2_pawn")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0uv9f"]
+atlas = ExtResource("2_s7kdn")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pawn_1"]
-atlas = ExtResource("2_pawn")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cz2v"]
+atlas = ExtResource("2_s7kdn")
 region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_pawn"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_f5wzr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pawn_0")
+"texture": SubResource("AtlasTexture_0uv9f")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pawn_1")
+"texture": SubResource("AtlasTexture_0cz2v")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[node name="pawn" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_pawn")]
-unit_name = "pawn"
+[node name="pawn" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_m2qvf")]
+unit_id = "pawn"
+unit_name = "Pawn"
 description = "Chess-piece based pawn variant for battlefield testing."
 max_health = 4
 speed = 6
@@ -41,5 +42,5 @@ health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(2.4, 2.4)
-sprite_frames = SubResource("SpriteFrames_pawn")
+sprite_frames = SubResource("SpriteFrames_f5wzr")
 animation = &"idle"

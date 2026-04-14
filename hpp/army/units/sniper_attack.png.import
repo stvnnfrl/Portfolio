@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br7kyrduon67w"
-path="res://.godot/imported/Shinobi.png-d68de0796aa2f0a32cbb0d0954010771.ctex"
+uid="uid://dgp8hv6r2psy6"
+path="res://.godot/imported/sniper_attack.png-71712f62bcea8781d1a96aaa755f66f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/units/Shinobi.png"
-dest_files=["res://.godot/imported/Shinobi.png-d68de0796aa2f0a32cbb0d0954010771.ctex"]
+source_file="res://army/units/sniper_attack.png"
+dest_files=["res://.godot/imported/sniper_attack.png-71712f62bcea8781d1a96aaa755f66f4.ctex"]
 
 [params]
 

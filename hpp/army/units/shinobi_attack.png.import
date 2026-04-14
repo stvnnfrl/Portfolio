@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjyaxdifbl0n4"
-path="res://.godot/imported/minelayer.png-ca05cb0310541b4b4b114cd6becee9f2.ctex"
+uid="uid://d07o0bp8j0gk6"
+path="res://.godot/imported/shinobi_attack.png-4b1c613231511e9f6f1f9b5a07ea06f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/units/minelayer.png"
-dest_files=["res://.godot/imported/minelayer.png-ca05cb0310541b4b4b114cd6becee9f2.ctex"]
+source_file="res://army/units/shinobi_attack.png"
+dest_files=["res://.godot/imported/shinobi_attack.png-4b1c613231511e9f6f1f9b5a07ea06f6.ctex"]
 
 [params]
 

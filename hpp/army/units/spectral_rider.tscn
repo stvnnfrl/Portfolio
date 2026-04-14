@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bj7u6cw7q4ako"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_h15sy"]
-[ext_resource type="Texture2D" uid="uid://bgh4460pk53to" path="res://army/units/SpectralRider.png" id="2_htees"]
+[ext_resource type="Texture2D" uid="uid://bgh4460pk53to" path="res://army/units/spectral_rider.png" id="2_htees"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lavic"]
 atlas = ExtResource("2_htees")
@@ -39,8 +39,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Unit" instance=ExtResource("1_h15sy")]
-unit_name = "spectral_rider"
+[node name="spectral_rider" instance=ExtResource("1_h15sy")]
+unit_id = "spectral_rider"
+unit_name = "Spectral Rider"
 description = "TBD"
 max_health = 7
 speed = 5
