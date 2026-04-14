@@ -22,7 +22,7 @@ var army_1_color_active = Color(0.917, 0.0, 0.188, 0.9)
 var army_2_color_normal = Color(0.106, 0.106, 0.89, 0.4)
 var army_2_color_active = Color(0.301, 0.036, 1.0, 0.9)
 
-enum SubTurnPhase {MOVING, ATTACKING}
+enum SubTurnPhase {MOVING, ATTACKING, ANIMATING}
 var current_phase : SubTurnPhase = SubTurnPhase.MOVING
 var curr_subturn_index : int = -1
 var active_unit : Unit
@@ -173,8 +173,16 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _attempt_move(target_hex: Vector3i) -> void:
+	
+	# Skip movement if they click the tile they are already standing on
+	if target_hex == active_unit.cubic_pos:
+		print("movement skipped")
+		_clear_highlights()
+		current_phase = SubTurnPhase.ATTACKING 
+		_draw_phase_highlights()
+		
 	# check if hex clicked is reachable
-	if active_reachable_hexes.has(target_hex):
+	elif active_reachable_hexes.has(target_hex):
 		
 		grid.board_state.erase(active_unit.cubic_pos)
 		grid.board_state[target_hex] = active_unit
@@ -187,12 +195,6 @@ func _attempt_move(target_hex: Vector3i) -> void:
 		current_phase = SubTurnPhase.ATTACKING
 		_draw_phase_highlights()
 		
-	# Skip movement if they click the tile they are already standing on
-	elif target_hex == active_unit.cubic_pos:
-		print("movement skipped")
-		_clear_highlights()
-		current_phase = SubTurnPhase.ATTACKING 
-		_draw_phase_highlights()
 
 
 func _attempt_attack(target_hex: Vector3i) -> void:
@@ -212,7 +214,9 @@ func _attempt_attack(target_hex: Vector3i) -> void:
 		
 		# attack only is another unit and enemy unit
 		if target_entity is Unit and target_entity.army_id != active_unit.army_id:
-			#active_unit.play_attack_animation()
+			# block other inputs during animation
+			current_phase = SubTurnPhase.ANIMATING
+			await active_unit.play_attack_animation()
 			var damage = active_unit.get_attack_damage()
 			target_entity.take_damage(damage)
 			

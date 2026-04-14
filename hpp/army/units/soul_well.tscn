@@ -135,7 +135,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ocuyw")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -202,6 +202,8 @@ unit_id = "soul_well"
 unit_name = "Soul Well"
 description = "The well of souls"
 max_health = 10
+speed = 1
+movement = 0
 dmg_min = 5
 dmg_max = 7
 reach = 5
@@ -209,4 +211,4 @@ cost = 30
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_m83v1")
-animation = &"idle"
+animation = &"attack"

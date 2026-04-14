@@ -51,3 +51,17 @@ func take_damage(amount : int):
 		
 func get_attack_damage() -> int:
 	return randi_range(dmg_min, dmg_max)
+	
+func play_attack_animation() -> void:
+	if anim_sprite and anim_sprite.sprite_frames and anim_sprite.sprite_frames.has_animation("attack"):
+		anim_sprite.play("attack")
+		
+		# wait for the animation to finish
+		await anim_sprite.animation_finished
+		
+		print("I am done attacking")
+		
+		anim_sprite.play("idle")
+	else:
+		# If no attack animation exists, simulate one
+		await get_tree().create_timer(0.25).timeout
