@@ -228,7 +228,7 @@ func _attempt_attack(target_hex: Vector3i) -> void:
 		
 		# attack only is another unit and enemy unit
 		if target_entity is Unit and target_entity.army_id != active_unit.army_id:
-			active_unit.play_attack_animation()
+			#active_unit.play_attack_animation()
 			var damage = active_unit.get_attack_damage()
 			target_entity.take_damage(damage)
 			
