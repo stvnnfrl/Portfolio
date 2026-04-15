@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://qjrfym4q47se"
-path="res://.godot/imported/Shock_Trooper.png-4ce8eadf3e60d6ca8c5ac38053ee1701.ctex"
+path="res://.godot/imported/shock_trooper.png-e64c2c28d5c077f7355a722590ce5a2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/units/Shock_Trooper.png"
-dest_files=["res://.godot/imported/Shock_Trooper.png-4ce8eadf3e60d6ca8c5ac38053ee1701.ctex"]
+source_file="res://army/units/shock_trooper.png"
+dest_files=["res://.godot/imported/shock_trooper.png-e64c2c28d5c077f7355a722590ce5a2b.ctex"]
 
 [params]
 

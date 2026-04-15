@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://br36bd0j2sfrb"
-path="res://.godot/imported/Lich.png-85f9af6f7da6b5cbd1421115e29b4aa8.ctex"
+path="res://.godot/imported/lich.png-d25c601f2f06478d1efa3831c78414a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/units/Lich.png"
-dest_files=["res://.godot/imported/Lich.png-85f9af6f7da6b5cbd1421115e29b4aa8.ctex"]
+source_file="res://army/units/lich.png"
+dest_files=["res://.godot/imported/lich.png-d25c601f2f06478d1efa3831c78414a9.ctex"]
 
 [params]
 
