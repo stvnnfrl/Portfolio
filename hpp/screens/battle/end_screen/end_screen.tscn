@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://bjocx3d03imeh"]
 
-[ext_resource type="Texture2D" uid="uid://dkk58rgnx0jby" path="res://shared_assets/shredded_paper.jpg" id="1_1xlpg"]
-[ext_resource type="Script" uid="uid://bsygy0dv5osfr" path="res://modules/end_screen/end_screen.gd" id="1_l6275"]
-[ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://shared_assets/fonts/Excalifont-Regular.woff2" id="2_30d0p"]
+[ext_resource type="Texture2D" uid="uid://dkk58rgnx0jby" path="res://screens/resources/shredded_paper.jpg" id="1_1xlpg"]
+[ext_resource type="Script" uid="uid://bsygy0dv5osfr" path="res://screens/battle/end_screen/end_screen.gd" id="1_l6275"]
+[ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://screens/resources/Excalifont-Regular.woff2" id="2_30d0p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_30d0p"]
 
@@ -14,7 +14,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ks7be"]
 
-[node name="EndScreen" type="Control"]
+[node name="EndScreen" type="Control" node_paths=PackedStringArray("game_result_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l6275")
+game_result_label = NodePath("MainMargin/MainLayout/GameResultLabel")
 
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color(0.24296579, 0.24296573, 0.24296573, 1)
@@ -54,8 +55,21 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_30d0p")
-theme_override_font_sizes/font_size = 110
+theme_override_font_sizes/font_size = 114
 text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="MainMargin/MainLayout"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="GameResultLabel" type="Label" parent="MainMargin/MainLayout"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_30d0p")
+theme_override_font_sizes/font_size = 64
+text = "Temp"
 horizontal_alignment = 1
 
 [node name="ButtonsCenterContainer" type="CenterContainer" parent="MainMargin/MainLayout"]
@@ -71,7 +85,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_30d0p")
-theme_override_font_sizes/font_size = 52
+theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxEmpty_30d0p")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_l6275")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_14wtu")
@@ -84,7 +98,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_30d0p")
-theme_override_font_sizes/font_size = 52
+theme_override_font_sizes/font_size = 65
 theme_override_styles/normal = SubResource("StyleBoxEmpty_30d0p")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_l6275")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_14wtu")
@@ -93,3 +107,4 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_ks7be")
 text = "Quit"
 
 [connection signal="pressed" from="MainMargin/MainLayout/ButtonsCenterContainer/ButtonsVContainer/Restart" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MainMargin/MainLayout/ButtonsCenterContainer/ButtonsVContainer/Quit" to="." method="_on_quit_pressed"]

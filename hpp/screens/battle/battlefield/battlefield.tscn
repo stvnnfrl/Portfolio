@@ -1,0 +1,494 @@
+[gd_scene load_steps=19 format=3 uid="uid://b1ulqunccq7na"]
+
+[ext_resource type="Script" uid="uid://dwjiijl1qcjp8" path="res://screens/battle/battlefield/battlefield_save_load.gd" id="1_7b0ts"]
+[ext_resource type="Script" uid="uid://5tolt38mvh3k" path="res://screens/battle/battlefield/grid_manager.gd" id="1_o47rj"]
+[ext_resource type="Script" uid="uid://bdd2jojqjj6m8" path="res://screens/battle/battlefield/battlefield_manager.gd" id="1_qow86"]
+[ext_resource type="Resource" uid="uid://bfdrcvmymov1a" path="res://hex_grid/battlefield_hex.tres" id="2_ksdkc"]
+[ext_resource type="Material" uid="uid://d2ycdmsirv8h4" path="res://hex_grid/hex_grid_render.tres" id="3_ksdkc"]
+[ext_resource type="Texture2D" uid="uid://bu2d7bdhap8ic" path="res://screens/resources/crumpled_background.jpg" id="3_rs7kb"]
+[ext_resource type="PackedScene" uid="uid://b5w1vqigtua0e" path="res://screens/battle/battlefield/highlight_hex.tscn" id="4_4k52b"]
+[ext_resource type="Script" uid="uid://duxfroxnob17l" path="res://screens/battle/spellbook/spellbook.gd" id="9_1j817"]
+[ext_resource type="Script" uid="uid://cetny6c6xtqc2" path="res://screens/battle/spellbook/drawing_controller.gd" id="9_j4yeb"]
+[ext_resource type="Script" uid="uid://dflm1i3o0wvr0" path="res://screens/battle/battlefield/ui_layer.gd" id="9_tpixl"]
+[ext_resource type="Script" uid="uid://ddem4ra2cqk1w" path="res://screens/battle/spellbook/drawing_pad.gd" id="10_igwsd"]
+[ext_resource type="StyleBox" uid="uid://rm2eefyamyvf" path="res://screens/battle/spellbook/spell_selected_style.tres" id="10_tpixl"]
+[ext_resource type="Script" uid="uid://dpjlomwmumppe" path="res://screens/battle/spellbook/gesture_recognizer.gd" id="11_8wuso"]
+[ext_resource type="Script" uid="uid://dm7vace1dup7r" path="res://screens/battle/game_menu/game_menu.gd" id="12_bisbk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1xpb"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 16.0
+bg_color = Color(0.78, 0.75, 0.68, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.4, 0.33, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1j817"]
+content_margin_left = 40.0
+content_margin_top = 30.0
+content_margin_right = 40.0
+content_margin_bottom = 30.0
+bg_color = Color(0.22, 0.22, 0.22, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.52, 0.48, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tpixl"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.35, 0.35, 0.35, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2thr"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.45, 0.45, 0.45, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Battlefield" type="Node2D"]
+script = ExtResource("1_7b0ts")
+
+[node name="BattlefieldManager" type="Node" parent="."]
+script = ExtResource("1_qow86")
+highlight_scene = ExtResource("4_4k52b")
+
+[node name="GridManager" type="Node2D" parent="."]
+script = ExtResource("1_o47rj")
+cubic = ExtResource("2_ksdkc")
+
+[node name="PaperBackground" type="TextureRect" parent="GridManager"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_rs7kb")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="GridVisuals" type="ColorRect" parent="GridManager"]
+material = ExtResource("3_ksdkc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HighlightLayer" type="Node2D" parent="."]
+
+[node name="UnitsLayer" type="Node2D" parent="."]
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+script = ExtResource("9_tpixl")
+
+[node name="HUD" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TopBarUI" type="HBoxContainer" parent="UILayer/HUD/MarginContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="PauseButton" type="Button" parent="UILayer/HUD/MarginContainer/TopBarUI"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Pause"
+
+[node name="Spacer1" type="Control" parent="UILayer/HUD/MarginContainer/TopBarUI"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="UnitQueue" type="HBoxContainer" parent="UILayer/HUD/MarginContainer/TopBarUI"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer2" type="Control" parent="UILayer/HUD/MarginContainer/TopBarUI"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BottomBarUI" type="HBoxContainer" parent="UILayer/HUD/MarginContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="SpellBookButton" type="Button" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "SpellBook"
+
+[node name="Spacer1" type="Control" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="UnitInfo" type="HBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer2" type="Control" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SpellBookMenu" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_1j817")
+spell_selected_style = ExtResource("10_tpixl")
+
+[node name="DimBg" type="ColorRect" parent="UILayer/SpellBookMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="BookCenter" type="CenterContainer" parent="UILayer/SpellBookMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -350.0
+offset_right = 450.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BookPanel" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter"]
+custom_minimum_size = Vector2(900, 700)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d1xpb")
+
+[node name="BookLayout" type="VBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TopBar" type="HBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout"]
+layout_mode = 2
+
+[node name="LatchButton" type="Button" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/TopBar"]
+custom_minimum_size = Vector2(36, 28)
+layout_mode = 2
+tooltip_text = "Close Spell Book"
+text = "X"
+
+[node name="TopSpacer" type="Control" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/TopBar"]
+layout_mode = 2
+text = "Spell Book"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TopSpacer2" type="Control" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Pages" type="HBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="LeftPage" type="GridContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="Spell1Container" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container"]
+layout_mode = 2
+
+[node name="SpellDrawing" type="TextureRect" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spell2Container" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container"]
+layout_mode = 2
+
+[node name="SpellDrawing" type="TextureRect" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spell3Container" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container"]
+layout_mode = 2
+
+[node name="SpellDrawing" type="TextureRect" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spell4Container" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container"]
+layout_mode = 2
+
+[node name="SpellDrawing" type="TextureRect" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spine" type="VSeparator" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="RightPage" type="MarginContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("9_j4yeb")
+
+[node name="drawingPad" type="Panel" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/RightPage"]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("10_igwsd")
+
+[node name="gestureRecognizer" type="Node" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/RightPage"]
+script = ExtResource("11_8wuso")
+
+[node name="GameMenu" type="Control" parent="UILayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_bisbk")
+
+[node name="DimBg" type="ColorRect" parent="UILayer/GameMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/GameMenu/DimBg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuPanel" type="PanelContainer" parent="UILayer/GameMenu/DimBg/CenterContainer"]
+custom_minimum_size = Vector2(320, 280)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1j817")
+
+[node name="ButtonBox" type="VBoxContainer" parent="UILayer/GameMenu/DimBg/CenterContainer/MenuPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="UILayer/GameMenu/DimBg/CenterContainer/MenuPanel/ButtonBox"]
+layout_mode = 2
+text = "Game Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="UILayer/GameMenu/DimBg/CenterContainer/MenuPanel/ButtonBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="UILayer/GameMenu/DimBg/CenterContainer/MenuPanel/ButtonBox"]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_tpixl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2thr")
+text = "Resume"
+
+[node name="SaveButton" type="Button" parent="UILayer/GameMenu/DimBg/CenterContainer/MenuPanel/ButtonBox"]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_tpixl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2thr")
+text = "Save Game"
+
+[node name="QuitButton" type="Button" parent="UILayer/GameMenu/DimBg/CenterContainer/MenuPanel/ButtonBox"]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_tpixl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2thr")
+text = "Quit to Main Menu"
+
+[node name="SaveModal" type="Control" parent="UILayer/GameMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ModalDimBg" type="ColorRect" parent="UILayer/GameMenu/SaveModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/GameMenu/SaveModal/ModalDimBg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ModalPanel" type="PanelContainer" parent="UILayer/GameMenu/SaveModal/ModalDimBg/CenterContainer"]
+custom_minimum_size = Vector2(420, 220)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1j817")
+
+[node name="Content" type="VBoxContainer" parent="UILayer/GameMenu/SaveModal/ModalDimBg/CenterContainer/ModalPanel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="TitleLabel" type="Label" parent="UILayer/GameMenu/SaveModal/ModalDimBg/CenterContainer/ModalPanel/Content"]
+layout_mode = 2
+text = "Save Game"
+horizontal_alignment = 1
+
+[node name="SaveNameInput" type="LineEdit" parent="UILayer/GameMenu/SaveModal/ModalDimBg/CenterContainer/ModalPanel/Content"]
+custom_minimum_size = Vector2(320, 44)
+layout_mode = 2
+placeholder_text = "Enter save file name"
+
+[node name="WarningLabel" type="Label" parent="UILayer/GameMenu/SaveModal/ModalDimBg/CenterContainer/ModalPanel/Content"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.22, 0.22, 1)
+text = "A save with this name already exists. Saving will overwrite it."
+autowrap_mode = 3
+
+[node name="ButtonRow" type="HBoxContainer" parent="UILayer/GameMenu/SaveModal/ModalDimBg/CenterContainer/ModalPanel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="CancelSaveButton" type="Button" parent="UILayer/GameMenu/SaveModal/ModalDimBg/CenterContainer/ModalPanel/Content/ButtonRow"]
+custom_minimum_size = Vector2(120, 44)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_tpixl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2thr")
+text = "Cancel"
+
+[node name="ConfirmSaveButton" type="Button" parent="UILayer/GameMenu/SaveModal/ModalDimBg/CenterContainer/ModalPanel/Content/ButtonRow"]
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_tpixl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2thr")
+text = "Save"
+
+[connection signal="pressed" from="UILayer/HUD/MarginContainer/TopBarUI/PauseButton" to="UILayer" method="_on_pause_button_pressed"]
+[connection signal="pressed" from="UILayer/HUD/MarginContainer/BottomBarUI/SpellBookButton" to="UILayer" method="_on_spell_book_button_pressed"]
+[connection signal="gui_input" from="UILayer/SpellBookMenu/DimBg" to="UILayer/SpellBookMenu" method="_on_dim_bg_gui_input"]
+[connection signal="pressed" from="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/TopBar/LatchButton" to="UILayer/SpellBookMenu" method="_close"]

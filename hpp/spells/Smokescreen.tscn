@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://rkpqnax8udt7"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_afwjl"]
+[ext_resource type="Texture2D" uid="uid://d273f2aierbi1" path="res://spells/Smokescreen.png" id="2_dq38b"]
+
+[node name="Spell" instance=ExtResource("1_afwjl")]
+texture = ExtResource("2_dq38b")
+spell_name = "Smokescreen"

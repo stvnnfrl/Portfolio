@@ -1,0 +1,17 @@
+[gd_scene load_steps=10 format=3 uid="uid://6h6huvkwi6hl"]
+
+[ext_resource type="PackedScene" uid="uid://dgo42mrokcow6" path="res://army/base_hero/hero.tscn" id="1_eicdq"]
+[ext_resource type="PackedScene" uid="uid://dvxm1ik0p1s5b" path="res://army/units/bishop.tscn" id="2_7hkbu"]
+[ext_resource type="PackedScene" uid="uid://cih7g3n3g4wra" path="res://army/units/knight.tscn" id="3_lm06b"]
+[ext_resource type="PackedScene" uid="uid://j452vswcug0" path="res://army/units/pawn.tscn" id="4_ctjfj"]
+[ext_resource type="PackedScene" uid="uid://cj6m3o4y4q1m7" path="res://army/units/queen.tscn" id="5_gnysu"]
+[ext_resource type="PackedScene" uid="uid://dduf4qnkiabv6" path="res://spells/Bulwark.tscn" id="6_gnysu"]
+[ext_resource type="PackedScene" uid="uid://hsm0u25eyers" path="res://spells/CrescentSwipe.tscn" id="7_scl27"]
+[ext_resource type="PackedScene" uid="uid://b6nbxw6w741x1" path="res://spells/Promote.tscn" id="8_yt2ip"]
+[ext_resource type="PackedScene" uid="uid://damh1xj3b8ytp" path="res://spells/RainOfArrows.tscn" id="9_0ien0"]
+
+[node name="Hero" instance=ExtResource("1_eicdq")]
+hero_name = "King"
+description = "King of the battlefield"
+units = Array[PackedScene]([ExtResource("2_7hkbu"), ExtResource("3_lm06b"), ExtResource("4_ctjfj"), ExtResource("5_gnysu")])
+spells = Array[PackedScene]([ExtResource("6_gnysu"), ExtResource("7_scl27"), ExtResource("8_yt2ip"), ExtResource("9_0ien0")])

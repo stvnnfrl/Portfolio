@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://cih7g3n3g4wra"]
+
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_h8tqw"]
+[ext_resource type="Texture2D" uid="uid://32oe2bhj7wca" path="res://army/units/knight.png" id="2_k3vjm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nh3z"]
+atlas = ExtResource("2_k3vjm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmxgx"]
+atlas = ExtResource("2_k3vjm")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p6rxd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nh3z")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmxgx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="knight" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_h8tqw")]
+unit_id = "knight"
+unit_name = "Knight"
+description = "Placeholder knight unit for battlefield testing."
+max_health = 9
+speed = 5
+movement = 3
+dmg_min = 4
+dmg_max = 6
+reach = 1
+cost = 7
+anim_sprite = NodePath("AnimatedPixelArt")
+hex_halo = NodePath("HexHalo")
+health_bar = NodePath("HealthBar")
+
+[node name="AnimatedPixelArt" parent="." index="1"]
+scale = Vector2(2.8, 2.8)
+sprite_frames = SubResource("SpriteFrames_p6rxd")
+animation = &"idle"

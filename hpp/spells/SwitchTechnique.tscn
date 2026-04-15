@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bht4vlildc4lh"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_b0cc3"]
+[ext_resource type="Texture2D" uid="uid://dbo0wo54jg843" path="res://spells/Switch_Technique_new.png" id="2_78nvp"]
+
+[node name="Spell" instance=ExtResource("1_b0cc3")]
+texture = ExtResource("2_78nvp")
+spell_name = "Switch Technique"

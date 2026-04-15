@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5ek8x0gcl4pr"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_gmtv2"]
+[ext_resource type="Texture2D" uid="uid://tn58rjk4tsl1" path="res://spells/RiteofRuin.png" id="2_jssdx"]
+
+[node name="Spell" instance=ExtResource("1_gmtv2")]
+texture = ExtResource("2_jssdx")
+spell_name = "Rite of Ruin"

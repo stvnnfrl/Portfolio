@@ -1,0 +1,16 @@
+[gd_scene load_steps=9 format=3 uid="uid://b8we0cnsj2qoh"]
+
+[ext_resource type="PackedScene" uid="uid://dgo42mrokcow6" path="res://army/base_hero/hero.tscn" id="1_66j1m"]
+[ext_resource type="PackedScene" uid="uid://0offbspc4q8p" path="res://army/units/lich.tscn" id="2_oritp"]
+[ext_resource type="PackedScene" uid="uid://biou13j46jdf5" path="res://army/units/soul_well.tscn" id="3_domi8"]
+[ext_resource type="PackedScene" uid="uid://bj7u6cw7q4ako" path="res://army/units/spectral_rider.tscn" id="4_n61da"]
+[ext_resource type="PackedScene" uid="uid://cwioavgla6e2s" path="res://spells/DeathDenial.tscn" id="5_hp32e"]
+[ext_resource type="PackedScene" uid="uid://dviiykov2vr60" path="res://spells/ProfaneExchange.tscn" id="6_ivdhg"]
+[ext_resource type="PackedScene" uid="uid://c5ek8x0gcl4pr" path="res://spells/RiteOfRuin.tscn" id="7_uclox"]
+[ext_resource type="PackedScene" uid="uid://rdknu755plvn" path="res://spells/UnholyHaste.tscn" id="8_iq1cq"]
+
+[node name="Hero" instance=ExtResource("1_66j1m")]
+hero_name = "Soul"
+description = "Can see your soul"
+units = Array[PackedScene]([ExtResource("2_oritp"), ExtResource("3_domi8"), ExtResource("4_n61da")])
+spells = Array[PackedScene]([ExtResource("5_hp32e"), ExtResource("6_ivdhg"), ExtResource("7_uclox"), ExtResource("8_iq1cq")])

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgoph5f5jbxt0"]
+
+[ext_resource type="Script" uid="uid://bk0eb46240eaq" path="res://spells/base_spell/spell.gd" id="1_bj7qm"]
+
+[node name="Spell" type="Sprite2D"]
+script = ExtResource("1_bj7qm")

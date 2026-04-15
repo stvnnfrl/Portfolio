@@ -1,0 +1,89 @@
+extends Node2D
+
+# unit sprite size
+# TODO: should probably be relative to grid size
+@export var size: Vector2 = Vector2(100, 100)
+
+# resize the sprite to get a consistent size
+# if a unit ever requires a bigger preview,
+# we can add scale multipliers to the unit
+var base_scale: Vector2 = Vector2.ONE
+
+var unit_preview: Unit = null
+
+func _on_pregame_selected_unit_updated(unit: Unit) -> void:
+	if unit_preview != null:
+		unit_preview.queue_free()
+	
+	if unit == null:
+		return
+	
+	base_scale = Vector2.ONE
+	if unit.anim_sprite != null:
+		unit_preview = unit.duplicate()
+		base_scale /= unit.anim_sprite.scale
+		var base_texture = unit.anim_sprite.sprite_frames.get_frame_texture("idle", 0)
+		base_scale *= size / base_texture.get_size()
+	elif unit.get("texture") != null:  # Sprite2D Unit fallback
+		unit_preview = unit.duplicate()
+		var base_texture = unit_preview.texture
+		base_scale *= size / base_texture.get_size()
+	
+	if unit_preview == null:
+		return
+	
+	add_child(unit_preview)
+
+
+# drag animation
+
+@export var massInverse: float = 150.
+@export var springConstant: float = 0.7
+
+# target length at rest
+@export var targetDistance: float = 100.
+
+# percentage of velocity left after a dampingInterval
+@export var dampingFactor: float = 0.997
+
+# how often in seconds velocity is multiplied by dampingFactor
+@export var dampingInterval: float = 1.0
+
+var bottom_position = position  # like a mass at the end of the spring that is the the texture
+var velocity = Vector2.ZERO
+const PI_OVER_TWO = PI/2
+func _process(delta: float) -> void:
+	var mouse_position = get_viewport().get_mouse_position()
+	var difference = mouse_position - bottom_position
+	
+	# set gravity so that texture hits target distance at rest
+	# so we need an equilibrium at a difference of targetDistance
+	#   gravityStrength - springConstant*targetDistance = 0
+	#   gravityStrength = springConstant*targetDistance
+	var gravityForce = Vector2(0, springConstant * targetDistance)
+	var springForce = springConstant * difference
+	var force = springForce + gravityForce
+	
+	var acceleration = force * massInverse
+	
+	velocity *= pow(dampingFactor, dampingInterval / delta)
+	velocity += acceleration * delta
+	
+	bottom_position += velocity * delta
+	
+	# position
+	position = (mouse_position + bottom_position) / 2
+	
+	# scale
+	var distance = difference.length()
+	var scaleFactor = distance / targetDistance
+	
+	# clamp to prevent too much stretching
+	scale = base_scale * Vector2(
+		clampf(1 / scaleFactor, .5, 1.5),
+		clampf(scaleFactor, .5, 1.5))
+
+	# rotate and skew
+	var angle = mouse_position.angle_to_point(bottom_position) - PI_OVER_TWO
+	rotation = angle / 2
+	skew = angle / 2

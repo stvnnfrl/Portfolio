@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtu1jmsw38dqq"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_img5k"]
+[ext_resource type="Texture2D" uid="uid://dlgn4yfctjeow" path="res://spells/Discharge.png" id="2_ramaj"]
+
+[node name="Spell" instance=ExtResource("1_img5k")]
+texture = ExtResource("2_ramaj")
+spell_name = "Discharge"

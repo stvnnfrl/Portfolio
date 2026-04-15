@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc8tska2wfkyk"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_qhy2u"]
+[ext_resource type="Texture2D" uid="uid://bcb55w2s0rjga" path="res://spells/Sunder_new.png" id="2_h1sno"]
+
+[node name="Spell" instance=ExtResource("1_qhy2u")]
+texture = ExtResource("2_h1sno")
+spell_name = "Sunder"

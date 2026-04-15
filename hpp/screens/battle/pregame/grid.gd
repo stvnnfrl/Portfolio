@@ -1,11 +1,15 @@
-extends ColorRect
+extends Control
 
-@export var grid_size: float = 128
+@export var state: Pregame
+@export var cubic_coords: CubicCoords
 
-var placed_units: Dictionary[Vector3i, Node2D]
+var placed_units: Dictionary[Vector3i, Unit]
 
-var current_unit: int = -1
-var units: Array[Variant]
+# indices for the current player - reset when players switch
+var placed_unit_indices: Dictionary[Unit, int]
+
+func _ready() -> void:
+	cubic_coords.size = 84.0
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is not InputEventMouseButton:
@@ -19,80 +23,77 @@ func _on_gui_input(event: InputEvent) -> void:
 	
 	if event.button_index == MouseButton.MOUSE_BUTTON_LEFT:
 		# only do anything if a unit is selected
-		if current_unit < 0:
+		var selected_unit = state.selected_unit
+		if selected_unit == null:
 			return
 		
-		var grid_coordinates = cubic_round(pos2D_to_cubic(event.position))
-		var unit_at_click = placed_units.get(grid_coordinates)
+		var grid_coordinates = cubic_coords.cubic_round(cubic_coords.pos2D_to_cubic(event.position))
 		
-		# free what was previously there
-		if unit_at_click != null:
-			unit_at_click.queue_free()
+		# check whether we can afford the unit
+		var purchase_callback = state.can_purchase()
+		if purchase_callback.is_null():
+			return
+		
+		# check whether we can remove what was already there
+		var clear_callback = can_clear(grid_coordinates)
+		if clear_callback.is_null():
+			return
+		
+		# trigger the purchase
+		purchase_callback.call()
+		clear_callback.call()
 		
 		# place a new unit
-		var screen_coordinates = cubic_to_pos2D(grid_coordinates)
-		var new_unit = create_unit_at(screen_coordinates)
+		var new_unit = create_unit_at(grid_coordinates, selected_unit)
+		
 		placed_units[grid_coordinates] = new_unit
+		placed_unit_indices[new_unit] = state.selected_index
 	
 	elif event.button_index == MouseButton.MOUSE_BUTTON_RIGHT:
-		# clear the unit
-		var grid_coordinates = cubic_round(pos2D_to_cubic(event.position))
-		var unit_at_click = placed_units.get(grid_coordinates)
-		
-		if unit_at_click != null:
-			placed_units.erase(grid_coordinates)
-			unit_at_click.queue_free()
+		# clear the unit if possible
+		var grid_coordinates = cubic_coords.cubic_round(cubic_coords.pos2D_to_cubic(event.position))
+		var clear_callback = can_clear(grid_coordinates)
+		if clear_callback.is_valid():
+			clear_callback.call()
 
-func create_unit_at(screen_coordinates: Vector2) -> Node2D:
-	var sprite = Sprite2D.new()
+func can_clear(coordinates: Vector3i) -> Callable:
+	var unit = placed_units.get(coordinates)
+	if unit == null:  # yes, don't need to do anything
+		return func(): pass
 	
-	var unit = units[current_unit]
-	var texture: Texture2D = unit.texture
-	sprite.texture = texture
+	var unit_index = placed_unit_indices.get(unit)
+	if unit_index == null:  # no, this unit was placed by another player
+		return Callable()
 	
-	# make sizes consistent between units
-	var current_size = texture.get_size()
-	sprite.scale = Vector2(grid_size / current_size.x, grid_size / current_size.y)
+	var refund_callback = state.can_refund(unit_index)
+	if refund_callback.is_null():  # no, something in the state is preventing a refund
+		return Callable()
 	
-	sprite.position = screen_coordinates
+	# yes, here's a callback to clear the coordinate
+	return func():
+		refund_callback.call()
+		placed_unit_indices.erase(unit)
+		placed_units.erase(coordinates)
+		unit.queue_free()
+
+func create_unit_at(grid_coordinates: Vector3i, unit_type: Unit) -> Unit:
+	var screen_coordinates = cubic_coords.cubic_to_pos2D(grid_coordinates)
 	
-	add_child(sprite)
+	# TODO: rescale to grid size
 	
-	return sprite
+	var new_unit = unit_type.duplicate()
+	new_unit.position = screen_coordinates
+	new_unit.cubic_pos = grid_coordinates
+	new_unit.army_id = state.current_player
+	add_child(new_unit)
+	
+	return new_unit
 
-func _on_unit_selector_selected_unit_changed(index: int) -> void:
-	current_unit = index
-
-func init(units_: Array[Variant]) -> void:
-	units = units_
-
-
-# coordinate conversion
-# from hex movement mini-project
-
-const RIGHT = Vector3(1, -1, 0)
-const DOWNRIGHT = Vector3(1, 0 ,-1)
-const DOWNLEFT = Vector3(0, 1, -1)
-
-const down_cubic = Vector3(1, 1, -2)/3
-const right_cubic = RIGHT/sqrt(3)
-func pos2D_to_cubic(pos: Vector2) -> Vector3:
-	return (pos.x * right_cubic + pos.y * down_cubic)/grid_size
-
-const x_2d = Vector2(sqrt(3)/2, 0.5)
-const y_2d = Vector2(-sqrt(3)/2, 0.5)
-const z_2d = Vector2(0, -1)
-func cubic_to_pos2D(pos: Vector3) -> Vector2:
-	return grid_size * (x_2d * pos.x + y_2d * pos.y + z_2d * pos.z)
-
-func cubic_round(pos: Vector3) -> Vector3i:
-	# credit to redblobgames.com/grids/hexagons
-	var rounded = round(pos)
-	var diff = abs(rounded - pos)
-	if (diff.x > diff.y && diff.x > diff.z):
-		rounded.x = -rounded.y-rounded.z
-	elif (diff.y > diff.z):
-		rounded.y = -rounded.x-rounded.z
-	else:
-		rounded.z = -rounded.x-rounded.y
-	return Vector3i(rounded)
+func _on_pregame_end_of_turn() -> void:
+	# set the placed units
+	for unit in placed_unit_indices:
+		# TODO Temp change to make the connection work. Will need to investigate more
+		#state.current_player_placed.append(unit.duplicate())
+		state.current_player_placed.append(unit)
+	
+	placed_unit_indices.clear()
