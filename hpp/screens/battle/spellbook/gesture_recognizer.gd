@@ -1,16 +1,9 @@
 class_name GestureRecognizer
 extends Node
 
-
 func _ready() -> void:
 	load_templates()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
-	
 # Template pipeline
 
 var templates : Dictionary = {}

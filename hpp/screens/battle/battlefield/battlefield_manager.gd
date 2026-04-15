@@ -7,9 +7,6 @@ class_name BattlefieldManager
 @onready var units_layer : Node2D = $"../UnitsLayer"
 @onready var highlight_layer : Node2D = $"../HighlightLayer"
 
-var active_highlights : Array = []
-var active_reachable_hexes : Dictionary = {}
-
 var turn_queue : Array[Unit] = []
 var hero_1 : Hero
 var army_1 : Array[Unit] = []
@@ -25,8 +22,11 @@ var army_2_color_active = Color(0.301, 0.036, 1.0, 0.9)
 enum SubTurnPhase {MOVING, ATTACKING, ANIMATING}
 var current_phase : SubTurnPhase = SubTurnPhase.MOVING
 var curr_subturn_index : int = -1
+
 var active_unit : Unit
 var active_hero : Hero
+var active_highlights : Array = []
+var active_reachable_hexes : Dictionary = {}
 
 func setup_battlefield(
 	hero1: Hero,
@@ -51,12 +51,14 @@ func setup_battlefield(
 
 	_load_saved_turn_state(saved_turn_queue, saved_subturn_index, saved_phase)
 
+
 func _setup_army(army1: Array[Unit], army2: Array[Unit]) -> void:
 	for unit in army1:
 		_setup_pregame_unit(unit, 1)
 			
 	for unit in army2:
 		_setup_pregame_unit(unit, 2)
+
 
 func _load_saved_turn_state(saved_turn_queue: Array[int], saved_subturn_index: int, saved_phase: int) -> void:
 	if active_unit != null:
@@ -115,12 +117,14 @@ func _set_normal_color(unit : Unit):
 	else:
 		unit.hex_halo.modulate = army_2_color_normal
 
+
 func _init_turn_queue():
 	turn_queue.clear()
 	turn_queue.append_array(army_1)
 	turn_queue.append_array(army_2)
 	turn_queue.sort_custom(sort_by_movement_speed)
 	print(turn_queue)
+
 
 func _start_next_sub_turn():
 	if active_unit != null:
@@ -146,6 +150,7 @@ func _start_next_sub_turn():
 		current_phase = SubTurnPhase.MOVING
 	
 	_draw_phase_highlights()
+
 
 func _activate_unit_color():
 	if active_unit.army_id == 1:
@@ -197,7 +202,6 @@ func _attempt_move(target_hex: Vector3i) -> void:
 		_clear_highlights()
 		current_phase = SubTurnPhase.ATTACKING
 		_draw_phase_highlights()
-		
 
 
 func _attempt_attack(target_hex: Vector3i) -> void:
@@ -208,8 +212,6 @@ func _attempt_attack(target_hex: Vector3i) -> void:
 		_start_next_sub_turn()
 		return
 		
-	# TODO using simple cubic distance for now
-	# Depending on type of unit, could consider different algorithm (e.g. follow path, range, etc.)
 	var dist = grid.get_cubic_distance(active_unit.cubic_pos, target_hex)
 	if dist <= active_unit.reach:
 		
@@ -253,6 +255,7 @@ func _kill_unit(unit: Unit) -> void:
 	# TODO this check placement might get changed in the future when spells are involved
 	# Check if one army has won
 	_check_winning_condition()
+
 
 func _check_winning_condition():
 	if army_1.is_empty():

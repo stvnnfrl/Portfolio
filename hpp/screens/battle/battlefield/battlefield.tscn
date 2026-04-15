@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b1ulqunccq7na"]
+[gd_scene load_steps=19 format=3 uid="uid://b1ulqunccq7na"]
 
 [ext_resource type="Script" uid="uid://dwjiijl1qcjp8" path="res://screens/battle/battlefield/battlefield_save_load.gd" id="1_7b0ts"]
 [ext_resource type="Script" uid="uid://5tolt38mvh3k" path="res://screens/battle/battlefield/grid_manager.gd" id="1_o47rj"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cetny6c6xtqc2" path="res://screens/battle/spellbook/drawing_controller.gd" id="9_j4yeb"]
 [ext_resource type="Script" uid="uid://dflm1i3o0wvr0" path="res://screens/battle/battlefield/ui_layer.gd" id="9_tpixl"]
 [ext_resource type="Script" uid="uid://ddem4ra2cqk1w" path="res://screens/battle/spellbook/drawing_pad.gd" id="10_igwsd"]
+[ext_resource type="StyleBox" uid="uid://rm2eefyamyvf" path="res://screens/battle/spellbook/spell_selected_style.tres" id="10_tpixl"]
 [ext_resource type="Script" uid="uid://dpjlomwmumppe" path="res://screens/battle/spellbook/gesture_recognizer.gd" id="11_8wuso"]
 [ext_resource type="Script" uid="uid://dm7vace1dup7r" path="res://screens/battle/game_menu/game_menu.gd" id="12_bisbk"]
 
@@ -186,6 +187,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_1j817")
+spell_selected_style = ExtResource("10_tpixl")
 
 [node name="DimBg" type="ColorRect" parent="UILayer/SpellBookMenu"]
 layout_mode = 1
@@ -488,3 +490,5 @@ text = "Save"
 
 [connection signal="pressed" from="UILayer/HUD/MarginContainer/TopBarUI/PauseButton" to="UILayer" method="_on_pause_button_pressed"]
 [connection signal="pressed" from="UILayer/HUD/MarginContainer/BottomBarUI/SpellBookButton" to="UILayer" method="_on_spell_book_button_pressed"]
+[connection signal="gui_input" from="UILayer/SpellBookMenu/DimBg" to="UILayer/SpellBookMenu" method="_on_dim_bg_gui_input"]
+[connection signal="pressed" from="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/TopBar/LatchButton" to="UILayer/SpellBookMenu" method="_close"]
