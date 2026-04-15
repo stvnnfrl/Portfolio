@@ -146,7 +146,7 @@ animations = [{
 [node name="ninja" instance=ExtResource("1_k4tmb")]
 unit_id = "ninja"
 unit_name = "Ninja"
-description = "Ninja unit using YellowNinja front idle frames."
+description = "Ninja uses Kusarigama for ranged attack"
 max_health = 6
 speed = 7
 movement = 3

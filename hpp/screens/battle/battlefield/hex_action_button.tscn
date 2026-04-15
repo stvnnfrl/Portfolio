@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://screens/battle/battlefield/assets/hex_button_normal.svg" id="1_nrm"]
+[ext_resource type="Texture2D" path="res://screens/battle/battlefield/assets/spellbook_icon.svg" id="4_icn"]
+[ext_resource type="FontFile" path="res://screens/resources/Excalifont-Regular.woff2" id="5_fnt"]
+
+[node name="HexActionButton" type="TextureButton"]
+custom_minimum_size = Vector2(148, 130)
+texture_filter = 1
+texture_normal = ExtResource("1_nrm")
+ignore_texture_size = true
+stretch_mode = 0
+focus_mode = 0
+
+[node name="Content" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 18
+
+[node name="Center" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+theme_override_constants/separation = 4
+
+[node name="Icon" type="TextureRect" parent="Content/Center"]
+custom_minimum_size = Vector2(66, 54)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("4_icn")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Content/Center"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.13, 0.13, 0.13, 1)
+theme_override_font_sizes/font_size = 27
+theme_override_fonts/font = ExtResource("5_fnt")
+text = "Spells"
+horizontal_alignment = 1

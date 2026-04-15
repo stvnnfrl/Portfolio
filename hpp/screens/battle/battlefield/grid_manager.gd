@@ -19,7 +19,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# update sizes since UI nodes sit under Node2D
 	var screen_size = get_viewport_rect().size
 	grid_visuals.size = screen_size 

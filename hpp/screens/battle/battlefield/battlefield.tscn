@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b1ulqunccq7na"]
+[gd_scene load_steps=19 format=3 uid="uid://b1ulqunccq7na"]
 
 [ext_resource type="Script" uid="uid://dwjiijl1qcjp8" path="res://screens/battle/battlefield/battlefield_save_load.gd" id="1_7b0ts"]
 [ext_resource type="Script" uid="uid://5tolt38mvh3k" path="res://screens/battle/battlefield/grid_manager.gd" id="1_o47rj"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://duxfroxnob17l" path="res://screens/battle/spellbook/spellbook.gd" id="9_1j817"]
 [ext_resource type="Script" uid="uid://cetny6c6xtqc2" path="res://screens/battle/spellbook/drawing_controller.gd" id="9_j4yeb"]
 [ext_resource type="Script" uid="uid://dflm1i3o0wvr0" path="res://screens/battle/battlefield/ui_layer.gd" id="9_tpixl"]
+[ext_resource type="PackedScene" path="res://screens/battle/battlefield/current_troop_info.tscn" id="10_3k3kw"]
 [ext_resource type="Script" uid="uid://ddem4ra2cqk1w" path="res://screens/battle/spellbook/drawing_pad.gd" id="10_igwsd"]
 [ext_resource type="Script" uid="uid://dpjlomwmumppe" path="res://screens/battle/spellbook/gesture_recognizer.gd" id="11_8wuso"]
 [ext_resource type="Script" uid="uid://dm7vace1dup7r" path="res://screens/battle/game_menu/game_menu.gd" id="12_bisbk"]
@@ -155,28 +156,13 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="BottomBarUI" type="HBoxContainer" parent="UILayer/HUD/MarginContainer"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="SpellBookButton" type="Button" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-text = "SpellBook"
-
-[node name="Spacer1" type="Control" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="UnitInfo" type="HBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
+[node name="CurrentTroopInfo" parent="UILayer/HUD/MarginContainer/BottomBarUI" instance=ExtResource("10_3k3kw")]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="Spacer2" type="Control" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-mouse_filter = 2
 
 [node name="SpellBookMenu" type="Control" parent="UILayer"]
 layout_mode = 3
@@ -487,4 +473,3 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_o2thr")
 text = "Save"
 
 [connection signal="pressed" from="UILayer/HUD/MarginContainer/TopBarUI/PauseButton" to="UILayer" method="_on_pause_button_pressed"]
-[connection signal="pressed" from="UILayer/HUD/MarginContainer/BottomBarUI/SpellBookButton" to="UILayer" method="_on_spell_book_button_pressed"]
