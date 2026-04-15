@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7r5q3e6mjqwj"]
+[gd_scene load_steps=6 format=3 uid="uid://dac2305iqo65v"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_p4vks"]
 [ext_resource type="Texture2D" uid="uid://qjrfym4q47se" path="res://army/units/shock_trooper.png" id="2_j6rnh"]

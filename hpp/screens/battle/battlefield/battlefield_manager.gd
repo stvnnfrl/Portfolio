@@ -1,6 +1,8 @@
 extends Node
 class_name BattlefieldManager
 
+signal active_unit_changed(unit: Unit, phase: int)
+
 @export var highlight_scene : PackedScene
 
 @onready var grid : GridManager = $"../GridManager"
@@ -26,9 +28,6 @@ var army_1_has_casted : bool = false
 var army_2_has_casted : bool = false
 
 var active_unit : Unit
-var active_hero : Hero
-var active_highlights : Array = []
-var active_reachable_hexes : Dictionary = {}
 
 func setup_battlefield(
 	hero1: Hero,
@@ -89,8 +88,9 @@ func _load_saved_turn_state(saved_turn_queue: Array[int], saved_subturn_index: i
 	current_phase = saved_phase as SubTurnPhase
 	active_unit = turn_queue[curr_subturn_index]
 	_activate_unit_color()
-	if current_phase == SubTurnPhase.MOVING:
+	if current_phase != SubTurnPhase.ANIMATING:
 		_draw_phase_highlights()
+	_emit_active_unit_changed()
 	
 	
 func _setup_pregame_unit(unit_instance: Unit, army: int) -> void:
@@ -140,10 +140,6 @@ func _start_next_sub_turn():
 		_reset_round_state()
 		
 	active_unit = turn_queue[curr_subturn_index]
-	if active_unit.army_id == 1:
-		active_hero = hero_1
-	else:
-		active_hero = hero_2
 	
 	_activate_unit_color()
 	
@@ -153,6 +149,7 @@ func _start_next_sub_turn():
 		current_phase = SubTurnPhase.MOVING
 	
 	_draw_phase_highlights()
+	_emit_active_unit_changed()
 
 
 func _activate_unit_color():
@@ -160,6 +157,10 @@ func _activate_unit_color():
 		active_unit.hex_halo.modulate = army_1_color_active
 	else:
 		active_unit.hex_halo.modulate = army_2_color_active
+
+
+func _emit_active_unit_changed() -> void:
+	active_unit_changed.emit(active_unit, int(current_phase))
 
 
 func _clear_highlights() -> void:
@@ -310,11 +311,12 @@ func sort_by_movement_speed(unit_1 : Unit, unit_2 : Unit) -> bool:
 
 func get_current_hero_spells() -> Array[Dictionary]:
 	var hero_spells_data: Array[Dictionary] = []
+	var current_hero := _get_hero_for_active_unit()
 	
-	if active_hero == null:
+	if current_hero == null:
 		return hero_spells_data
 		
-	for spell_scene in active_hero.spells: 
+	for spell_scene in current_hero.spells:
 		if spell_scene != null:
 
 			var spell_instance = spell_scene.instantiate()
@@ -330,94 +332,11 @@ func get_current_hero_spells() -> Array[Dictionary]:
 	return hero_spells_data
 
 
-func _reset_round_state():
-	army_1_has_casted = false
-	army_2_has_casted = false
-	
-	var all_living_units = []
-	all_living_units.append_array(army_1)
-	all_living_units.append_array(army_2)
-	
-	for unit in all_living_units:
-		unit.bonus_dmg = 0
-		unit.bonus_reach = 0
+func _get_hero_for_active_unit() -> Hero:
+	if active_unit == null:
+		return null
 
-
-func can_active_hero_cast_spell() -> bool:
 	if active_unit.army_id == 1:
-		return not army_1_has_casted
-	else:
-		return not army_2_has_casted
-	
-# signal related function
+		return hero_1
 
-func _on_spellbook_spell_selected(spell_index: int) -> void:
-	
-	if not can_active_hero_cast_spell():
-		print("Spell already cast this round!")
-		return
-		
-	var target_army = army_1 if active_unit.army_id == 1 else army_2
-	
-	match spell_index:
-		0:
-			print("Spell Cast: Quicken")
-			_spell_advance_queue(target_army)
-		1:
-			print("Spell Cast: Extend Range")
-			_spell_extend_range(target_army)
-		2:
-			print("Spell Cast: Heal Army")
-			_spell_heal_army(target_army)
-		3:
-			print("Spell Cast: Damage Boost")
-			_spell_damage_boost(target_army)
-			
-	# Lock out casting for the rest of the round
-	if active_unit.army_id == 1:
-		army_1_has_casted = true
-	else:
-		army_2_has_casted = true
-		
-	# update visuals
-	_draw_phase_highlights()
-	_emit_active_unit_changed()
-
-
-# Spell functions
-
-# Spell 1: Advance queue (i.e. all units from that army goes in front)
-func _spell_advance_queue(target_army: Array[Unit]) -> void:
-	var units_to_advance: Array[Unit] = []
-	
-	# Iterate backwards from the end of the queue down to the active unit
-	for i in range(turn_queue.size() - 1, curr_subturn_index, -1):
-		var unit = turn_queue[i]
-		if target_army.has(unit):
-			units_to_advance.append(unit)
-			turn_queue.remove_at(i)
-			
-	# Reverse the array so we maintain their original speed-sorted order
-	units_to_advance.reverse()
-	
-	# Insert them sequentially right after the current active unit
-	var insert_pos = curr_subturn_index + 1
-	for unit in units_to_advance:
-		turn_queue.insert(insert_pos, unit)
-		insert_pos += 1
-		
-
-# Spell 2: Extend Range
-func _spell_extend_range(target_army: Array[Unit]) -> void:
-	for unit in target_army:
-		unit.bonus_reach += 1
-
-# Spell 3: Heal Army
-func _spell_heal_army(target_army: Array[Unit]) -> void:
-	for unit in target_army:
-		unit.heal(1)
-
-# Spell 3: Damage Boost
-func _spell_damage_boost(target_army: Array[Unit]) -> void:
-	for unit in target_army:
-		unit.bonus_dmg += 1
+	return hero_2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b1ulqunccq7na"]
+[gd_scene load_steps=23 format=3 uid="uid://b1ulqunccq7na"]
 
 [ext_resource type="Script" uid="uid://dwjiijl1qcjp8" path="res://screens/battle/battlefield/battlefield_save_load.gd" id="1_7b0ts"]
 [ext_resource type="Script" uid="uid://5tolt38mvh3k" path="res://screens/battle/battlefield/grid_manager.gd" id="1_o47rj"]
@@ -10,10 +10,14 @@
 [ext_resource type="Script" uid="uid://duxfroxnob17l" path="res://screens/battle/spellbook/spellbook.gd" id="9_1j817"]
 [ext_resource type="Script" uid="uid://cetny6c6xtqc2" path="res://screens/battle/spellbook/drawing_controller.gd" id="9_j4yeb"]
 [ext_resource type="Script" uid="uid://dflm1i3o0wvr0" path="res://screens/battle/battlefield/ui_layer.gd" id="9_tpixl"]
+[ext_resource type="Script" uid="uid://y23e028ddp55" path="res://screens/battle/battlefield/current_troop_info.gd" id="10_3k3kw"]
 [ext_resource type="Script" uid="uid://ddem4ra2cqk1w" path="res://screens/battle/spellbook/drawing_pad.gd" id="10_igwsd"]
 [ext_resource type="StyleBox" uid="uid://rm2eefyamyvf" path="res://screens/battle/spellbook/spell_selected_style.tres" id="10_tpixl"]
 [ext_resource type="Script" uid="uid://dpjlomwmumppe" path="res://screens/battle/spellbook/gesture_recognizer.gd" id="11_8wuso"]
 [ext_resource type="Script" uid="uid://dm7vace1dup7r" path="res://screens/battle/game_menu/game_menu.gd" id="12_bisbk"]
+[ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://screens/resources/Excalifont-Regular.woff2" id="13_font"]
+[ext_resource type="Texture2D" uid="uid://u3pjff8men0b" path="res://screens/battle/battlefield/assets/hex_button_normal.svg" id="14_hex"]
+[ext_resource type="Texture2D" uid="uid://vp8p3qxq84jw" path="res://screens/battle/battlefield/assets/spellbook_icon.svg" id="15_spell_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1xpb"]
 content_margin_left = 24.0
@@ -68,6 +72,15 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_current_dock"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.11, 0.11, 0.12, 0.9)
+shadow_color = Color(0, 0, 0, 0.22)
+shadow_size = 8
 
 [node name="Battlefield" type="Node2D"]
 script = ExtResource("1_7b0ts")
@@ -156,28 +169,285 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="BottomBarUI" type="HBoxContainer" parent="UILayer/HUD/MarginContainer"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="SpellBookButton" type="Button" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-text = "SpellBook"
-
-[node name="Spacer1" type="Control" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="UnitInfo" type="HBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
+[node name="CurrentTroopInfo" type="PanelContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_current_dock")
+script = ExtResource("10_3k3kw")
 
-[node name="Spacer2" type="Control" parent="UILayer/HUD/MarginContainer/BottomBarUI"]
-custom_minimum_size = Vector2(300, 0)
+[node name="TopLip" type="ColorRect" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo"]
 layout_mode = 2
+color = Color(1, 1, 1, 0.06)
+
+[node name="TopShadow" type="ColorRect" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.18)
+
+[node name="DockPadding" type="MarginContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 4
+
+[node name="DockLayout" type="HBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="LeftActionZone" type="VBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout"]
+custom_minimum_size = Vector2(148, 0)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="SpellRow" type="HBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/LeftActionZone"]
+layout_mode = 2
+
+[node name="SpellButton" type="TextureButton" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/LeftActionZone/SpellRow"]
+custom_minimum_size = Vector2(148, 130)
+texture_filter = 1
+layout_mode = 2
+texture_normal = ExtResource("14_hex")
+ignore_texture_size = true
+stretch_mode = 0
+focus_mode = 0
+
+[node name="Content" type="MarginContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/LeftActionZone/SpellRow/SpellButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 18
+
+[node name="Center" type="VBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/LeftActionZone/SpellRow/SpellButton/Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+theme_override_constants/separation = 4
+
+[node name="Icon" type="TextureRect" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/LeftActionZone/SpellRow/SpellButton/Content/Center"]
+custom_minimum_size = Vector2(66, 54)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("15_spell_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/LeftActionZone/SpellRow/SpellButton/Content/Center"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.13, 0.13, 0.13, 1)
+theme_override_font_sizes/font_size = 27
+theme_override_fonts/font = ExtResource("13_font")
+text = "Spells"
+horizontal_alignment = 1
+
+[node name="CenterInfoZone" type="HBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 18
+
+[node name="StatsCenter" type="CenterContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StatsContent" type="VBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 2
+
+[node name="StatsRow" type="HBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="MovementStat" type="VBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow"]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="MovementLabel" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow/MovementStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.81, 0.76, 0.92)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 26
+text = "movement"
+horizontal_alignment = 1
+
+[node name="MovementValue" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow/MovementStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.99, 0.98, 0.95, 1)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 36
+text = "-"
+horizontal_alignment = 1
+
+[node name="SpeedStat" type="VBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow"]
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="SpeedLabel" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow/SpeedStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.81, 0.76, 0.92)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 26
+text = "speed"
+horizontal_alignment = 1
+
+[node name="SpeedValue" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow/SpeedStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.99, 0.98, 0.95, 1)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 36
+text = "-"
+horizontal_alignment = 1
+
+[node name="DamageStat" type="VBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="DamageLabel" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow/DamageStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.81, 0.76, 0.92)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 26
+text = "damage"
+horizontal_alignment = 1
+
+[node name="DamageValue" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow/DamageStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.99, 0.98, 0.95, 1)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 36
+text = "-"
+horizontal_alignment = 1
+
+[node name="RangeStat" type="VBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow"]
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="RangeLabel" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow/RangeStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.81, 0.76, 0.92)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 26
+text = "range"
+horizontal_alignment = 1
+
+[node name="RangeValue" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow/RangeStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.99, 0.98, 0.95, 1)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 36
+text = "-"
+horizontal_alignment = 1
+
+[node name="HealthStat" type="VBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow"]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="HealthLabel" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow/HealthStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.81, 0.76, 0.92)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 26
+text = "health"
+horizontal_alignment = 1
+
+[node name="HealthValue" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/CenterInfoZone/StatsCenter/StatsContent/StatsRow/HealthStat"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.99, 0.98, 0.95, 1)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 36
+text = "-"
+horizontal_alignment = 1
+
+[node name="UnitInfo" type="CenterContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout"]
+custom_minimum_size = Vector2(266, 130)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UnitInfoContent" type="VBoxContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/UnitInfo"]
+custom_minimum_size = Vector2(266, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="NameLabel" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/UnitInfo/UnitInfoContent"]
+custom_minimum_size = Vector2(266, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.97, 0.94, 1)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 32
+text = "No active troop"
+clip_text = true
+horizontal_alignment = 2
+
+[node name="DescriptionLabel" type="Label" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/UnitInfo/UnitInfoContent"]
+custom_minimum_size = Vector2(266, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.81, 0.76, 0.92)
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 18
+clip_text = true
+horizontal_alignment = 2
+
+[node name="PortraitCenter" type="CenterContainer" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout"]
+custom_minimum_size = Vector2(148, 130)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PortraitFrame" type="Control" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/PortraitCenter"]
+custom_minimum_size = Vector2(148, 130)
+layout_mode = 2
+
+[node name="HexBackground" type="TextureRect" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/PortraitCenter/PortraitFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("14_hex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PortraitTexture" type="TextureRect" parent="UILayer/HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/PortraitCenter/PortraitFrame"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 12.0
+offset_right = -14.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="SpellBookMenu" type="Control" parent="UILayer"]
 layout_mode = 3
@@ -489,5 +759,3 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_o2thr")
 text = "Save"
 
 [connection signal="pressed" from="UILayer/HUD/MarginContainer/TopBarUI/PauseButton" to="UILayer" method="_on_pause_button_pressed"]
-[connection signal="gui_input" from="UILayer/SpellBookMenu/DimBg" to="UILayer/SpellBookMenu" method="_on_dim_bg_gui_input"]
-[connection signal="pressed" from="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/TopBar/LatchButton" to="UILayer/SpellBookMenu" method="_close"]

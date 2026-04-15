@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8iblo2nqhqmh"
-path="res://.godot/imported/Ninja_Master.png-c8bba7884032f288e0d51da50e8b869a.ctex"
+uid="uid://bhxwd0sc7l4j5"
+path="res://.godot/imported/ninja.png-8df617d180552379d4f0dc8d3ca2b623.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://army/units/Ninja_Master.png"
-dest_files=["res://.godot/imported/Ninja_Master.png-c8bba7884032f288e0d51da50e8b869a.ctex"]
+source_file="res://screens/battle/battlefield/assets/ninja.png"
+dest_files=["res://.godot/imported/ninja.png-8df617d180552379d4f0dc8d3ca2b623.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d3oam3y4mn5vu"]
+[gd_scene load_steps=15 format=3 uid="uid://83v8uvsve21q"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_l8vqn"]
 [ext_resource type="Texture2D" uid="uid://cq3qgaeb3hu1b" path="res://army/units/sniper.png" id="2_m4jtc"]

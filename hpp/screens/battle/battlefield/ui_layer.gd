@@ -8,6 +8,11 @@ class_name UIManager
 func _ready() -> void:
 	game_menu.hide()
 	spellbook_menu.hide()
+	var spell_button := $HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/LeftActionZone/SpellRow/SpellButton as BaseButton
+	if spell_button != null and not spell_button.pressed.is_connected(_on_spell_book_button_pressed):
+		spell_button.pressed.connect(_on_spell_book_button_pressed)
+	battlefield_manager.active_unit_changed.connect(_on_active_unit_changed)
+	_on_active_unit_changed(battlefield_manager.active_unit, int(battlefield_manager.current_phase))
 
 
 func _on_pause_button_pressed() -> void:
@@ -27,3 +32,9 @@ func _on_spell_book_button_pressed() -> void:
 			spellbook_menu.open(spell_data)
 		else:
 			print("You have already cast a spell this round!")
+
+func _on_active_unit_changed(unit: Unit, _phase: int) -> void:
+	var troop_info := $HUD/MarginContainer/BottomBarUI/CurrentTroopInfo as CurrentTroopInfo
+	if troop_info == null:
+		return
+	troop_info.set_context(unit)

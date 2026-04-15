@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ckkvjpostk6q8"]
+[gd_scene load_steps=23 format=3 uid="uid://etxab1gicds7"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_k4tmb"]
 [ext_resource type="Texture2D" uid="uid://cp0ibmbo31nls" path="res://army/units/ninja.png" id="2_c9pdr"]
