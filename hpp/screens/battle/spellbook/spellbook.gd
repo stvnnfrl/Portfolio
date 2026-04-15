@@ -15,6 +15,7 @@ signal closed
 	left_page.get_node("Spell3Container"),
 	left_page.get_node("Spell4Container")
 ]
+@onready var drawing_pad : Panel = $BookCenter/BookPanel/BookLayout/Pages/RightPage/drawingPad
 
 var current_spells: Array[Dictionary] = []
 var armed_spell_index: int = -1
@@ -38,6 +39,12 @@ func _ready() -> void:
 
 func open(hero_spells: Array[Dictionary]) -> void:
 	current_spells = hero_spells
+	
+	# reset spell selection and clear the drawing pad
+	_reset_all_panels()
+	drawing_pad.clear_pad()
+	
+	right_page.set_available_spells(hero_spells)
 	_load_spells_into_ui()
 	visible = true
 
