@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf6557c84b5ka"]
+
+[ext_resource type="Script" uid="uid://dpjlomwmumppe" path="res://screens/battle/spellbook/gesture_recognizer.gd" id="1_atxcx"]
+[ext_resource type="Script" uid="uid://ddem4ra2cqk1w" path="res://screens/battle/spellbook/drawing_pad.gd" id="1_omivw"]
+
+[node name="TemplateMaker" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1076.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpellName" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spell Name:"
+
+[node name="SpellNameInput" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TemplateCount" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DrawingPad" type="Panel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_omivw")
+
+[node name="GestureRecognizer" type="Node" parent="."]
+script = ExtResource("1_atxcx")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://rdknu755plvn"]
 
 [ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_17rck"]
-[ext_resource type="Texture2D" uid="uid://qg3d4c6kv54w" path="res://spells/UnholyHaste.png" id="2_35sh2"]
+[ext_resource type="Texture2D" uid="uid://b5vqtygno655h" path="res://spells/UnholyHaste_new.png" id="2_5ytto"]
 
 [node name="Spell" instance=ExtResource("1_17rck")]
-texture = ExtResource("2_35sh2")
+texture = ExtResource("2_5ytto")
 spell_name = "Unholy Haste"
