@@ -307,6 +307,27 @@ func _draw_phase_highlights() -> void:
 
 # Helper functions
 
+func get_remaining_round_queue() -> Array[Unit]:
+	return get_current_round_queue()
+
+
+func get_current_round_queue() -> Array[Unit]:
+	var remaining_units: Array[Unit] = []
+	if turn_queue.is_empty():
+		return remaining_units
+
+	var start_index: int = curr_subturn_index
+	if start_index < 0:
+		start_index = 0
+
+	for index in range(start_index, turn_queue.size()):
+		var queued_unit := turn_queue[index]
+		if is_instance_valid(queued_unit):
+			remaining_units.append(queued_unit)
+
+	return remaining_units
+
+
 func sort_by_movement_speed(unit_1 : Unit, unit_2 : Unit) -> bool:
 	return unit_1.speed > unit_2.speed
 	

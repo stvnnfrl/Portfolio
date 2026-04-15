@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b1ulqunccq7na"]
+[gd_scene load_steps=25 format=3 uid="uid://b1ulqunccq7na"]
 
 [ext_resource type="Script" uid="uid://dwjiijl1qcjp8" path="res://screens/battle/battlefield/battlefield_save_load.gd" id="1_7b0ts"]
 [ext_resource type="Script" uid="uid://5tolt38mvh3k" path="res://screens/battle/battlefield/grid_manager.gd" id="1_o47rj"]
@@ -18,6 +18,7 @@
 [ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://screens/resources/Excalifont-Regular.woff2" id="13_font"]
 [ext_resource type="Texture2D" uid="uid://u3pjff8men0b" path="res://screens/battle/battlefield/assets/hex_button_normal.svg" id="14_hex"]
 [ext_resource type="Texture2D" uid="uid://vp8p3qxq84jw" path="res://screens/battle/battlefield/assets/spellbook_icon.svg" id="15_spell_icon"]
+[ext_resource type="Script" uid="uid://bq0sx4n7u9tq2" path="res://screens/battle/battlefield/turn_queue_display.gd" id="13_turnq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1xpb"]
 content_margin_left = 24.0
@@ -81,6 +82,36 @@ content_margin_bottom = 0.0
 bg_color = Color(0.11, 0.11, 0.12, 0.9)
 shadow_color = Color(0, 0, 0, 0.22)
 shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_turn_queue"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.96, 0.95, 0.91, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.02, 0.02, 0.02, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.18)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_turn_queue_slot"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.02, 0.02, 0.02, 0.95)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="Battlefield" type="Node2D"]
 script = ExtResource("1_7b0ts")
@@ -155,17 +186,82 @@ layout_mode = 2
 text = "Pause"
 
 [node name="Spacer1" type="Control" parent="UILayer/HUD/MarginContainer/TopBarUI"]
-custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="TurnQueueDisplay" type="PanelContainer" parent="UILayer/HUD/MarginContainer/TopBarUI"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_turn_queue")
+script = ExtResource("13_turnq")
+
+[node name="QueuePadding" type="MarginContainer" parent="UILayer/HUD/MarginContainer/TopBarUI/TurnQueueDisplay"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 0
+
+[node name="QueueRow" type="HBoxContainer" parent="UILayer/HUD/MarginContainer/TopBarUI/TurnQueueDisplay/QueuePadding"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="SlotTemplate" type="Control" parent="UILayer/HUD/MarginContainer/TopBarUI/TurnQueueDisplay"]
+visible = false
+custom_minimum_size = Vector2(54, 54)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="UnitQueue" type="HBoxContainer" parent="UILayer/HUD/MarginContainer/TopBarUI"]
+[node name="Background" type="ColorRect" parent="UILayer/HUD/MarginContainer/TopBarUI/TurnQueueDisplay/SlotTemplate"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.34, 0.34, 0.34, 0.86)
+
+[node name="Border" type="PanelContainer" parent="UILayer/HUD/MarginContainer/TopBarUI/TurnQueueDisplay/SlotTemplate"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_turn_queue_slot")
+
+[node name="PortraitCenter" type="CenterContainer" parent="UILayer/HUD/MarginContainer/TopBarUI/TurnQueueDisplay/SlotTemplate"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PortraitTexture" type="TextureRect" parent="UILayer/HUD/MarginContainer/TopBarUI/TurnQueueDisplay/SlotTemplate/PortraitCenter"]
+texture_filter = 1
+custom_minimum_size = Vector2(46, 46)
 layout_mode = 2
-size_flags_horizontal = 3
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Spacer2" type="Control" parent="UILayer/HUD/MarginContainer/TopBarUI"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 
 [node name="BottomBarUI" type="HBoxContainer" parent="UILayer/HUD/MarginContainer"]

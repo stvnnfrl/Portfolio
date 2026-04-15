@@ -4,6 +4,8 @@ class_name UIManager
 @onready var game_menu : Control = $GameMenu
 @onready var spellbook_menu : Control = $SpellBookMenu
 @onready var battlefield_manager : BattlefieldManager = $"../BattlefieldManager"
+@onready var current_troop_info: CurrentTroopInfo = $HUD/MarginContainer/BottomBarUI/CurrentTroopInfo
+@onready var turn_queue_display = $HUD/MarginContainer/TopBarUI/TurnQueueDisplay
 
 func _ready() -> void:
 	game_menu.hide()
@@ -35,7 +37,8 @@ func _on_spell_book_button_pressed() -> void:
 			print("You have already cast a spell this round!")
 
 func _on_active_unit_changed(unit: Unit, _phase: int) -> void:
-	var troop_info := $HUD/MarginContainer/BottomBarUI/CurrentTroopInfo as CurrentTroopInfo
-	if troop_info == null:
-		return
-	troop_info.set_context(unit)
+	if current_troop_info != null:
+		current_troop_info.set_context(unit)
+
+	if turn_queue_display != null:
+		turn_queue_display.set_units(battlefield_manager.get_current_round_queue())
