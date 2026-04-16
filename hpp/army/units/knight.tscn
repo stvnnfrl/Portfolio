@@ -25,10 +25,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="knight" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_h8tqw")]
+[node name="knight" instance=ExtResource("1_h8tqw")]
 unit_id = "knight"
 unit_name = "Knight"
-description = "Placeholder knight unit for battlefield testing."
+description = "They have strong beatstick"
+icon_texture = ExtResource("2_k3vjm")
 max_health = 9
 speed = 5
 movement = 3
@@ -36,9 +37,6 @@ dmg_min = 4
 dmg_max = 6
 reach = 1
 cost = 7
-anim_sprite = NodePath("AnimatedPixelArt")
-hex_halo = NodePath("HexHalo")
-health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(2.8, 2.8)

@@ -25,10 +25,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="pawn" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_m2qvf")]
+[node name="pawn" instance=ExtResource("1_m2qvf")]
 unit_id = "pawn"
 unit_name = "Pawn"
-description = "Chess-piece based pawn variant for battlefield testing."
+description = "Take up a tile, used for blocking off enemy, weak stats "
+icon_texture = ExtResource("2_s7kdn")
 max_health = 4
 speed = 6
 movement = 1
@@ -36,9 +37,6 @@ dmg_min = 5
 dmg_max = 10
 reach = 1
 cost = 1
-anim_sprite = NodePath("AnimatedPixelArt")
-hex_halo = NodePath("HexHalo")
-health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(2.4, 2.4)

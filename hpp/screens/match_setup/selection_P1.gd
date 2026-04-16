@@ -33,6 +33,11 @@ var money: int = 0
 
 var selected_hero : Hero
 
+#Tooltip will constantly read the Hero selected hence the 
+#following 2 Arrays
+var unit_scenes: Array[PackedScene] = [null, null, null, null]
+var unit_data_cache: Array[Dictionary] = [ {}, {}, {}, {} ]
+
 func _ready():
 	var btn_pairs = [
 		[$QtyTroop1/MinusButton, $QtyTroop1/PlusButton],
@@ -76,6 +81,9 @@ func _on_hero_selected(index: int) -> void:
 		return
 		
 	hero_option.tooltip_text = selected_hero.description
+	
+	#to display info
+	_preload_unit_data()
 
 	unit_count = mini(selected_hero.units.size(), 4)
 
@@ -134,3 +142,38 @@ func _setup_dropdown_tooltips() -> void:
 				hero_option.set_item_tooltip(i, temp_hero.description)
 				# delete the temp hero instance
 				temp_hero.queue_free()
+				
+
+# Instantiates each unit temporarily to extract name, cost,description and icon to be displayed by 
+#the tooltip using  unit_data_cache and updates the UI labels.
+func _preload_unit_data()->void:
+	unit_count = mini(selected_hero.units.size(), 4)
+	
+	for i in range(4):
+		if i < unit_count:
+			var unit_scene: PackedScene = selected_hero.units[i]
+			unit_scenes[i] = unit_scene
+			
+			# Instantiate temporarily to read all needed data
+			var unit_instance = unit_scene.instantiate() as Unit
+			troop_labels[i].text = unit_instance.unit_name
+			costs[i] = unit_instance.cost
+			cost_labels[i].text = str(unit_instance.cost)
+			
+			# Store tooltip data in cache
+			unit_data_cache[i] = {
+				"name": unit_instance.unit_name,
+				"cost": unit_instance.cost,
+				"description": unit_instance.description,
+				"icon": unit_instance.icon_texture
+				}
+			unit_instance.queue_free()
+			
+		else:
+			troop_labels[i].text = "—"
+			costs[i] = 0
+			cost_labels[i].text = "0"
+			unit_scenes[i] = null
+			unit_data_cache[i] = {}
+				
+			_update_ui()

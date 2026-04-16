@@ -1,8 +1,24 @@
-[gd_scene load_steps=15 format=3 uid="uid://d3oam3y4mn5vu"]
+[gd_scene load_steps=16 format=3 uid="uid://d3oam3y4mn5vu"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_l8vqn"]
 [ext_resource type="Texture2D" uid="uid://cq3qgaeb3hu1b" path="res://army/units/sniper.png" id="2_m4jtc"]
 [ext_resource type="Texture2D" uid="uid://dgp8hv6r2psy6" path="res://army/units/sniper_attack.png" id="3_q7rfd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wc783"]
+atlas = ExtResource("3_q7rfd")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bx201"]
+atlas = ExtResource("3_q7rfd")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4hsn"]
+atlas = ExtResource("3_q7rfd")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqn94"]
+atlas = ExtResource("3_q7rfd")
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jipgm"]
 atlas = ExtResource("2_m4jtc")
@@ -31,22 +47,6 @@ region = Rect2(254, 0, 50, 63)
 [sub_resource type="AtlasTexture" id="AtlasTexture_nbsmg"]
 atlas = ExtResource("2_m4jtc")
 region = Rect2(304, 0, 50, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wc783"]
-atlas = ExtResource("3_q7rfd")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bx201"]
-atlas = ExtResource("3_q7rfd")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n4hsn"]
-atlas = ExtResource("3_q7rfd")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kqn94"]
-atlas = ExtResource("3_q7rfd")
-region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_r8pnc"]
 animations = [{
@@ -94,10 +94,11 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="sniper" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_l8vqn")]
+[node name="sniper" instance=ExtResource("1_l8vqn")]
 unit_id = "sniper"
 unit_name = "Sniper"
-description = "Ranged unit using sniper idle frames."
+description = "Fires a shot up that strikes an enemy unit dealing bonus damage if they’re isolated"
+icon_texture = ExtResource("2_m4jtc")
 max_health = 7
 speed = 5
 movement = 3
@@ -105,9 +106,6 @@ dmg_min = 4
 dmg_max = 7
 reach = 3
 cost = 8
-anim_sprite = NodePath("AnimatedPixelArt")
-hex_halo = NodePath("HexHalo")
-health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 position = Vector2(0, -16)

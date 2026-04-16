@@ -42,7 +42,8 @@ animations = [{
 [node name="spectral_rider" instance=ExtResource("1_h15sy")]
 unit_id = "spectral_rider"
 unit_name = "Spectral Rider"
-description = "TBD"
+description = "When it dies, spawns a second phase (a dead living HORSE)."
+icon_texture = ExtResource("2_htees")
 max_health = 7
 speed = 5
 movement = 4

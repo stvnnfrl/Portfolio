@@ -200,7 +200,8 @@ animations = [{
 [node name="soul_well" instance=ExtResource("1_4w3at")]
 unit_id = "soul_well"
 unit_name = "Soul Well"
-description = "The well of souls"
+description = "Global artillery"
+icon_texture = ExtResource("2_wv7kb")
 max_health = 10
 speed = 1
 movement = 0

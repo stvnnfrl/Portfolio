@@ -25,10 +25,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="queen" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_r4nxb")]
+[node name="queen" instance=ExtResource("1_r4nxb")]
 unit_id = "queen"
 unit_name = "Queen"
-description = "Placeholder queen unit for battlefield testing."
+description = "Wields crossbow that fires 2 projectiles that stop at the first unit hit, damage enemies and buffing allies "
+icon_texture = ExtResource("2_y8pqc")
 max_health = 10
 speed = 6
 movement = 3
@@ -36,9 +37,6 @@ dmg_min = 5
 dmg_max = 7
 reach = 2
 cost = 8
-anim_sprite = NodePath("AnimatedPixelArt")
-hex_halo = NodePath("HexHalo")
-health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(2.9, 2.9)

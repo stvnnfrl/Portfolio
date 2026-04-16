@@ -28,6 +28,8 @@ animations = [{
 [node name="mine_layer" instance=ExtResource("1_pucm5")]
 unit_id = "mine_layer"
 unit_name = "Mine Layer"
+description = "Attack: places a mine on the floor that becomes invisible to both players after arming"
+icon_texture = ExtResource("2_s2jsv")
 max_health = 10
 speed = 3
 movement = 3
