@@ -17,6 +17,10 @@ var health : int = -1
 var cubic_pos : Vector3i
 var army_id : int
 
+# These variables are for spell effects
+var bonus_dmg : int = 0
+var bonus_reach : int = 0
+
 @export var anim_sprite : AnimatedSprite2D
 @export var hex_halo : Sprite2D
 @export var health_bar : ProgressBar
@@ -48,10 +52,26 @@ func take_damage(amount : int):
 	
 	if health_bar:
 		health_bar.value = health
-		
+
+
+func heal(amount : int):
+	health = clampi(health + amount, 0, max_health)
+	if health_bar:
+		health_bar.value = health
+
+
 func get_attack_damage() -> int:
-	return randi_range(dmg_min, dmg_max)
-	
+	var pre_bonus_damage : int = randi_range(dmg_min, dmg_max)
+	print(pre_bonus_damage)
+	var post_bonus_damage : int = pre_bonus_damage + bonus_dmg
+	print(post_bonus_damage)
+	return post_bonus_damage
+
+
+func get_current_reach() -> int:
+	return reach + bonus_reach
+
+
 func play_attack_animation() -> void:
 	if anim_sprite and anim_sprite.sprite_frames and anim_sprite.sprite_frames.has_animation("attack"):
 		anim_sprite.play("attack")
