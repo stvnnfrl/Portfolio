@@ -118,7 +118,8 @@ func _setup_pregame_unit(unit_instance: Unit, army: int) -> void:
 		army_1.append(unit_instance)
 	else:
 		army_2.append(unit_instance)
-		
+	
+	
 
 func _set_normal_color(unit : Unit):
 	if unit.army_id == 1:
@@ -250,26 +251,50 @@ func _attempt_attack(target_hex: Vector3i) -> void:
 			print("Invalid target")
 	else:
 		print("Target out of range")
-
-
+	
+	
 func _kill_unit(unit: Unit) -> void:
-	#remove unit from arrays
-	grid.board_state.erase(unit.cubic_pos)
-	turn_queue.erase(unit)
-	army_1.erase(unit)
-	army_2.erase(unit)
-	
-	# adjust turn index
-	var queue_index = turn_queue.find(unit)
-	if queue_index != -1 and queue_index < curr_subturn_index:
-		curr_subturn_index -= 1 
+	if unit.has_phase2():
+		# Deal with army replacement
+		army_1.erase(unit)
+		army_2.erase(unit)
 		
-	# Delete the node
-	unit.queue_free()
+		# Deal with grid
+		grid.board_state.erase(unit.cubic_pos)
+		
+		# Add the second phase
+		var new_unit = unit.transform_to_phase2()
+		_setup_pregame_unit(new_unit, unit.army_id)
+		
+		# Deal with the queue order
+		var old_idx = turn_queue.find(unit)
+		turn_queue.erase(unit)
+		turn_queue.insert(0, new_unit)
+		if old_idx >= curr_subturn_index:
+			curr_subturn_index += 1
+		
 	
-	# TODO this check placement might get changed in the future when spells are involved
-	# Check if one army has won
-	_check_winning_condition()
+		# Delete the node
+		unit.queue_free()
+		
+	else: 
+		# remove unit from arrays
+		grid.board_state.erase(unit.cubic_pos)
+		turn_queue.erase(unit)
+		army_1.erase(unit)
+		army_2.erase(unit)
+	
+		# adjust turn index
+		var queue_index = turn_queue.find(unit)
+		if queue_index != -1 and queue_index < curr_subturn_index:
+			curr_subturn_index -= 1 
+	
+		# Delete the node
+		unit.queue_free()
+	
+		# TODO this check placement might get changed in the future when spells are involved
+		# Check if one army has won
+		_check_winning_condition()
 
 
 func _check_winning_condition():
@@ -353,7 +378,12 @@ func _reset_round_state():
 	for unit in all_living_units:
 		unit.bonus_dmg = 0
 		unit.bonus_reach = 0
-
+	
+	turn_queue.clear()
+	turn_queue.append_array(army_1)
+	turn_queue.append_array(army_2)
+	turn_queue.sort_custom(sort_by_movement_speed)
+	
 
 func can_active_hero_cast_spell() -> bool:
 	if active_unit.army_id == 1:
@@ -433,3 +463,5 @@ func _spell_heal_army(target_army: Array[Unit]) -> void:
 func _spell_damage_boost(target_army: Array[Unit]) -> void:
 	for unit in target_army:
 		unit.bonus_dmg += 1
+		
+		

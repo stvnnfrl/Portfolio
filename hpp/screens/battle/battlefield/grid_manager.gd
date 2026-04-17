@@ -17,6 +17,7 @@ func _ready() -> void:
 	#grid_visuals.set_instance_shader_parameter("size", 100.0)
 	grid_visuals.set_instance_shader_parameter("border_frac", border_frac)
 
+	get_tree().root.print_tree_pretty()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

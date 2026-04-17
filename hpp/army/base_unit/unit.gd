@@ -36,6 +36,7 @@ func _ready() -> void:
 	if health_bar:
 		health_bar.max_value = max_health
 		health_bar.value = health
+		
 
 func _ensure_node_refs() -> void:
 	if anim_sprite == null:
@@ -85,3 +86,7 @@ func play_attack_animation() -> void:
 	else:
 		# If no attack animation exists, simulate one
 		await get_tree().create_timer(0.25).timeout
+		
+# Need
+func has_phase2() -> bool:
+	return false

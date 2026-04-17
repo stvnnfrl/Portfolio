@@ -1,7 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://bj7u6cw7q4ako"]
+[gd_scene load_steps=12 format=3 uid="uid://bj7u6cw7q4ako"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_h15sy"]
+[ext_resource type="Script" uid="uid://juxngrb5lh5q" path="res://army/units/spectral_rider.gd" id="2_44xsa"]
 [ext_resource type="Texture2D" uid="uid://bgh4460pk53to" path="res://army/units/spectral_rider.png" id="2_htees"]
+[ext_resource type="Texture2D" uid="uid://cnd6bfujd812n" path="res://army/units/SpectralRiderWithAttack.png" id="2_lavic"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg3va"]
+atlas = ExtResource("2_lavic")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hth4k"]
+atlas = ExtResource("2_lavic")
+region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lavic"]
 atlas = ExtResource("2_htees")
@@ -23,6 +33,17 @@ region = Rect2(96, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_tg3va")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hth4k")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_lavic")
 }, {
 "duration": 1.0,
@@ -40,6 +61,7 @@ animations = [{
 }]
 
 [node name="spectral_rider" instance=ExtResource("1_h15sy")]
+script = ExtResource("2_44xsa")
 unit_id = "spectral_rider"
 unit_name = "Spectral Rider"
 description = "TBD"
@@ -53,4 +75,4 @@ cost = 15
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_tg3va")
-animation = &"idle"
+animation = &"attack"
