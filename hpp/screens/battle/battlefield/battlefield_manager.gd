@@ -353,6 +353,8 @@ func _reset_round_state():
 	for unit in all_living_units:
 		unit.bonus_dmg = 0
 		unit.bonus_reach = 0
+		
+	turn_queue.sort_custom(sort_by_movement_speed)
 
 
 func can_active_hero_cast_spell() -> bool:
