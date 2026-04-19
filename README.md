@@ -1,2 +1,1 @@
-This repo will be used to showcase all my projects, including schoolwork.
-- Steven C.
+This repo will be used to showcase all my projects, including schoolwork. - Steven C.
