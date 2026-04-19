@@ -1,8 +1,6 @@
 extends Node
 class_name BattlefieldManager
 
-signal active_unit_changed(unit: Unit, phase: int)
-
 @export var highlight_scene : PackedScene
 
 @onready var grid : GridManager = $"../GridManager"
@@ -90,14 +88,9 @@ func _load_saved_turn_state(saved_turn_queue: Array[int], saved_subturn_index: i
 	curr_subturn_index = clamp(saved_subturn_index, 0, turn_queue.size() - 1)
 	current_phase = saved_phase as SubTurnPhase
 	active_unit = turn_queue[curr_subturn_index]
-	if active_unit.army_id == 1:
-		active_hero = hero_1
-	else:
-		active_hero = hero_2
 	_activate_unit_color()
-	if current_phase != SubTurnPhase.ANIMATING:
+	if current_phase == SubTurnPhase.MOVING:
 		_draw_phase_highlights()
-	_emit_active_unit_changed()
 	
 	
 func _setup_pregame_unit(unit_instance: Unit, army: int) -> void:
@@ -160,7 +153,6 @@ func _start_next_sub_turn():
 		current_phase = SubTurnPhase.MOVING
 	
 	_draw_phase_highlights()
-	_emit_active_unit_changed()
 
 
 func _activate_unit_color():
@@ -168,10 +160,6 @@ func _activate_unit_color():
 		active_unit.hex_halo.modulate = army_1_color_active
 	else:
 		active_unit.hex_halo.modulate = army_2_color_active
-
-
-func _emit_active_unit_changed() -> void:
-	active_unit_changed.emit(active_unit, int(current_phase))
 
 
 func _clear_highlights() -> void:
