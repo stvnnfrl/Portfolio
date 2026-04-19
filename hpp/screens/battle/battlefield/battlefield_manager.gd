@@ -28,6 +28,8 @@ var army_1_has_casted : bool = false
 var army_2_has_casted : bool = false
 
 var active_unit : Unit
+var active_highlights : Array = []
+var active_reachable_hexes : Dictionary = {}
 
 func setup_battlefield(
 	hero1: Hero,
@@ -131,7 +133,7 @@ func _init_turn_queue():
 func _start_next_sub_turn():
 	if active_unit != null:
 		_set_normal_color(active_unit)
-	
+
 	curr_subturn_index += 1
 	
 	if curr_subturn_index >= turn_queue.size():
@@ -340,3 +342,97 @@ func _get_hero_for_active_unit() -> Hero:
 		return hero_1
 
 	return hero_2
+
+
+func _reset_round_state():
+	army_1_has_casted = false
+	army_2_has_casted = false
+	
+	var all_living_units = []
+	all_living_units.append_array(army_1)
+	all_living_units.append_array(army_2)
+	
+	for unit in all_living_units:
+		unit.bonus_dmg = 0
+		unit.bonus_reach = 0
+
+
+func can_active_hero_cast_spell() -> bool:
+	if active_unit.army_id == 1:
+		return not army_1_has_casted
+	else:
+		return not army_2_has_casted
+	
+# signal related function
+
+
+func _on_spellbook_spell_selected(spell_index: int) -> void:
+	
+	if not can_active_hero_cast_spell():
+		print("Spell already cast this round!")
+		return
+		
+	var target_army = army_1 if active_unit.army_id == 1 else army_2
+	
+	match spell_index:
+		0:
+			print("Spell Cast: Quicken")
+			_spell_advance_queue(target_army)
+		1:
+			print("Spell Cast: Extend Range")
+			_spell_extend_range(target_army)
+		2:
+			print("Spell Cast: Heal Army")
+			_spell_heal_army(target_army)
+		3:
+			print("Spell Cast: Damage Boost")
+			_spell_damage_boost(target_army)
+			
+	# Lock out casting for the rest of the round
+	if active_unit.army_id == 1:
+		army_1_has_casted = true
+	else:
+		army_2_has_casted = true
+		
+	# update visuals
+	_draw_phase_highlights()
+	_emit_active_unit_changed()
+
+
+# Spell functions
+
+# Spell 1: Advance queue (i.e. all units from that army goes in front)
+func _spell_advance_queue(target_army: Array[Unit]) -> void:
+	var units_to_advance: Array[Unit] = []
+	
+	# Iterate backwards from the end of the queue down to the active unit
+	for i in range(turn_queue.size() - 1, curr_subturn_index, -1):
+		var unit = turn_queue[i]
+		if target_army.has(unit):
+			units_to_advance.append(unit)
+			turn_queue.remove_at(i)
+			
+	# Reverse the array so we maintain their original speed-sorted order
+	units_to_advance.reverse()
+	
+	# Insert them sequentially right after the current active unit
+	var insert_pos = curr_subturn_index + 1
+	for unit in units_to_advance:
+		turn_queue.insert(insert_pos, unit)
+		insert_pos += 1
+		
+
+# Spell 2: Extend Range
+func _spell_extend_range(target_army: Array[Unit]) -> void:
+	for unit in target_army:
+		unit.bonus_reach += 1
+
+# Spell 3: Heal Army
+func _spell_heal_army(target_army: Array[Unit]) -> void:
+	for unit in target_army:
+		unit.heal(1)
+
+# Spell 3: Damage Boost
+func _spell_damage_boost(target_army: Array[Unit]) -> void:
+	for unit in target_army:
+		unit.bonus_dmg += 1

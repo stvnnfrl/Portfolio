@@ -13,6 +13,7 @@ func _ready() -> void:
 		spell_button.pressed.connect(_on_spell_book_button_pressed)
 	battlefield_manager.active_unit_changed.connect(_on_active_unit_changed)
 	_on_active_unit_changed(battlefield_manager.active_unit, int(battlefield_manager.current_phase))
+	spellbook_menu.spell_selected.connect(battlefield_manager._on_spellbook_spell_selected)
 
 
 func _on_pause_button_pressed() -> void:
