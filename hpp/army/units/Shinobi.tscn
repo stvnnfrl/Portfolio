@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://fhwouucvaqti"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_d6qvk"]
-[ext_resource type="Texture2D" uid="uid://br7kyrduon67w" path="res://army/units/Shinobi.png" id="2_g7npl"]
+[ext_resource type="Texture2D" uid="uid://b0lc8dp7exrtm" path="res://army/units/Shinobi.png" id="2_g7npl"]
 [ext_resource type="Texture2D" uid="uid://d07o0bp8j0gk6" path="res://army/units/shinobi_attack.png" id="3_h2xrt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0h5km"]
