@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://odblpc1bd8ay"]
+
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_14v1q"]
+[ext_resource type="Texture2D" uid="uid://cmtyes10yyk4l" path="res://army/units/GhoulWithAttack.png" id="2_14v1q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2275"]
+atlas = ExtResource("2_14v1q")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu77r"]
+atlas = ExtResource("2_14v1q")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjjfs"]
+atlas = ExtResource("2_14v1q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li2ym"]
+atlas = ExtResource("2_14v1q")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tg3va"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2275")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu77r")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjjfs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li2ym")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="ghoul" instance=ExtResource("1_14v1q")]
+unit_id = "ghoul"
+unit_name = "Ghoul"
+description = "An undead summon"
+max_health = 3
+speed = 3
+movement = 2
+dmg_min = 1
+dmg_max = 1
+reach = 1
+cost = 0
+
+[node name="AnimatedPixelArt" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_tg3va")
+animation = &"idle"
