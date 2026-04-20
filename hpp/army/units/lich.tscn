@@ -1,51 +1,71 @@
-[gd_scene load_steps=8 format=3 uid="uid://0offbspc4q8p"]
+[gd_scene load_steps=11 format=3 uid="uid://0offbspc4q8p"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_2hpdd"]
 [ext_resource type="Texture2D" uid="uid://c61v41j8ujh6c" path="res://army/units/lich.png" id="2_2kos8"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ob2bj"]
-atlas = ExtResource("2_2kos8")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mea10"]
-atlas = ExtResource("2_2kos8")
-region = Rect2(32, 0, 32, 32)
+[ext_resource type="Script" uid="uid://c5qilnrsnccy6" path="res://army/units/lich.gd" id="2_ob2bj"]
+[ext_resource type="Texture2D" uid="uid://cdqjpk1t54kbq" path="res://army/units/LichWithAttack.png" id="3_mea10"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4y0l5"]
-atlas = ExtResource("2_2kos8")
-region = Rect2(0, 32, 32, 32)
+atlas = ExtResource("3_mea10")
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nwit0"]
-atlas = ExtResource("2_2kos8")
-region = Rect2(32, 32, 32, 32)
+atlas = ExtResource("3_mea10")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_weeqe"]
+atlas = ExtResource("3_mea10")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hvkt"]
+atlas = ExtResource("3_mea10")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fixed1"]
+atlas = ExtResource("3_mea10")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_weeqe"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ob2bj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mea10")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4y0l5")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nwit0")
 }],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_weeqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hvkt")
+}],
 "loop": true,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fixed1")
+}],
+"loop": false,
+"name": &"summon",
 "speed": 5.0
 }]
 
 [node name="lich" instance=ExtResource("1_2hpdd")]
+script = ExtResource("2_ob2bj")
 unit_id = "lich"
 unit_name = "Lich"
 description = "Gains permanent stats when an ally unit dies "
 icon_texture = ExtResource("2_2kos8")
 max_health = 5
-speed = 3
+speed = 4
 movement = 2
 dmg_min = 2
 dmg_max = 3

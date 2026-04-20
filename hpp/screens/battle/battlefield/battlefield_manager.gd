@@ -10,6 +10,7 @@ signal active_unit_changed(unit: Unit, phase: int)
 @onready var highlight_layer : Node2D = $"../HighlightLayer"
 
 var turn_queue : Array[Unit] = []
+
 var hero_1 : Hero
 var army_1 : Array[Unit] = []
 var hero_2 : Hero
@@ -140,7 +141,7 @@ func _start_next_sub_turn():
 	if curr_subturn_index >= turn_queue.size():
 		curr_subturn_index = 0
 		print("round done")
-		_reset_round_state()
+		await _reset_round_state()
 		
 	active_unit = turn_queue[curr_subturn_index]
 	
@@ -250,7 +251,7 @@ func _kill_unit(unit: Unit) -> void:
 		army_1.erase(unit)
 		army_2.erase(unit)
 		
-		# Deal with grid
+		# Deal with the grid
 		grid.board_state.erase(unit.cubic_pos)
 		
 		# Add the second phase
@@ -260,9 +261,8 @@ func _kill_unit(unit: Unit) -> void:
 		# Deal with the queue order
 		var old_idx = turn_queue.find(unit)
 		turn_queue.erase(unit)
-		turn_queue.insert(0, new_unit)
-		if old_idx >= curr_subturn_index:
-			curr_subturn_index += 1
+		if old_idx < curr_subturn_index:
+			curr_subturn_index -= 1
 		
 	
 		# Delete the node
@@ -401,6 +401,23 @@ func _reset_round_state():
 	for unit in all_living_units:
 		unit.bonus_dmg = 0
 		unit.bonus_reach = 0
+		
+		if unit is Lich:
+			var current_lich_pos = unit.cubic_pos
+			var spawn_hexes = grid.calculate_reachable_hexes(current_lich_pos, 1)
+			spawn_hexes.erase(current_lich_pos)
+			
+			var spawn_rate = 0.5
+			var ghoul = await unit.spawn_ghoul(spawn_rate)
+			
+			if ghoul != null:
+				# If we have a ghoul, then choose a random spawn tile
+				var keys = spawn_hexes.keys()
+				if keys.size() > 0:
+					var random_hex = keys[randi() % keys.size()]
+					ghoul.cubic_pos = random_hex
+					
+					_setup_pregame_unit(ghoul, unit.army_id)
 	
 	turn_queue.clear()
 	turn_queue.append_array(army_1)
