@@ -4,15 +4,15 @@ class_name UIManager
 @onready var game_menu : Control = $GameMenu
 @onready var spellbook_menu : Control = $SpellBookMenu
 @onready var battlefield_manager : BattlefieldManager = $"../BattlefieldManager"
+@onready var current_troop_info: CurrentTroopInfo = $HUD/MarginContainer/BottomBarUI/CurrentTroopInfo
+@onready var turn_queue_display = $HUD/MarginContainer/TopBarUI/TurnQueueDisplay
 
 func _ready() -> void:
 	game_menu.hide()
 	spellbook_menu.hide()
-	
 	var spell_button := $HUD/MarginContainer/BottomBarUI/CurrentTroopInfo/DockPadding/DockLayout/LeftActionZone/SpellRow/SpellButton as BaseButton
 	if spell_button != null and not spell_button.pressed.is_connected(_on_spell_book_button_pressed):
 		spell_button.pressed.connect(_on_spell_book_button_pressed)
-		
 	battlefield_manager.active_unit_changed.connect(_on_active_unit_changed)
 	_on_active_unit_changed(battlefield_manager.active_unit, int(battlefield_manager.current_phase))
 	spellbook_menu.spell_selected.connect(battlefield_manager._on_spellbook_spell_selected)
@@ -36,10 +36,9 @@ func _on_spell_book_button_pressed() -> void:
 		else:
 			print("You have already cast a spell this round!")
 
+func _on_active_unit_changed(unit: Unit, _phase: int) -> void:
+	if current_troop_info != null:
+		current_troop_info.set_context(unit)
 
-func _on_active_unit_changed(unit: Unit, phase: int) -> void:
-	var troop_info := $HUD/MarginContainer/BottomBarUI/CurrentTroopInfo as CurrentTroopInfo
-	if troop_info == null:
-		return
-	troop_info.set_context(unit, phase)
-	troop_info.set_visual_state(CurrentTroopInfo.STATE_ACTIVE_TURN if unit != null else CurrentTroopInfo.STATE_IDLE)
+	if turn_queue_display != null:
+		turn_queue_display.set_units(battlefield_manager.get_current_round_queue())

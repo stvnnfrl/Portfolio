@@ -28,7 +28,6 @@ var army_1_has_casted : bool = false
 var army_2_has_casted : bool = false
 
 var active_unit : Unit
-var active_hero : Hero
 var active_highlights : Array = []
 var active_reachable_hexes : Dictionary = {}
 
@@ -90,10 +89,6 @@ func _load_saved_turn_state(saved_turn_queue: Array[int], saved_subturn_index: i
 	curr_subturn_index = clamp(saved_subturn_index, 0, turn_queue.size() - 1)
 	current_phase = saved_phase as SubTurnPhase
 	active_unit = turn_queue[curr_subturn_index]
-	if active_unit.army_id == 1:
-		active_hero = hero_1
-	else:
-		active_hero = hero_2
 	_activate_unit_color()
 	if current_phase != SubTurnPhase.ANIMATING:
 		_draw_phase_highlights()
@@ -138,7 +133,7 @@ func _init_turn_queue():
 func _start_next_sub_turn():
 	if active_unit != null:
 		_set_normal_color(active_unit)
-	
+
 	curr_subturn_index += 1
 	
 	if curr_subturn_index >= turn_queue.size():
@@ -147,10 +142,6 @@ func _start_next_sub_turn():
 		_reset_round_state()
 		
 	active_unit = turn_queue[curr_subturn_index]
-	if active_unit.army_id == 1:
-		active_hero = hero_1
-	else:
-		active_hero = hero_2
 	
 	_activate_unit_color()
 	
@@ -316,17 +307,39 @@ func _draw_phase_highlights() -> void:
 
 # Helper functions
 
+func get_remaining_round_queue() -> Array[Unit]:
+	return get_current_round_queue()
+
+
+func get_current_round_queue() -> Array[Unit]:
+	var remaining_units: Array[Unit] = []
+	if turn_queue.is_empty():
+		return remaining_units
+
+	var start_index: int = curr_subturn_index
+	if start_index < 0:
+		start_index = 0
+
+	for index in range(start_index, turn_queue.size()):
+		var queued_unit := turn_queue[index]
+		if is_instance_valid(queued_unit):
+			remaining_units.append(queued_unit)
+
+	return remaining_units
+
+
 func sort_by_movement_speed(unit_1 : Unit, unit_2 : Unit) -> bool:
 	return unit_1.speed > unit_2.speed
 	
 
 func get_current_hero_spells() -> Array[Dictionary]:
 	var hero_spells_data: Array[Dictionary] = []
+	var current_hero := _get_hero_for_active_unit()
 	
-	if active_hero == null:
+	if current_hero == null:
 		return hero_spells_data
 		
-	for spell_scene in active_hero.spells: 
+	for spell_scene in current_hero.spells:
 		if spell_scene != null:
 
 			var spell_instance = spell_scene.instantiate()
@@ -340,6 +353,16 @@ func get_current_hero_spells() -> Array[Dictionary]:
 			spell_instance.queue_free()
 			
 	return hero_spells_data
+
+
+func _get_hero_for_active_unit() -> Hero:
+	if active_unit == null:
+		return null
+
+	if active_unit.army_id == 1:
+		return hero_1
+
+	return hero_2
 
 
 func _reset_round_state():
@@ -364,6 +387,7 @@ func can_active_hero_cast_spell() -> bool:
 		return not army_2_has_casted
 	
 # signal related function
+
 
 func _on_spellbook_spell_selected(spell_index: int) -> void:
 	

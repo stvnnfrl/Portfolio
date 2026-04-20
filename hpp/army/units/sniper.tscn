@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d3oam3y4mn5vu"]
+[gd_scene load_steps=15 format=3 uid="uid://83v8uvsve21q"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_l8vqn"]
 [ext_resource type="Texture2D" uid="uid://cq3qgaeb3hu1b" path="res://army/units/sniper.png" id="2_m4jtc"]
@@ -111,6 +111,6 @@ health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 position = Vector2(0, -16)
-scale = Vector2(2, 2)
+scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_r8pnc")
 animation = &"idle"

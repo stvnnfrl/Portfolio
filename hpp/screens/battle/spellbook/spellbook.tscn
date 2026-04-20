@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://duxfroxnob17l" path="res://screens/battle/spellbook/spellbook.gd" id="1_script"]
 [ext_resource type="Script" uid="uid://cetny6c6xtqc2" path="res://screens/battle/spellbook/drawing_controller.gd" id="2_ls8bn"]
-[ext_resource type="Script" path="res://screens/battle/spellbook/drawing_pad.gd" id="2_nkf7u"]
+[ext_resource type="Script" uid="uid://ddem4ra2cqk1w" path="res://screens/battle/spellbook/drawing_pad.gd" id="2_nkf7u"]
 [ext_resource type="Script" uid="uid://dpjlomwmumppe" path="res://screens/battle/spellbook/gesture_recognizer.gd" id="3_bsilb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_book"]
