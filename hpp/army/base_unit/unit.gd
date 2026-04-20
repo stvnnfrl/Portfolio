@@ -4,6 +4,9 @@ class_name Unit extends Node2D
 @export var unit_name : String
 @export var description : String
 
+#this variable icon_texture, is being used in the tooltip
+@export var icon_texture:Texture2D
+
 @export var max_health : int
 var health : int = -1
 @export var speed : int

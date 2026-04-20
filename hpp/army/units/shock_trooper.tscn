@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dac2305iqo65v"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_p4vks"]
-[ext_resource type="Texture2D" uid="uid://qjrfym4q47se" path="res://army/units/shock_trooper.png" id="2_j6rnh"]
+[ext_resource type="Texture2D" uid="uid://bpmjau7odfauk" path="res://army/units/Shock_Trooper.png" id="2_j6rnh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cxo90"]
 atlas = ExtResource("2_j6rnh")
@@ -25,10 +25,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="shock_trooper" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_p4vks")]
+[node name="shock_trooper" instance=ExtResource("1_p4vks")]
 unit_id = "shock_trooper"
 unit_name = "Shock Trooper"
-description = "Shock Trooper using The Mandalorian Top Down front idle frames."
+description = "Attack (1)  Deals damage that chains to adjacent enemies "
+icon_texture = ExtResource("2_j6rnh")
 max_health = 8
 speed = 5
 movement = 3
@@ -36,9 +37,6 @@ dmg_min = 4
 dmg_max = 6
 reach = 2
 cost = 8
-anim_sprite = NodePath("AnimatedPixelArt")
-hex_halo = NodePath("HexHalo")
-health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 position = Vector2(0, -14)

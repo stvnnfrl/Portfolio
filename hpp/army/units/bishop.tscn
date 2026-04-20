@@ -25,10 +25,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="bishop" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_q9ldm")]
+[node name="bishop" instance=ExtResource("1_q9ldm")]
 unit_id = "bishop"
 unit_name = "Bishop"
-description = "Placeholder bishop unit for battlefield testing."
+description = "Can spend a turn either attacking or healing in an aura"
+icon_texture = ExtResource("2_b7wvc")
 max_health = 7
 speed = 4
 movement = 2
@@ -36,9 +37,6 @@ dmg_min = 3
 dmg_max = 5
 reach = 2
 cost = 6
-anim_sprite = NodePath("AnimatedPixelArt")
-hex_halo = NodePath("HexHalo")
-health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(3, 3)

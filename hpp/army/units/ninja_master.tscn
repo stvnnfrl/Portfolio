@@ -1,7 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://bemsi6ongjc6u"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_s4jlwm"]
+
 [ext_resource type="Texture2D" uid="uid://b8iblo2nqhqmh" path="res://army/units/ninja_master.png" id="2_e8prc"]
+
 [ext_resource type="Texture2D" uid="uid://cekefvh0d7e8v" path="res://army/units/ninja_master_attack.png" id="3_f6kvd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4l0hf"]
@@ -90,7 +92,8 @@ animations = [{
 [node name="ninja_master" instance=ExtResource("1_s4jlwm")]
 unit_id = "ninja_master"
 unit_name = "Ninja Master"
-description = "Ninja Master unit using the first idle row from Ninja_Animations."
+description = "Advantage if close enough to 3+ shinobi"
+icon_texture = ExtResource("2_e8prc")
 max_health = 6
 speed = 7
 movement = 3

@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://cp361wfc70owl"]
+
+[ext_resource type="Script" uid="uid://dtiwb41ox8xk1" path="res://screens/match_setup/Extra/unit_tooltip.gd" id="1_7fnif"]
+[ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://screens/resources/Excalifont-Regular.woff2" id="1_msniw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7fnif"]
+bg_color = Color(0.013335685, 0.01333569, 0.013335674, 1)
+
+[sub_resource type="Theme" id="Theme_msniw"]
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_7fnif")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3bg4"]
+bg_color = Color(0.11284717, 0.11284701, 0.10636117, 0.78431374)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7fnif"]
+font = ExtResource("1_msniw")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_67wnm"]
+font = ExtResource("1_msniw")
+font_size = 24
+
+[node name="UnitTooltip" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 250.0
+offset_bottom = 150.0
+mouse_filter = 2
+script = ExtResource("1_7fnif")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_msniw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_g3bg4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icon" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+
+[node name="Name_Label" type="Label" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "\"\"
+"
+label_settings = SubResource("LabelSettings_7fnif")
+
+[node name="Decriptive_Label" type="Label" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "\"\""
+label_settings = SubResource("LabelSettings_67wnm")
+autowrap_mode = 2
