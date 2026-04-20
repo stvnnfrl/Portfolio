@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://c5pmbreieytsd"]
 
 [ext_resource type="PackedScene" uid="uid://dgo42mrokcow6" path="res://army/base_hero/hero.tscn" id="1_1wkgs"]
-[ext_resource type="PackedScene" uid="uid://b7r5q3e6mjqwj" path="res://army/units/shock_trooper.tscn" id="2_arp6l"]
+[ext_resource type="PackedScene" uid="uid://dac2305iqo65v" path="res://army/units/shock_trooper.tscn" id="2_arp6l"]
 [ext_resource type="PackedScene" uid="uid://djy3tn7w8mt30" path="res://army/units/mine_layer.tscn" id="3_rwx0g"]
-[ext_resource type="PackedScene" uid="uid://d3oam3y4mn5vu" path="res://army/units/sniper.tscn" id="4_w6kpm"]
+[ext_resource type="PackedScene" uid="uid://83v8uvsve21q" path="res://army/units/sniper.tscn" id="4_w6kpm"]
 [ext_resource type="PackedScene" uid="uid://bj7plsvwk0r8t" path="res://spells/DetonationProtocol.tscn" id="5_s0fb6"]
 [ext_resource type="PackedScene" uid="uid://dtu1jmsw38dqq" path="res://spells/Discharge.tscn" id="6_hfnqk"]
 [ext_resource type="PackedScene" uid="uid://wf5xombdnlny" path="res://spells/Sap.tscn" id="7_epaci"]
