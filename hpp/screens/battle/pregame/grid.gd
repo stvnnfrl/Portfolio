@@ -8,8 +8,16 @@ var placed_units: Dictionary[Vector3i, Unit]
 # indices for the current player - reset when players switch
 var placed_unit_indices: Dictionary[Unit, int]
 
+@export var player_1_limit: ReferenceRect
+@export var player_2_limit: ReferenceRect
+var current_limit: Rect2
+@export var grid_render: HexGridRender
+
 func _ready() -> void:
+	current_limit = player_1_limit.get_rect()
+	grid_render.limit_rect = current_limit
 	cubic_coords.size = 84.0
+	
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is not InputEventMouseButton:
@@ -28,6 +36,10 @@ func _on_gui_input(event: InputEvent) -> void:
 			return
 		
 		var grid_coordinates = cubic_coords.cubic_round(cubic_coords.pos2D_to_cubic(event.position))
+		
+		# check whether we can place a unit there
+		if !can_place(grid_coordinates):
+			return
 		
 		# check whether we can afford the unit
 		var purchase_callback = state.can_purchase()
@@ -76,6 +88,9 @@ func can_clear(coordinates: Vector3i) -> Callable:
 		placed_units.erase(coordinates)
 		unit.queue_free()
 
+func can_place(coordinates: Vector3i) -> bool:
+	return current_limit.has_point(cubic_coords.cubic_to_pos2D(coordinates))
+
 func create_unit_at(grid_coordinates: Vector3i, unit_type: Unit) -> Unit:
 	var screen_coordinates = cubic_coords.cubic_to_pos2D(grid_coordinates)
 	
@@ -90,6 +105,9 @@ func create_unit_at(grid_coordinates: Vector3i, unit_type: Unit) -> Unit:
 	return new_unit
 
 func _on_pregame_end_of_turn() -> void:
+	# update placement limit
+	current_limit = player_2_limit.get_rect()
+	grid_render.limit_rect = current_limit
 	# set the placed units
 	for unit in placed_unit_indices:
 		# TODO Temp change to make the connection work. Will need to investigate more
