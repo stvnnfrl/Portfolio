@@ -63,7 +63,6 @@ offset_bottom = 995.0
 mouse_filter = 2
 mouse_behavior_recursive = 1
 border_width = 5.0
-editor_only = false
 
 [node name="P2Limit" type="ReferenceRect" parent="Grid"]
 layout_mode = 0
@@ -75,7 +74,6 @@ mouse_filter = 2
 mouse_behavior_recursive = 1
 border_color = Color(0, 0, 1, 1)
 border_width = 5.0
-editor_only = false
 
 [node name="Main" type="MarginContainer" parent="."]
 layout_mode = 1
