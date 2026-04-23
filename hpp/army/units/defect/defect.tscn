@@ -1,0 +1,113 @@
+[gd_scene load_steps=23 format=3 uid="uid://bbd74wm4ooswl"]
+
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_qkgyd"]
+[ext_resource type="Texture2D" uid="uid://bk65od51cba4t" path="res://army/units/defect/idle/image-1.png" id="2_qkgyd"]
+[ext_resource type="Texture2D" uid="uid://cb21e3s0uaytj" path="res://army/units/defect/attack/image-1.png" id="3_khjry"]
+[ext_resource type="Texture2D" uid="uid://ilfnh2ik2s00" path="res://army/units/defect/attack/image-2.png" id="4_leelg"]
+[ext_resource type="Texture2D" uid="uid://b51pftskq72ri" path="res://army/units/defect/attack/image-3.png" id="5_42f32"]
+[ext_resource type="Texture2D" uid="uid://cu4ag0rda83ot" path="res://army/units/defect/attack/image-4.png" id="6_vpeum"]
+[ext_resource type="Texture2D" uid="uid://curjmsktbetuf" path="res://army/units/defect/attack/image-5.png" id="7_vnerx"]
+[ext_resource type="Texture2D" uid="uid://4qgeosbcxpux" path="res://army/units/defect/attack/image-6.png" id="8_wtcfy"]
+[ext_resource type="Texture2D" uid="uid://bfl4hakcjqwb0" path="res://army/units/defect/attack/image-7.png" id="9_rvmi2"]
+[ext_resource type="Texture2D" uid="uid://doiwcb1k8jlv" path="res://army/units/defect/attack/image-8.png" id="10_6xpyb"]
+[ext_resource type="Texture2D" uid="uid://dojlsx55puefy" path="res://army/units/defect/idle/image-2.png" id="11_5mv8t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pk06"]
+atlas = ExtResource("3_khjry")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf7fg"]
+atlas = ExtResource("4_leelg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xun4"]
+atlas = ExtResource("5_42f32")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eorv8"]
+atlas = ExtResource("6_vpeum")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ei88p"]
+atlas = ExtResource("7_vnerx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crulp"]
+atlas = ExtResource("8_wtcfy")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hd61"]
+atlas = ExtResource("9_rvmi2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nhf5"]
+atlas = ExtResource("10_6xpyb")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bq80"]
+atlas = ExtResource("2_qkgyd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etjao"]
+atlas = ExtResource("11_5mv8t")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7rseu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pk06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pf7fg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xun4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eorv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ei88p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crulp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hd61")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nhf5")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2bq80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etjao")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Unit" instance=ExtResource("1_qkgyd")]
+unit_id = "defect"
+unit_name = "Defect"
+description = "temp"
+icon_texture = ExtResource("2_qkgyd")
+max_health = 4
+speed = 2
+movement = 2
+dmg_min = 2
+dmg_max = 3
+reach = 2
+cost = 10
+
+[node name="AnimatedPixelArt" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_7rseu")
+animation = &"idle"
