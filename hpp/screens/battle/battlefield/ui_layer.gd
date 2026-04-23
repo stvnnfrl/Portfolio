@@ -6,6 +6,7 @@ class_name UIManager
 @onready var battlefield_manager : BattlefieldManager = $"../BattlefieldManager"
 @onready var current_troop_info: CurrentTroopInfo = $HUD/MarginContainer/BottomBarUI/CurrentTroopInfo
 @onready var turn_queue_display = $HUD/MarginContainer/TopBarUI/TurnQueueDisplay
+@onready var sub_turn_phase_label: Label = $HUD/MarginContainer/TopBarUI/SubTurnPhasePanel/SubTurnPhaseLabel
 
 func _ready() -> void:
 	game_menu.hide()
@@ -14,6 +15,7 @@ func _ready() -> void:
 	if spell_button != null and not spell_button.pressed.is_connected(_on_spell_book_button_pressed):
 		spell_button.pressed.connect(_on_spell_book_button_pressed)
 	battlefield_manager.active_unit_changed.connect(_on_active_unit_changed)
+	battlefield_manager.phase_changed.connect(_on_phase_changed)
 	_on_active_unit_changed(battlefield_manager.active_unit, int(battlefield_manager.current_phase))
 	spellbook_menu.spell_selected.connect(battlefield_manager._on_spellbook_spell_selected)
 
@@ -36,9 +38,28 @@ func _on_spell_book_button_pressed() -> void:
 		else:
 			print("You have already cast a spell this round!")
 
-func _on_active_unit_changed(unit: Unit, _phase: int) -> void:
+func _on_active_unit_changed(unit: Unit, phase: int) -> void:
 	if current_troop_info != null:
 		current_troop_info.set_context(unit)
 
 	if turn_queue_display != null:
 		turn_queue_display.set_units(battlefield_manager.get_current_round_queue())
+
+	_on_phase_changed(phase)
+
+
+func _on_phase_changed(phase: int) -> void:
+	if sub_turn_phase_label != null:
+		sub_turn_phase_label.text = _get_phase_text(phase)
+
+
+func _get_phase_text(phase: int) -> String:
+	match phase:
+		BattlefieldManager.SubTurnPhase.MOVING:
+			return "Move"
+		BattlefieldManager.SubTurnPhase.ATTACKING:
+			return "Attack"
+		BattlefieldManager.SubTurnPhase.ANIMATING:
+			return "..."
+		_:
+			return "-"
