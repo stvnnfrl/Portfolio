@@ -55,6 +55,9 @@ func _close() -> void:
 func _on_dim_bg_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		_close()
+		
+func _on_latch_button_pressed() -> void:
+	_close()
 
 func _load_spells_into_ui() -> void:
 	for i in range(spell_panels.size()):
