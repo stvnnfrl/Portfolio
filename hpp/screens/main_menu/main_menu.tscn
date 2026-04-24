@@ -193,6 +193,10 @@ border_color = Color(0.905882, 0.843137, 0.717647, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eoefr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78h0p"]
+content_margin_left = 30.0
+content_margin_top = 10.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
 bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.60784316)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ati0h"]
@@ -234,7 +238,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MainMenu" type="MarginContainer" parent="Screens"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -766,19 +769,26 @@ theme_override_fonts/normal_font = ExtResource("3_78h0p")
 theme_override_font_sizes/normal_font_size = 26
 theme_override_styles/normal = SubResource("StyleBoxFlat_78h0p")
 bbcode_enabled = true
-text = "[center][font_size=64]How to Play[/font_size][/center]
+text = "[center][font_size=64]How To Play[/font_size][/center]
 
-Build your army in the pre-game phase, then place your units on the battlefield.
-Battles are turn-based: each unit acts in order, usually based on [color=khaki]speed[/color].
+[font_size=44]1. Choose Your Army[/font_size]
+[font_size=32]Choose a hero to lead your forces. Using your allotted funds, draft units to build your ideal army. Experimenting with different unit combinations and synergies is half the fun![/font_size]
+[center][img=700]res://screens/main_menu/assets/match_setup.png[/img][/center]
 
-On a unit’s turn, move first, then attack an enemy. 
-Some units can attack from range, such as [color=lightskyblue]Snipers[/color]. 
-Other units have special abilities, like [color=mediumpurple]Lich[/color] summoning Ghouls or [color=palegreen]Soul Well[/color] growing stronger when allies die.
+[font_size=44]2. Pre-Game Deployment[/font_size]
+[font_size=32]Before combat begins, you must deploy your forces. Drag and drop your drafted units onto the hex grid to position them strategically. Need to adjust your formation? Simply right-click a unit to remove and reposition it.[/font_size]
+[center][img=700]res://screens/main_menu/assets/pre_game.png[/img][/center]
 
-You can also use spells to buff your army or weaken the enemy. 
-To cast a spell, open the spell book and [b]draw the spell pattern in one continuous stroke[/b]. If the shape matches, the spell activates.
+[font_size=44]3. The Battle Phase[/font_size]
+[font_size=32]Now comes the fun part: the battle! Combat is turn-based. Units are placed into an action queue based on their speed. When a unit's turn arrives, it proceeds through a movement phase and an attacking phase (watch for the active phase indicator at the top of the screen). [b]To skip the moving phase or the attacking phase of a unit, click on their current hex![/b][/font_size]
+[center][img=700]res://screens/main_menu/assets/battlefield.png[/img][/center]
 
-[center][font_size=64][color=gold]Defeat all enemy units to win the battle.[/color][/font_size][/center]"
+[font_size=44]4. Magic & Spells[/font_size]
+[font_size=32]Once per full queue rotation, you can cast a single spell to turn the tide. Open your Spellbook and [b]draw the associated pattern in one continuous stroke[/b]. Spells affect your entire army for that turn and include: queue skipping, healing, range extension, and damage boosts.[/font_size]
+[center][img=700]res://screens/main_menu/assets/spellbook.png[/img][/center]
+
+[font_size=44]5. Victory![/font_size]
+[font_size=32]The last player with units left standing wins the game. Hopefully, that's you![/font_size]"
 fit_content = true
 
 [node name="TopBar" type="HBoxContainer" parent="Screens/HowToPlay/VBoxContainer"]
@@ -797,11 +807,6 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_6i1i8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_r1sdj")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_fwr5m")
 text = "Back"
-
-[node name="VSeparator" type="VSeparator" parent="Screens/HowToPlay/VBoxContainer/TopBar"]
-custom_minimum_size = Vector2(1700, 0)
-layout_mode = 2
-size_flags_horizontal = 3
 
 [connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/LoadButton" to="." method="_on_load_button_pressed"]
