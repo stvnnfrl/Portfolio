@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bnonimrs6f6nc"]
+[gd_scene load_steps=14 format=3 uid="uid://bnonimrs6f6nc"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_d6qvk"]
 [ext_resource type="Texture2D" uid="uid://br7kyrduon67w" path="res://army/units/shinobi.png" id="2_g7npl"]
+[ext_resource type="Texture2D" uid="uid://btggl8hhtqpfn" path="res://screens/battle/battlefield/assets/shinobi.png" id="2_uq2q4"]
 [ext_resource type="Texture2D" uid="uid://d07o0bp8j0gk6" path="res://army/units/shinobi_attack.png" id="3_h2xrt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0h5km"]
@@ -77,7 +78,7 @@ animations = [{
 unit_id = "shinobi"
 unit_name = "Shinobi"
 description = "Disadvantage if too close to another shinobi & Advantage if far enough away"
-icon_texture = ExtResource("2_g7npl")
+icon_texture = ExtResource("2_uq2q4")
 max_health = 6
 speed = 7
 movement = 3

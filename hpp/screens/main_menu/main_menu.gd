@@ -3,6 +3,7 @@ extends Control
 @onready var main_screen: MarginContainer = $Screens/MainMenu
 @onready var settings_screen: MarginContainer = $Screens/Settings
 @onready var load_game_screen: MarginContainer = $Screens/LoadGame
+@onready var how_to_play_screen: MarginContainer = $Screens/HowToPlay
 
 
 func _ready() -> void:
@@ -14,6 +15,7 @@ func show_screen(target_screen: Control) -> void:
 	main_screen.hide()
 	settings_screen.hide()
 	load_game_screen.hide()
+	how_to_play_screen.hide()
 
 	target_screen.show()
 
@@ -39,4 +41,12 @@ func _on_back_button_pressed() -> void:
 
 
 func _on_settings_back_requested() -> void:
+	show_screen(main_screen)
+
+
+func _on_how_to_play_button_pressed() -> void:
+	show_screen(how_to_play_screen)
+
+
+func _on_how_to_play_back_button_pressed() -> void:
 	show_screen(main_screen)

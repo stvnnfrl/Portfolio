@@ -1,6 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://biou13j46jdf5"]
+[gd_scene load_steps=32 format=3 uid="uid://biou13j46jdf5"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_4w3at"]
+[ext_resource type="Texture2D" uid="uid://1vitc7p546oe" path="res://screens/battle/battlefield/assets/soul_well.png" id="2_klan1"]
 [ext_resource type="Texture2D" uid="uid://dof1xlhdrug0q" path="res://army/units/soul_well_attack.png" id="2_wv7kb"]
 [ext_resource type="Texture2D" uid="uid://cp4adpwqaou2u" path="res://army/units/soul_well_idle.png" id="3_ibspn"]
 [ext_resource type="Texture2D" uid="uid://c1qwn1y3jbv2e" path="res://army/units/soul_well_idle_empty.png" id="4_241lh"]
@@ -201,7 +202,7 @@ animations = [{
 unit_id = "soul_well"
 unit_name = "Soul Well"
 description = "Global artillery"
-icon_texture = ExtResource("2_wv7kb")
+icon_texture = ExtResource("2_klan1")
 max_health = 10
 speed = 1
 movement = 0

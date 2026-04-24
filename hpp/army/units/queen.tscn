@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cj6m3o4y4q1m7"]
+[gd_scene load_steps=7 format=3 uid="uid://cj6m3o4y4q1m7"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_r4nxb"]
+[ext_resource type="Texture2D" uid="uid://cmpt75ubonl24" path="res://screens/battle/battlefield/assets/queen.png" id="2_6kxjh"]
 [ext_resource type="Texture2D" uid="uid://4acqxwwi4rpd" path="res://army/units/queen.png" id="2_y8pqc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lhj17"]
@@ -29,7 +30,7 @@ animations = [{
 unit_id = "queen"
 unit_name = "Queen"
 description = "Wields crossbow that fires 2 projectiles that stop at the first unit hit, damage enemies and buffing allies "
-icon_texture = ExtResource("2_y8pqc")
+icon_texture = ExtResource("2_6kxjh")
 max_health = 10
 speed = 6
 movement = 3
