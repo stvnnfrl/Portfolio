@@ -52,8 +52,8 @@ func _on_gui_input(event: InputEvent) -> void:
 			return
 		
 		# trigger the purchase
-		var no_units_left = purchase_callback.call()
 		clear_callback.call()
+		var no_units_left = purchase_callback.call()
 		
 		# place a new unit
 		var new_unit = create_unit_at(grid_coordinates, selected_unit)
