@@ -29,14 +29,14 @@ animations = [{
 [node name="mine_layer" instance=ExtResource("1_pucm5")]
 unit_id = "mine_layer"
 unit_name = "Mine Layer"
-description = "Attack: places a mine on the floor that becomes invisible to both players after arming"
-icon_texture = ExtResource("2_3rrwk")
-max_health = 10
-speed = 3
-movement = 3
-dmg_min = 2
-dmg_max = 3
-reach = 1
+description = "Places a mine unit. Mine attacks adjacent enemies, then disappears."
+icon_texture = ExtResource("2_s2jsv")
+max_health = 4
+speed = 7
+movement = 4
+dmg_min = 5
+dmg_max = 5
+reach = 4
 cost = 10
 
 [node name="AnimatedPixelArt" parent="." index="1"]

@@ -4,6 +4,10 @@ class_name BattlefieldManager
 signal active_unit_changed(unit: Unit, phase: int)
 signal phase_changed(phase: int)
 
+const MINE_LAYER_UNIT_ID := "mine_layer"
+const MINE_UNIT_ID := "mine"
+const MINE_UNIT_SCENE := preload("res://army/units/mine.tscn")
+
 @export var highlight_scene : PackedScene
 
 @onready var grid : GridManager = $"../GridManager"
@@ -136,7 +140,7 @@ func _init_turn_queue():
 
 
 func _start_next_sub_turn():
-	if active_unit != null:
+	if active_unit != null and is_instance_valid(active_unit) and turn_queue.has(active_unit):
 		_set_normal_color(active_unit)
 
 	curr_subturn_index += 1
@@ -145,6 +149,10 @@ func _start_next_sub_turn():
 		curr_subturn_index = 0
 		print("round done")
 		await _reset_round_state()
+
+	if turn_queue.is_empty():
+		active_unit = null
+		return
 		
 	active_unit = turn_queue[curr_subturn_index]
 	
@@ -222,6 +230,10 @@ func _attempt_move(target_hex: Vector3i) -> void:
 
 
 func _attempt_attack(target_hex: Vector3i) -> void:
+	if active_unit.unit_id == MINE_LAYER_UNIT_ID:
+		_try_place_mine(target_hex)
+		return
+
 	# Skip attack if they click on the current unit hex
 	if target_hex == active_unit.cubic_pos:
 		print("Attack skipped")
@@ -236,6 +248,8 @@ func _attempt_attack(target_hex: Vector3i) -> void:
 		
 		# attack only is another unit and enemy unit
 		if target_entity is Unit and target_entity.army_id != active_unit.army_id:
+			var active_unit_is_mine := active_unit.unit_id == MINE_UNIT_ID
+
 			# block other inputs during animation
 			current_phase = SubTurnPhase.ANIMATING
 			await active_unit.play_attack_animation()
@@ -245,6 +259,9 @@ func _attempt_attack(target_hex: Vector3i) -> void:
 			# check if enemy died
 			if target_entity.health <= 0:
 				_kill_unit(target_entity)
+
+			if active_unit_is_mine and is_instance_valid(active_unit):
+				_kill_unit(active_unit)
 				
 			_clear_highlights()
 			_start_next_sub_turn()
@@ -252,10 +269,45 @@ func _attempt_attack(target_hex: Vector3i) -> void:
 			print("Invalid target")
 	else:
 		print("Target out of range")
+
+
+func _try_place_mine(target_hex: Vector3i) -> void:
+	if target_hex == active_unit.cubic_pos:
+		print("Mine placement skipped")
+		_clear_highlights()
+		_start_next_sub_turn()
+		return
+
+	if not grid.in_border(target_hex):
+		print("Mine placement outside battlefield")
+		return
+
+	var dist = grid.get_cubic_distance(active_unit.cubic_pos, target_hex)
+	if dist > active_unit.get_current_reach():
+		print("Mine placement out of range")
+		return
+
+	if grid.get_entity_at_hex(target_hex) != null:
+		print("Mine placement occupied")
+		return
+
+	var mine := MINE_UNIT_SCENE.instantiate() as Unit
+	if mine == null:
+		push_warning("[BattlefieldManager] Failed to instantiate mine unit.")
+		return
+
+	mine.cubic_pos = target_hex
+	_setup_pregame_unit(mine, active_unit.army_id)
+	turn_queue.append(mine)
+
+	print("Mine placed")
+	_clear_highlights()
+	_start_next_sub_turn()
 	
 	
 func _kill_unit(unit: Unit) -> void:
 	_apply_soul_well_ally_death_bonus(unit)
+	var queue_index = turn_queue.find(unit)
 
 	if unit.has_phase2():
 		# Deal with army replacement
@@ -270,13 +322,14 @@ func _kill_unit(unit: Unit) -> void:
 		_setup_pregame_unit(new_unit, unit.army_id)
 		
 		# Deal with the queue order
-		var old_idx = turn_queue.find(unit)
 		turn_queue.erase(unit)
-		if old_idx < curr_subturn_index:
+		if queue_index != -1 and queue_index <= curr_subturn_index:
 			curr_subturn_index -= 1
 		
 	
 		# Delete the node
+		if unit == active_unit:
+			active_unit = null
 		unit.queue_free()
 		
 	else: 
@@ -287,11 +340,12 @@ func _kill_unit(unit: Unit) -> void:
 		army_2.erase(unit)
 	
 		# adjust turn index
-		var queue_index = turn_queue.find(unit)
-		if queue_index != -1 and queue_index < curr_subturn_index:
+		if queue_index != -1 and queue_index <= curr_subturn_index:
 			curr_subturn_index -= 1 
 	
 		# Delete the node
+		if unit == active_unit:
+			active_unit = null
 		unit.queue_free()
 	
 		# TODO this check placement might get changed in the future when spells are involved
@@ -310,12 +364,19 @@ func _apply_soul_well_ally_death_bonus(dead_unit: Unit) -> void:
 
 
 func _check_winning_condition():
-	if army_1.is_empty():
+	if _has_no_non_mine_units(army_1):
 		print("Army 2 wins")
 		SceneManager.load_game_over("Army 2 wins", army_2_color_active)
-	elif army_2.is_empty():
+	elif _has_no_non_mine_units(army_2):
 		print("Army 1 wins")
 		SceneManager.load_game_over("Army 1 wins", army_1_color_active)
+
+
+func _has_no_non_mine_units(army: Array[Unit]) -> bool:
+	for unit in army:
+		if unit.unit_id != MINE_UNIT_ID:
+			return false
+	return true
 
 
 func _draw_phase_highlights() -> void:
@@ -334,7 +395,10 @@ func _draw_phase_highlights() -> void:
 		
 	elif current_phase == SubTurnPhase.ATTACKING:
 		# Calculate distance for ranged attacks
-		hexes_to_highlight = grid.get_hexes_in_range(active_unit.cubic_pos, active_unit.get_current_reach())
+		if active_unit.unit_id == MINE_LAYER_UNIT_ID:
+			hexes_to_highlight = _get_mine_placement_hexes()
+		else:
+			hexes_to_highlight = grid.get_hexes_in_range(active_unit.cubic_pos, active_unit.get_current_reach())
 		highlight_color = Color(0.369, 0.369, 0.369, 0.867)
 	
 	# draw
@@ -349,6 +413,18 @@ func _draw_phase_highlights() -> void:
 		h_instance.modulate = highlight_color
 		
 		active_highlights.append(h_instance)
+
+
+func _get_mine_placement_hexes() -> Array[Vector3i]:
+	var placement_hexes: Array[Vector3i] = []
+	for hex_coord in grid.get_hexes_in_range(active_unit.cubic_pos, active_unit.get_current_reach()):
+		if hex_coord == active_unit.cubic_pos:
+			continue
+		if grid.get_entity_at_hex(hex_coord) != null:
+			continue
+		placement_hexes.append(hex_coord)
+
+	return placement_hexes
 
 
 # Helper functions
