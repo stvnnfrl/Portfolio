@@ -123,9 +123,11 @@ theme_override_constants/margin_bottom = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.7647059)
 text = "flavor text flavor text flavor text"
+autowrap_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="Main/Padding/Main/Info"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 48
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ug2bj")
 
