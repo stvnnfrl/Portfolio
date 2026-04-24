@@ -1,0 +1,18 @@
+[gd_scene load_steps=7 format=3 uid="uid://kh6ibuha5tmj"]
+
+[ext_resource type="Script" uid="uid://b2rn5tl2yd3f8" path="res://audio/audio_controller.gd" id="1_dr783"]
+[ext_resource type="AudioStream" uid="uid://c6qe8qvn2gn8s" path="res://audio/GameOver.mp3" id="2_aufy8"]
+[ext_resource type="AudioStream" uid="uid://dft5ss4xfimcj" path="res://audio/MainMenu1.mp3" id="2_blxgy"]
+[ext_resource type="AudioStream" uid="uid://b5er4oh78gf44" path="res://audio/PregameMusic1.wav" id="3_blxgy"]
+[ext_resource type="AudioStream" uid="uid://coxru0j44jdsd" path="res://audio/MatchSetup.wav" id="3_xujww"]
+[ext_resource type="AudioStream" uid="uid://dkbq22maanfrg" path="res://audio/Battlefield.mp3" id="5_vys8g"]
+
+[node name="AudioController" type="Node2D"]
+script = ExtResource("1_dr783")
+menu_music = ExtResource("2_blxgy")
+match_setup_music = ExtResource("3_xujww")
+pregame_music = ExtResource("3_blxgy")
+battlefield_music = ExtResource("5_vys8g")
+game_over_music = ExtResource("2_aufy8")
+
+[node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]

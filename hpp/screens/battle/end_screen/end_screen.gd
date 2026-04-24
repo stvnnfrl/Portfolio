@@ -3,6 +3,7 @@ extends Control
 @export var game_result_label : Label
 
 func init(game_result : String, text_color : Color):
+	AudioController.play_music(AudioController.game_over_music)
 	game_result_label.text = game_result
 	game_result_label.add_theme_color_override("font_color", text_color)
 
