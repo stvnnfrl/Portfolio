@@ -43,11 +43,8 @@ func _on_pregame_selected_unit_updated(unit: Unit) -> void:
 # target length at rest
 @export var targetDistance: float = 100.
 
-# percentage of velocity left after a dampingInterval
-@export var dampingFactor: float = 0.997
-
-# how often in seconds velocity is multiplied by dampingFactor
-@export var dampingInterval: float = 1.0
+# percentage of velocity left after one second
+@export var dampingFactor: float = .0007
 
 var bottom_position = position  # like a mass at the end of the spring that is the the texture
 var velocity = Vector2.ZERO
@@ -66,7 +63,7 @@ func _process(delta: float) -> void:
 	
 	var acceleration = force * massInverse
 	
-	velocity *= pow(dampingFactor, dampingInterval / delta)
+	velocity *= pow(dampingFactor, delta)
 	velocity += acceleration * delta
 	
 	bottom_position += velocity * delta

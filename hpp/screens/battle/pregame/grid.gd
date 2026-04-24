@@ -52,14 +52,16 @@ func _on_gui_input(event: InputEvent) -> void:
 			return
 		
 		# trigger the purchase
-		purchase_callback.call()
 		clear_callback.call()
+		var no_units_left = purchase_callback.call()
 		
 		# place a new unit
 		var new_unit = create_unit_at(grid_coordinates, selected_unit)
-		
 		placed_units[grid_coordinates] = new_unit
 		placed_unit_indices[new_unit] = state.selected_index
+		
+		if no_units_left:  # deselect
+			state.change_selected_unit_to(-1)
 	
 	elif event.button_index == MouseButton.MOUSE_BUTTON_RIGHT:
 		# clear the unit if possible

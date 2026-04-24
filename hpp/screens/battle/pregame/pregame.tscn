@@ -91,6 +91,7 @@ layout_mode = 2
 
 [node name="Padding" type="MarginContainer" parent="Main"]
 layout_mode = 2
+theme_override_constants/margin_left = 40
 
 [node name="Main" type="HBoxContainer" parent="Main/Padding"]
 layout_mode = 2
@@ -114,12 +115,14 @@ text = "Name"
 
 [node name="DescriptionPadding" type="MarginContainer" parent="Main/Padding/Main/Info"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
 [node name="Description" type="Label" parent="Main/Padding/Main/Info/DescriptionPadding"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.7647059)
 text = "flavor text flavor text flavor text"
@@ -128,7 +131,7 @@ autowrap_mode = 2
 [node name="HSeparator" type="HSeparator" parent="Main/Padding/Main/Info"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 48
+theme_override_constants/separation = 16
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ug2bj")
 
 [node name="Stats" type="HBoxContainer" parent="Main/Padding/Main/Info"]
@@ -217,7 +220,8 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("2_ote4s")
-text = "Unit 1"
+text = "Unit 1 unit 1 unit 1"
+autowrap_mode = 3
 
 [node name="Unit2" type="Button" parent="Main/Padding/Main/UnitSelector"]
 custom_minimum_size = Vector2(200, 0)
@@ -225,6 +229,7 @@ layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("2_ote4s")
 text = "Unit 2"
+autowrap_mode = 3
 
 [node name="Unit3" type="Button" parent="Main/Padding/Main/UnitSelector"]
 custom_minimum_size = Vector2(200, 0)
@@ -232,6 +237,7 @@ layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("2_ote4s")
 text = "Unit 3"
+autowrap_mode = 3
 
 [node name="Unit4" type="Button" parent="Main/Padding/Main/UnitSelector"]
 custom_minimum_size = Vector2(200, 0)
@@ -239,12 +245,14 @@ layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("2_ote4s")
 text = "Unit 4"
+autowrap_mode = 3
 
 [node name="CursorUnitPreview" type="Node2D" parent="."]
 script = ExtResource("6_5qa4y")
 
 [connection signal="end_of_turn" from="." to="Grid" method="_on_pregame_end_of_turn"]
 [connection signal="selected_unit_updated" from="." to="Main/Padding/Main/Info" method="_on_pregame_selected_unit_updated"]
+[connection signal="selected_unit_updated" from="." to="Main/Padding/Main/UnitSelector" method="_on_pregame_selected_unit_updated"]
 [connection signal="selected_unit_updated" from="." to="CursorUnitPreview" method="_on_pregame_selected_unit_updated"]
 [connection signal="units_updated" from="." to="Main/Padding/Main/UnitSelector" method="_on_pregame_units_updated"]
 [connection signal="gui_input" from="Grid" to="Grid" method="_on_gui_input"]
