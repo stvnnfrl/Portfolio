@@ -23,6 +23,9 @@ var _unit_counts2: Array[int]
 var _player1_placed: Array[Unit] = []
 var _player2_placed: Array[Unit] = []
 
+func _ready():
+	AudioController.play_music(AudioController.pregame_music)
+
 func init(hero1: Hero, unit_counts1: Array[int], hero2: Hero, unit_counts2: Array[int]):
 	_hero1 = hero1
 	_hero2 = hero2

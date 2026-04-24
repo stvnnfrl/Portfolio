@@ -42,6 +42,8 @@ func setup_battlefield(
 	saved_phase: int = SubTurnPhase.MOVING
 ) -> void:
 	
+	AudioController.play_music(AudioController.battlefield_music)
+	
 	hero_1 = hero1
 	hero_2 = hero2
 

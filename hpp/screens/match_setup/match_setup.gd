@@ -5,7 +5,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	AudioController.play_music(AudioController.match_setup_music)
 
 
 func _on_back_pressed() -> void:
@@ -13,6 +13,13 @@ func _on_back_pressed() -> void:
 
 
 func _on_start_match_pressed() -> void:
+	# Check if army1 and army2 has something
+	if _total(selectionP1.quantities) == 0:
+		return
+		
+	if _total(selectionP2.quantities) == 0:
+		return
+			
 	call_deferred("_start_match")
 
 func _start_match() -> void:
@@ -20,3 +27,9 @@ func _start_match() -> void:
 		selectionP1.selected_hero, selectionP1.quantities,
 		selectionP2.selected_hero, selectionP2.quantities
 	)
+
+func _total(arr: Array[int]) -> int:
+	var s := 0
+	for v in arr:
+		s += v
+	return s

@@ -7,6 +7,7 @@ extends Control
 
 func _ready() -> void:
 	show_screen(main_screen)
+	AudioController.play_music(AudioController.menu_music)
 
 
 func show_screen(target_screen: Control) -> void:
