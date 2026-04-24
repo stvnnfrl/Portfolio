@@ -691,10 +691,14 @@ size_flags_vertical = 3
 [node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("13_b7xqa")
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 2
 
 [node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell1Container/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("13_b7xqa")
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 2
 
 [node name="Spell2Container" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
 layout_mode = 2
@@ -711,10 +715,14 @@ size_flags_vertical = 3
 [node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("13_b7xqa")
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 2
 
 [node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell2Container/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("13_b7xqa")
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 2
 
 [node name="Spell3Container" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
 layout_mode = 2
@@ -731,10 +739,14 @@ size_flags_vertical = 3
 [node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("13_b7xqa")
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 2
 
 [node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell3Container/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("13_b7xqa")
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 2
 
 [node name="Spell4Container" type="PanelContainer" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage"]
 layout_mode = 2
@@ -750,10 +762,15 @@ size_flags_vertical = 3
 
 [node name="SpellLabel" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("13_b7xqa")
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 2
 
 [node name="SpellDescription" type="Label" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages/LeftPage/Spell4Container/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("13_b7xqa")
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 2
 
 [node name="Spine" type="VSeparator" parent="UILayer/SpellBookMenu/BookCenter/BookPanel/BookLayout/Pages"]
 custom_minimum_size = Vector2(4, 0)
