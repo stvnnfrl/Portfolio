@@ -21,10 +21,10 @@ func _on_pregame_selected_unit_updated(unit: Unit) -> void:
 	
 	set_labels_to \
 		# main info
-		( str(unit.name)
+		( str(unit.unit_name)
 		, str(unit.description)
 		# stats
-		, str(unit.health) + "/" + str(unit.max_health)
+		, str(unit.max_health)
 		, str(unit.speed)
 		, str(unit.movement)
 		, str(unit.dmg_min) + "-" + str(unit.dmg_max)
