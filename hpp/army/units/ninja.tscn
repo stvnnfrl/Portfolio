@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://etxab1gicds7"]
+[gd_scene load_steps=24 format=3 uid="uid://etxab1gicds7"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_k4tmb"]
+[ext_resource type="Texture2D" uid="uid://bhxwd0sc7l4j5" path="res://screens/battle/battlefield/assets/ninja.png" id="2_1uist"]
 [ext_resource type="Texture2D" uid="uid://cp0ibmbo31nls" path="res://army/units/ninja.png" id="2_c9pdr"]
 [ext_resource type="Texture2D" uid="uid://1qssg3bkl58f" path="res://army/units/ninja_attack.png" id="3_x7mql"]
 
@@ -147,7 +148,7 @@ animations = [{
 unit_id = "ninja"
 unit_name = "Ninja"
 description = "Vanishes and appears to kill"
-icon_texture = ExtResource("2_c9pdr")
+icon_texture = ExtResource("2_1uist")
 max_health = 6
 speed = 7
 movement = 3

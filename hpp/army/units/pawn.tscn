@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://j452vswcug0"]
+[gd_scene load_steps=7 format=3 uid="uid://j452vswcug0"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_m2qvf"]
+[ext_resource type="Texture2D" uid="uid://bgqlbf21o0bec" path="res://screens/battle/battlefield/assets/pawn.png" id="2_8fyy0"]
 [ext_resource type="Texture2D" uid="uid://bn22lvu4bfgqm" path="res://army/units/pawn.png" id="2_s7kdn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0uv9f"]
@@ -29,7 +30,7 @@ animations = [{
 unit_id = "pawn"
 unit_name = "Pawn"
 description = "Take up a tile, used for blocking off enemy, weak stats "
-icon_texture = ExtResource("2_s7kdn")
+icon_texture = ExtResource("2_8fyy0")
 max_health = 4
 speed = 6
 movement = 1

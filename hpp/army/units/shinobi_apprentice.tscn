@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://b04747yp2wepv"]
+[gd_scene load_steps=15 format=3 uid="uid://b04747yp2wepv"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_z8mrf"]
 [ext_resource type="Texture2D" uid="uid://pxxn8ql6q5rl" path="res://army/units/shinobi_apprentice.png" id="2_t4kxc"]
+[ext_resource type="Texture2D" uid="uid://bd13wuwlcuw2s" path="res://screens/battle/battlefield/assets/shinobi_apprentice.png" id="2_wtkpk"]
 [ext_resource type="Texture2D" uid="uid://fq6ia70oviqc" path="res://army/units/shinobi_apprentice_attack.png" id="3_n7pql"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gd396"]
@@ -84,7 +85,7 @@ animations = [{
 unit_id = "shinobi_apprentice"
 unit_name = "Shinobi Apprentice"
 description = "+attack -defense when not adjacent to a shinobi & +defense - attack when adjacent to a shinobi"
-icon_texture = ExtResource("2_t4kxc")
+icon_texture = ExtResource("2_wtkpk")
 max_health = 5
 speed = 7
 movement = 3

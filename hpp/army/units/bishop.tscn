@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvxm1ik0p1s5b"]
+[gd_scene load_steps=7 format=3 uid="uid://dvxm1ik0p1s5b"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_q9ldm"]
 [ext_resource type="Texture2D" uid="uid://tjtxdn51sshp" path="res://army/units/bishop.png" id="2_b7wvc"]
+[ext_resource type="Texture2D" uid="uid://bkvx6gl2f40ic" path="res://screens/battle/battlefield/assets/bishop.png" id="2_o7ytw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xl46v"]
 atlas = ExtResource("2_b7wvc")
@@ -29,7 +30,7 @@ animations = [{
 unit_id = "bishop"
 unit_name = "Bishop"
 description = "Can spend a turn either attacking or healing in an aura"
-icon_texture = ExtResource("2_b7wvc")
+icon_texture = ExtResource("2_o7ytw")
 max_health = 7
 speed = 4
 movement = 2

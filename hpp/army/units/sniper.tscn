@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://d3oam3y4mn5vu"]
+[gd_scene load_steps=17 format=3 uid="uid://d3oam3y4mn5vu"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_l8vqn"]
+[ext_resource type="Texture2D" uid="uid://5fgy6u07ef0w" path="res://screens/battle/battlefield/assets/sniper.png" id="2_ghr4q"]
 [ext_resource type="Texture2D" uid="uid://cq3qgaeb3hu1b" path="res://army/units/sniper.png" id="2_m4jtc"]
 [ext_resource type="Texture2D" uid="uid://dgp8hv6r2psy6" path="res://army/units/sniper_attack.png" id="3_q7rfd"]
 
@@ -98,7 +99,7 @@ animations = [{
 unit_id = "sniper"
 unit_name = "Sniper"
 description = "Fires a shot up that strikes an enemy unit dealing bonus damage if they’re isolated"
-icon_texture = ExtResource("2_m4jtc")
+icon_texture = ExtResource("2_ghr4q")
 max_health = 7
 speed = 5
 movement = 3

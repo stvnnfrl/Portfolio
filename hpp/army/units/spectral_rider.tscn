@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bj7u6cw7q4ako"]
+[gd_scene load_steps=13 format=3 uid="uid://bj7u6cw7q4ako"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_h15sy"]
 [ext_resource type="Script" uid="uid://juxngrb5lh5q" path="res://army/units/spectral_rider.gd" id="2_44xsa"]
 [ext_resource type="Texture2D" uid="uid://bgh4460pk53to" path="res://army/units/spectral_rider.png" id="2_htees"]
 [ext_resource type="Texture2D" uid="uid://cnd6bfujd812n" path="res://army/units/SpectralRiderWithAttack.png" id="2_lavic"]
+[ext_resource type="Texture2D" uid="uid://c3tosflynwg61" path="res://screens/battle/battlefield/assets/spectral_rider.png" id="3_rovj0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tg3va"]
 atlas = ExtResource("2_lavic")
@@ -65,7 +66,7 @@ script = ExtResource("2_44xsa")
 unit_id = "spectral_rider"
 unit_name = "Spectral Rider"
 description = "When it dies, spawns a second phase (a dead living HORSE)."
-icon_texture = ExtResource("2_htees")
+icon_texture = ExtResource("3_rovj0")
 max_health = 7
 speed = 5
 movement = 4
