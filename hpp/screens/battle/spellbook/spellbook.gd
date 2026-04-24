@@ -70,7 +70,7 @@ func _load_spells_into_ui() -> void:
 		
 		var spell_data = current_spells[i]
 		name_label.text = spell_data["name"]
-		desc_label.text = spell_data["description"]
+		_assign_description(i, desc_label)
 		
 		if spell_data.has("texture") and spell_data["texture"] != null:
 			drawing_rect.texture = spell_data["texture"]
@@ -79,6 +79,16 @@ func _load_spells_into_ui() -> void:
 		
 		panel.visible = true 
 			
+
+func _assign_description(index: int, label : Label):
+	if index == 0:
+		label.text = "Skip the queue"
+	elif index == 1:
+		label.text = "Extend the range"
+	elif index == 2:
+		label.text = "Heal your troops"
+	elif index == 3:
+		label.text = "Boost the damage"
 
 func _on_panel_gui_input(event: InputEvent, index: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

@@ -89,7 +89,7 @@ max_health = 5
 speed = 8
 movement = 3
 dmg_min = 1
-dmg_max = 3
+dmg_max = 2
 reach = 2
 cost = 10
 

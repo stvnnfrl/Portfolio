@@ -1,3 +1,4 @@
 .editorconfig
 .godot/
 .DS_STORE
+*.dmg
