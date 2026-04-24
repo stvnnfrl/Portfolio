@@ -29,15 +29,15 @@ animations = [{
 [node name="bishop" instance=ExtResource("1_q9ldm")]
 unit_id = "bishop"
 unit_name = "Bishop"
-description = "Can spend a turn either attacking or healing in an aura"
+description = "Move across the battlefield to deal crossing damage"
 icon_texture = ExtResource("2_o7ytw")
-max_health = 7
+max_health = 8
 speed = 4
 movement = 2
 dmg_min = 3
 dmg_max = 5
 reach = 2
-cost = 6
+cost = 20
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(3, 3)

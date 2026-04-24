@@ -482,8 +482,10 @@ func _get_hero_for_active_unit() -> Hero:
 		return null
 
 	if active_unit.army_id == 1:
+		print("hero 1")
 		return hero_1
 
+	print("hero 2")
 	return hero_2
 
 

@@ -29,15 +29,15 @@ animations = [{
 [node name="queen" instance=ExtResource("1_r4nxb")]
 unit_id = "queen"
 unit_name = "Queen"
-description = "Wields crossbow that fires 2 projectiles that stop at the first unit hit, damage enemies and buffing allies "
+description = "Queen of the battlefield is hard to stop "
 icon_texture = ExtResource("2_6kxjh")
 max_health = 10
 speed = 6
-movement = 3
+movement = 4
 dmg_min = 5
 dmg_max = 7
-reach = 2
-cost = 8
+reach = 3
+cost = 30
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(2.9, 2.9)

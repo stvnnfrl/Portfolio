@@ -201,7 +201,7 @@ animations = [{
 [node name="soul_well" instance=ExtResource("1_4w3at")]
 unit_id = "soul_well"
 unit_name = "Soul Well"
-description = "Global artillery"
+description = "Shooter of souls"
 icon_texture = ExtResource("2_klan1")
 max_health = 10
 speed = 1
@@ -209,7 +209,7 @@ movement = 0
 dmg_min = 4
 dmg_max = 6
 reach = 1
-cost = 30
+cost = 40
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_m83v1")

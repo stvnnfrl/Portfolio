@@ -29,15 +29,15 @@ animations = [{
 [node name="pawn" instance=ExtResource("1_m2qvf")]
 unit_id = "pawn"
 unit_name = "Pawn"
-description = "Take up a tile, used for blocking off enemy, weak stats "
+description = "Good old reliable pawn "
 icon_texture = ExtResource("2_8fyy0")
-max_health = 4
+max_health = 5
 speed = 6
 movement = 1
-dmg_min = 5
-dmg_max = 10
+dmg_min = 4
+dmg_max = 5
 reach = 1
-cost = 1
+cost = 10
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(2.4, 2.4)

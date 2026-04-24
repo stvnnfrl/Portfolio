@@ -98,9 +98,9 @@ static func extract_battlefield_state(save_data: Dictionary) -> Dictionary:
 				units2.append(unit_state)
 
 	return {
-		"hero1": EMPTY_HERO_DATA,
+		"hero1": battlefield.get("hero1", {}),
 		"units1": units1,
-		"hero2": EMPTY_HERO_DATA,
+		"hero2": battlefield.get("hero2", {}),
 		"units2": units2,
 		"turn_queue": _int_values(battlefield.get("turn_queue", [])),
 		"curr_subturn_index": int(battlefield.get("curr_subturn_index", -1)),
@@ -128,9 +128,9 @@ static func capture_battlefield_state(manager) -> Dictionary:
 			turn_queue.append(unit_index_by_instance[unit])
 
 	return {
-		"hero1": EMPTY_HERO_DATA,
+		"hero1": _serialize_hero(manager.hero_1),
 		"units1": _serialize_units(manager.army_1, 1),
-		"hero2": EMPTY_HERO_DATA,
+		"hero2": _serialize_hero(manager.hero_2),
 		"units2": _serialize_units(manager.army_2, 2),
 		"turn_queue": turn_queue,
 		"curr_subturn_index": manager.curr_subturn_index,
@@ -139,10 +139,13 @@ static func capture_battlefield_state(manager) -> Dictionary:
 
 static func resolve_save_session(save_data: Dictionary) -> Dictionary:
 	var state: Dictionary = extract_battlefield_state(save_data)
-	var hero1: Hero = null
-	var hero2: Hero = null
+	
+	var hero1: Hero = _instantiate_hero(state.get("hero1", {}))
+	var hero2: Hero = _instantiate_hero(state.get("hero2", {}))
+	
 	var units1: Array = _instantiate_units(state.get("units1", []))
 	var units2: Array = _instantiate_units(state.get("units2", []))
+	
 	return {
 		"hero1": hero1,
 		"hero2": hero2,
@@ -260,3 +263,31 @@ static func _dict_to_cubic(raw_coords: Variant) -> Vector3i:
 
 static func _cubic_to_dict(coords: Vector3i) -> Dictionary:
 	return {"x": coords.x, "y": coords.y, "z": coords.z}
+
+
+# BUG fixed where spell book would not open after loading from saved
+static func _serialize_hero(hero: Hero) -> Dictionary:
+	if hero == null or not is_instance_valid(hero):
+		return {}
+		
+	return {
+		"scene_path": hero.scene_file_path
+	}
+
+static func _instantiate_hero(hero_state: Dictionary) -> Hero:
+	if hero_state.is_empty():
+		return null
+		
+	var scene_path := String(hero_state.get("scene_path", ""))
+	
+	if scene_path == "" or not ResourceLoader.exists(scene_path):
+		return null
+		
+	# Load the hero's scene file
+	var hero_scene := load(scene_path) as PackedScene
+	if hero_scene == null:
+		return null
+	
+	var hero_instance := hero_scene.instantiate() as Hero
+	
+	return hero_instance

@@ -84,15 +84,14 @@ animations = [{
 [node name="Shinobi_Apprentice" instance=ExtResource("1_z8mrf")]
 unit_id = "shinobi_apprentice"
 unit_name = "Shinobi Apprentice"
-description = "+attack -defense when not adjacent to a shinobi & +defense - attack when adjacent to a shinobi"
 icon_texture = ExtResource("2_wtkpk")
 max_health = 5
-speed = 7
+speed = 8
 movement = 3
-dmg_min = 3
-dmg_max = 5
-reach = 1
-cost = 6
+dmg_min = 1
+dmg_max = 2
+reach = 2
+cost = 10
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 position = Vector2(0, -10)

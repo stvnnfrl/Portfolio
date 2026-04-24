@@ -29,15 +29,15 @@ animations = [{
 [node name="knight" instance=ExtResource("1_h8tqw")]
 unit_id = "knight"
 unit_name = "Knight"
-description = "They have strong beatstick"
+description = "Horse around and find out"
 icon_texture = ExtResource("2_bpfq5")
-max_health = 9
-speed = 5
+max_health = 8
+speed = 4
 movement = 3
-dmg_min = 4
-dmg_max = 6
+dmg_min = 3
+dmg_max = 5
 reach = 1
-cost = 7
+cost = 20
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(2.8, 2.8)
