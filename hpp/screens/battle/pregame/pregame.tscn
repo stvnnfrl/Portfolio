@@ -91,6 +91,7 @@ layout_mode = 2
 
 [node name="Padding" type="MarginContainer" parent="Main"]
 layout_mode = 2
+theme_override_constants/margin_left = 40
 
 [node name="Main" type="HBoxContainer" parent="Main/Padding"]
 layout_mode = 2
@@ -219,7 +220,8 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("2_ote4s")
-text = "Unit 1"
+text = "Unit 1 unit 1 unit 1"
+autowrap_mode = 3
 
 [node name="Unit2" type="Button" parent="Main/Padding/Main/UnitSelector"]
 custom_minimum_size = Vector2(200, 0)
@@ -227,6 +229,7 @@ layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("2_ote4s")
 text = "Unit 2"
+autowrap_mode = 3
 
 [node name="Unit3" type="Button" parent="Main/Padding/Main/UnitSelector"]
 custom_minimum_size = Vector2(200, 0)
@@ -234,6 +237,7 @@ layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("2_ote4s")
 text = "Unit 3"
+autowrap_mode = 3
 
 [node name="Unit4" type="Button" parent="Main/Padding/Main/UnitSelector"]
 custom_minimum_size = Vector2(200, 0)
@@ -241,6 +245,7 @@ layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("2_ote4s")
 text = "Unit 4"
+autowrap_mode = 3
 
 [node name="CursorUnitPreview" type="Node2D" parent="."]
 script = ExtResource("6_5qa4y")
