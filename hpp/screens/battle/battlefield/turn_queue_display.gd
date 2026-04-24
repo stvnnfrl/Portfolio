@@ -21,15 +21,18 @@ func _ready() -> void:
 func set_units(units: Array) -> void:
 	_clear_slots()
 
+	var slot_index := 0
 	for unit in units:
 		if unit is Unit and is_instance_valid(unit):
-			_add_unit_slot(unit, queue_row.get_child_count() == 0)
+			_add_unit_slot(unit, slot_index == 0)
+			slot_index += 1
 
 	visible = queue_row.get_child_count() > 0
 
 
 func _clear_slots() -> void:
 	for child in queue_row.get_children():
+		queue_row.remove_child(child)
 		child.queue_free()
 
 

@@ -2,6 +2,7 @@ extends Node
 class_name BattlefieldManager
 
 signal active_unit_changed(unit: Unit, phase: int)
+signal phase_changed(phase: int)
 
 @export var highlight_scene : PackedScene
 
@@ -169,6 +170,10 @@ func _emit_active_unit_changed() -> void:
 	active_unit_changed.emit(active_unit, int(current_phase))
 
 
+func _emit_phase_changed() -> void:
+	phase_changed.emit(int(current_phase))
+
+
 func _clear_highlights() -> void:
 	for hex in active_highlights:
 		if is_instance_valid(hex):
@@ -198,6 +203,7 @@ func _attempt_move(target_hex: Vector3i) -> void:
 		_clear_highlights()
 		current_phase = SubTurnPhase.ATTACKING 
 		_draw_phase_highlights()
+		_emit_phase_changed()
 		
 	# check if hex clicked is reachable
 	elif active_reachable_hexes.has(target_hex):
@@ -212,6 +218,7 @@ func _attempt_move(target_hex: Vector3i) -> void:
 		_clear_highlights()
 		current_phase = SubTurnPhase.ATTACKING
 		_draw_phase_highlights()
+		_emit_phase_changed()
 
 
 func _attempt_attack(target_hex: Vector3i) -> void:
@@ -248,6 +255,8 @@ func _attempt_attack(target_hex: Vector3i) -> void:
 	
 	
 func _kill_unit(unit: Unit) -> void:
+	_apply_soul_well_ally_death_bonus(unit)
+
 	if unit.has_phase2():
 		# Deal with army replacement
 		army_1.erase(unit)
@@ -288,6 +297,16 @@ func _kill_unit(unit: Unit) -> void:
 		# TODO this check placement might get changed in the future when spells are involved
 		# Check if one army has won
 		_check_winning_condition()
+
+
+func _apply_soul_well_ally_death_bonus(dead_unit: Unit) -> void:
+	var allied_army := army_1 if dead_unit.army_id == 1 else army_2
+
+	for unit in allied_army:
+		if unit.unit_id == "soul_well":
+			unit.reach += 3
+			unit.dmg_min += 1
+			unit.dmg_max += 1
 
 
 func _check_winning_condition():

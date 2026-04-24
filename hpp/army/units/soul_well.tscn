@@ -205,9 +205,9 @@ icon_texture = ExtResource("2_wv7kb")
 max_health = 10
 speed = 1
 movement = 0
-dmg_min = 5
-dmg_max = 7
-reach = 5
+dmg_min = 4
+dmg_max = 6
+reach = 1
 cost = 30
 
 [node name="AnimatedPixelArt" parent="." index="1"]

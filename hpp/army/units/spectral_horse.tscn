@@ -59,8 +59,8 @@ animations = [{
 }]
 
 [node name="spectral_horse" instance=ExtResource("1_tgvxa")]
-unit_id = "spectral_rider"
-unit_name = "Spectral Rider"
+unit_id = "spectral_horse"
+unit_name = "Spectral Horse"
 description = "Remnants of a specter's ride"
 max_health = 3
 speed = 9
