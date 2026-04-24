@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bei8fchfaoial"]
+[gd_scene load_steps=52 format=3 uid="uid://bei8fchfaoial"]
 
 [ext_resource type="Script" uid="uid://c6jpa3x4xy6o4" path="res://screens/main_menu/main_menu.gd" id="1_tldqp"]
 [ext_resource type="Texture2D" uid="uid://bu2d7bdhap8ic" path="res://screens/resources/crumpled_background.jpg" id="2_kee05"]
@@ -10,44 +10,24 @@
 [ext_resource type="Script" uid="uid://cxkjrfwicep8s" path="res://screens/main_menu/settings_panel.gd" id="7_x6q0j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okifl"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nnlxq"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0b4wy"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wtb82"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_no6ca"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_78h0p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mhwf8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ba7al"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ek553"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1ulm"]
 
 [sub_resource type="Theme" id="Theme_3q0ta"]
 default_font = ExtResource("3_78h0p")
@@ -183,124 +163,47 @@ border_width_bottom = 2
 border_color = Color(0.905882, 0.843137, 0.717647, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x10td"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dfeeu"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_js4y3"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hkjyp"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_18dlr"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i61vg"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wy1j6"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcinw"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mhmp4"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cvdgu"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ne8n1"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85lx7"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nlxfp"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x6nsq"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eoefr"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78h0p"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.60784316)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ati0h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5n4wn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6i1i8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1sdj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fwr5m"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -400,6 +303,18 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_0b4wy")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wtb82")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_no6ca")
 text = "Settings"
+
+[node name="HowToPlayButton" type="Button" parent="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.00119745, 0.0011974432, 0.0011974449, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 74
+theme_override_styles/normal = SubResource("StyleBoxEmpty_78h0p")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mhwf8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ba7al")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ek553")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_k1ulm")
+text = "How To Play"
 
 [node name="ExitButton" type="Button" parent="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer"]
 layout_mode = 2
@@ -676,6 +591,7 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="LoadGame" type="MarginContainer" parent="Screens"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -821,9 +737,76 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_x6nsq")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_eoefr")
 text = "Resume"
 
+[node name="HowToPlay" type="MarginContainer" parent="Screens"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Screens/HowToPlay"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Screens/HowToPlay/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Screens/HowToPlay/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.9845465, 0.9845466, 0.9845465, 1)
+theme_override_fonts/normal_font = ExtResource("3_78h0p")
+theme_override_font_sizes/normal_font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_78h0p")
+bbcode_enabled = true
+text = "[center][font_size=64]How to Play[/font_size][/center]
+
+Build your army in the pre-game phase, then place your units on the battlefield.
+Battles are turn-based: each unit acts in order, usually based on [color=khaki]speed[/color].
+
+On a unit’s turn, move first, then attack an enemy. 
+Some units can attack from range, such as [color=lightskyblue]Snipers[/color]. 
+Other units have special abilities, like [color=mediumpurple]Lich[/color] summoning Ghouls or [color=palegreen]Soul Well[/color] growing stronger when allies die.
+
+You can also use spells to buff your army or weaken the enemy. 
+To cast a spell, open the spell book and [b]draw the spell pattern in one continuous stroke[/b]. If the shape matches, the spell activates.
+
+[center][font_size=64][color=gold]Defeat all enemy units to win the battle.[/color][/font_size][/center]"
+fit_content = true
+
+[node name="TopBar" type="HBoxContainer" parent="Screens/HowToPlay/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="Screens/HowToPlay/VBoxContainer/TopBar"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.00069390074, 0.0006938965, 0.0006938975, 1)
+theme_override_fonts/font = ExtResource("3_78h0p")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ati0h")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_5n4wn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_6i1i8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_r1sdj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fwr5m")
+text = "Back"
+
+[node name="VSeparator" type="VSeparator" parent="Screens/HowToPlay/VBoxContainer/TopBar"]
+custom_minimum_size = Vector2(1700, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
 [connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/LoadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="Screens/MainMenu/MainLayout/ButtonsCenterContainer/ButtonsVContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="back_requested" from="Screens/Settings" to="." method="_on_settings_back_requested"]
 [connection signal="item_selected" from="Screens/Settings/BodyCenter/Body/ContentRow/Sections/DisplayPanel/DisplayBox/WindowModeRow/WindowModeOption" to="Screens/Settings" method="_on_window_mode_changed"]
@@ -833,3 +816,4 @@ text = "Resume"
 [connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/ResetButton" to="Screens/Settings" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Screens/Settings/BodyCenter/Body/FooterPanel/FooterBox/ActionCenter/ActionRow/SettingsBackButton" to="Screens/Settings" method="_on_back_button_pressed"]
 [connection signal="pressed" from="Screens/LoadGame/HBoxContainer/NavigationContainer/VBoxContainer/NavigationContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Screens/HowToPlay/VBoxContainer/TopBar/BackButton" to="." method="_on_how_to_play_back_button_pressed"]
