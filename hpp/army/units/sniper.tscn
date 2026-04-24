@@ -98,15 +98,15 @@ animations = [{
 [node name="sniper" instance=ExtResource("1_l8vqn")]
 unit_id = "sniper"
 unit_name = "Sniper"
-description = "Fires a shot up that strikes an enemy unit dealing bonus damage if they’re isolated"
+description = "Fires that kill shot"
 icon_texture = ExtResource("2_ghr4q")
 max_health = 7
 speed = 5
-movement = 3
-dmg_min = 4
-dmg_max = 7
-reach = 3
-cost = 8
+movement = 2
+dmg_min = 3
+dmg_max = 6
+reach = 4
+cost = 30
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 position = Vector2(0, -16)

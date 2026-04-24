@@ -98,9 +98,9 @@ animations = [{
 [node name="Unit" instance=ExtResource("1_cf0xq")]
 unit_id = "vengeful_spirit"
 unit_name = "Vengeful Spirit"
-description = "temp"
+description = "Vengeance is rarely the key but can be annoying"
 icon_texture = ExtResource("3_818nm")
-max_health = 2
+max_health = 3
 speed = 6
 movement = 4
 dmg_min = 1

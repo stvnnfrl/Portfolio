@@ -62,13 +62,13 @@ animations = [{
 script = ExtResource("2_ob2bj")
 unit_id = "lich"
 unit_name = "Lich"
-description = "Gains permanent stats when an ally unit dies "
+description = "Spawns the dead"
 icon_texture = ExtResource("3_4y0l5")
-max_health = 5
+max_health = 8
 speed = 4
 movement = 2
-dmg_min = 2
-dmg_max = 3
+dmg_min = 1
+dmg_max = 2
 reach = 1
 cost = 20
 

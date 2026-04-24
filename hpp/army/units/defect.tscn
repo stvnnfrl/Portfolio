@@ -98,9 +98,9 @@ animations = [{
 [node name="Unit" instance=ExtResource("1_qkgyd")]
 unit_id = "defect"
 unit_name = "Defect"
-description = "temp"
+description = "Not that much of a defect"
 icon_texture = ExtResource("2_qkgyd")
-max_health = 4
+max_health = 5
 speed = 2
 movement = 2
 dmg_min = 2

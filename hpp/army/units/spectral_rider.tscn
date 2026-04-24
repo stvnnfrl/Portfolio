@@ -65,7 +65,7 @@ animations = [{
 script = ExtResource("2_44xsa")
 unit_id = "spectral_rider"
 unit_name = "Spectral Rider"
-description = "When it dies, spawns a second phase (a dead living HORSE)."
+description = "Ride the horse knowing you have a backup"
 icon_texture = ExtResource("3_rovj0")
 max_health = 7
 speed = 5
@@ -73,7 +73,7 @@ movement = 4
 dmg_min = 2
 dmg_max = 3
 reach = 1
-cost = 15
+cost = 30
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_tg3va")

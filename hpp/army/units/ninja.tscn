@@ -147,15 +147,15 @@ animations = [{
 [node name="ninja" instance=ExtResource("1_k4tmb")]
 unit_id = "ninja"
 unit_name = "Ninja"
-description = "Vanishes and appears to kill"
+description = "The student is hard to kill but is still learning to fight"
 icon_texture = ExtResource("2_1uist")
-max_health = 6
-speed = 7
+max_health = 15
+speed = 3
 movement = 3
-dmg_min = 4
-dmg_max = 6
+dmg_min = 3
+dmg_max = 5
 reach = 1
-cost = 7
+cost = 30
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(3, 3)

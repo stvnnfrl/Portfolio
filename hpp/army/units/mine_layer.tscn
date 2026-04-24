@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://djy3tn7w8mt30"]
+[gd_scene load_steps=6 format=3 uid="uid://djy3tn7w8mt30"]
 
 [ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_pucm5"]
-[ext_resource type="Texture2D" uid="uid://dsrm0d1xusr14" path="res://screens/battle/battlefield/assets/mine_layer.png" id="2_3rrwk"]
 [ext_resource type="Texture2D" uid="uid://bjyaxdifbl0n4" path="res://army/units/mine_layer.png" id="2_s2jsv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pucm5"]
@@ -29,15 +28,15 @@ animations = [{
 [node name="mine_layer" instance=ExtResource("1_pucm5")]
 unit_id = "mine_layer"
 unit_name = "Mine Layer"
-description = "Places a mine unit. Mine attacks adjacent enemies, then disappears."
+description = "Places mines everywhere"
 icon_texture = ExtResource("2_s2jsv")
 max_health = 4
 speed = 7
 movement = 4
-dmg_min = 5
-dmg_max = 5
-reach = 4
-cost = 10
+dmg_min = 0
+dmg_max = 0
+reach = 3
+cost = 30
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 position = Vector2(2, 0)

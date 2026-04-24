@@ -91,15 +91,15 @@ animations = [{
 [node name="ninja_master" instance=ExtResource("1_s4jlwm")]
 unit_id = "ninja_master"
 unit_name = "Ninja Master"
-description = "Advantage if close enough to 3+ shinobi"
+description = "Move fast and swiftly to cut damage"
 icon_texture = ExtResource("2_tf5bt")
-max_health = 6
+max_health = 10
 speed = 7
 movement = 3
 dmg_min = 4
 dmg_max = 6
-reach = 1
-cost = 7
+reach = 2
+cost = 30
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(3, 3)

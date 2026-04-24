@@ -29,15 +29,15 @@ animations = [{
 [node name="shock_trooper" instance=ExtResource("1_p4vks")]
 unit_id = "shock_trooper"
 unit_name = "Shock Trooper"
-description = "Attack (1)  Deals damage that chains to adjacent enemies "
+description = "Shock the enemy with resistance"
 icon_texture = ExtResource("2_040av")
-max_health = 8
-speed = 5
-movement = 3
+max_health = 15
+speed = 4
+movement = 2
 dmg_min = 4
 dmg_max = 6
 reach = 2
-cost = 8
+cost = 20
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 position = Vector2(0, -14)
