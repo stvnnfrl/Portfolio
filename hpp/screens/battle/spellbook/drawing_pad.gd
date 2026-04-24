@@ -45,3 +45,8 @@ func _end_drawing():
 func _draw():
 	if _active_line.size() > 1:
 		draw_polyline(_active_line, Color.WHITE, 5.0, true)
+	
+		
+func clear_pad():
+	_active_line.clear()
+	queue_redraw()

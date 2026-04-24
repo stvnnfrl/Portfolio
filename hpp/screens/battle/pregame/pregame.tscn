@@ -26,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k75mm")
 
-[node name="Grid" type="Control" parent="." node_paths=PackedStringArray("state")]
+[node name="Grid" type="Control" parent="." node_paths=PackedStringArray("state", "player_1_limit", "player_2_limit", "grid_render")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,6 +36,9 @@ grow_vertical = 2
 script = ExtResource("3_u80o1")
 state = NodePath("..")
 cubic_coords = SubResource("Resource_2edq3")
+player_1_limit = NodePath("P1Limit")
+player_2_limit = NodePath("P2Limit")
+grid_render = NodePath("HexGridRender")
 
 [node name="PaperBackground" type="TextureRect" parent="Grid"]
 layout_mode = 1
@@ -50,6 +53,27 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="HexGridRender" parent="Grid" instance=ExtResource("4_2edq3")]
+
+[node name="P1Limit" type="ReferenceRect" parent="Grid"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 55.0
+offset_right = 540.0
+offset_bottom = 995.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+border_width = 5.0
+
+[node name="P2Limit" type="ReferenceRect" parent="Grid"]
+layout_mode = 0
+offset_left = 1360.0
+offset_top = 55.0
+offset_right = 1800.0
+offset_bottom = 995.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+border_color = Color(0, 0, 1, 1)
+border_width = 5.0
 
 [node name="Main" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -99,9 +123,11 @@ theme_override_constants/margin_bottom = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.7647059)
 text = "flavor text flavor text flavor text"
+autowrap_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="Main/Padding/Main/Info"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 48
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ug2bj")
 

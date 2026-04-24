@@ -1,0 +1,105 @@
+[gd_scene load_steps=15 format=3 uid="uid://byw7be0x13x2f"]
+
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_h3k9p"]
+[ext_resource type="Texture2D" uid="uid://d17kmahjsqme6" path="res://army/units/mine.png" id="2_n4q8r"]
+[ext_resource type="Texture2D" uid="uid://2egrrgtx64si" path="res://army/units/mine_attack.png" id="3_m7d2q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6b2m"]
+atlas = ExtResource("2_n4q8r")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8q4c"]
+atlas = ExtResource("2_n4q8r")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2m9v"]
+atlas = ExtResource("3_m7d2q")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8c4n"]
+atlas = ExtResource("3_m7d2q")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5r1x"]
+atlas = ExtResource("3_m7d2q")
+region = Rect2(0, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7h3s"]
+atlas = ExtResource("3_m7d2q")
+region = Rect2(0, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4t6z"]
+atlas = ExtResource("3_m7d2q")
+region = Rect2(0, 192, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n9w2d"]
+atlas = ExtResource("3_m7d2q")
+region = Rect2(0, 240, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3j8a"]
+atlas = ExtResource("3_m7d2q")
+region = Rect2(0, 288, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6y5q"]
+atlas = ExtResource("3_m7d2q")
+region = Rect2(0, 336, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v9t5s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2m9v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8c4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5r1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7h3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4t6z")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n9w2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3j8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6y5q")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6b2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8q4c")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="mine" instance=ExtResource("1_h3k9p")]
+unit_id = "mine"
+unit_name = "Mine"
+description = "Attacks adjacent enemies, then disappears."
+icon_texture = ExtResource("2_n4q8r")
+max_health = 1
+speed = 1
+movement = 0
+dmg_min = 5
+dmg_max = 5
+reach = 1
+cost = 0
+
+[node name="AnimatedPixelArt" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_v9t5s")
+animation = &"idle"

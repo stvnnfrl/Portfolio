@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwioavgla6e2s"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_cmfmw"]
+[ext_resource type="Texture2D" uid="uid://c0wd8soj62v5k" path="res://spells/DeathDenial_new.png" id="2_0l0in"]
+
+[node name="Spell" instance=ExtResource("1_cmfmw")]
+texture = ExtResource("2_0l0in")
+spell_name = "Death Denial"

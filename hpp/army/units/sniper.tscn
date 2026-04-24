@@ -1,0 +1,114 @@
+[gd_scene load_steps=16 format=3 uid="uid://d3oam3y4mn5vu"]
+
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_l8vqn"]
+[ext_resource type="Texture2D" uid="uid://cq3qgaeb3hu1b" path="res://army/units/sniper.png" id="2_m4jtc"]
+[ext_resource type="Texture2D" uid="uid://dgp8hv6r2psy6" path="res://army/units/sniper_attack.png" id="3_q7rfd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wc783"]
+atlas = ExtResource("3_q7rfd")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bx201"]
+atlas = ExtResource("3_q7rfd")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4hsn"]
+atlas = ExtResource("3_q7rfd")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqn94"]
+atlas = ExtResource("3_q7rfd")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jipgm"]
+atlas = ExtResource("2_m4jtc")
+region = Rect2(0, 0, 50, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbo3z"]
+atlas = ExtResource("2_m4jtc")
+region = Rect2(50, 0, 50, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_93yt8"]
+atlas = ExtResource("2_m4jtc")
+region = Rect2(100, 0, 50, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a38f8"]
+atlas = ExtResource("2_m4jtc")
+region = Rect2(152, 0, 50, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvzq1"]
+atlas = ExtResource("2_m4jtc")
+region = Rect2(204, 0, 50, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6azs"]
+atlas = ExtResource("2_m4jtc")
+region = Rect2(254, 0, 50, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbsmg"]
+atlas = ExtResource("2_m4jtc")
+region = Rect2(304, 0, 50, 63)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r8pnc"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_wc783")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bx201")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4hsn")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_kqn94")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jipgm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbo3z")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_93yt8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a38f8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvzq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6azs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbsmg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[node name="sniper" instance=ExtResource("1_l8vqn")]
+unit_id = "sniper"
+unit_name = "Sniper"
+description = "Fires a shot up that strikes an enemy unit dealing bonus damage if they’re isolated"
+icon_texture = ExtResource("2_m4jtc")
+max_health = 7
+speed = 5
+movement = 3
+dmg_min = 4
+dmg_max = 7
+reach = 3
+cost = 8
+
+[node name="AnimatedPixelArt" parent="." index="1"]
+position = Vector2(0, -16)
+scale = Vector2(1.7, 1.7)
+sprite_frames = SubResource("SpriteFrames_r8pnc")
+animation = &"idle"

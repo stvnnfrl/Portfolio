@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://chntssu1jcnmy"]
+[gd_scene load_steps=10 format=3 uid="uid://chntssu1jcnmy"]
 
 [ext_resource type="Texture2D" uid="uid://bu2d7bdhap8ic" path="res://screens/resources/crumpled_background.jpg" id="1_55b8l"]
 [ext_resource type="Script" uid="uid://b13dxfh5313rr" path="res://screens/match_setup/match_setup.gd" id="1_qg401"]
 [ext_resource type="FontFile" uid="uid://dfwrpmk5t77kh" path="res://screens/resources/Excalifont-Regular.woff2" id="2_qg401"]
 [ext_resource type="Script" uid="uid://c8j5pcwyyx1bf" path="res://screens/match_setup/selection_P1.gd" id="4_xuxei"]
 [ext_resource type="Script" uid="uid://ef2gssr54kvg" path="res://screens/match_setup/selection_P2.gd" id="5_qenjy"]
+[ext_resource type="Script" uid="uid://b20vx2ubkyfqt" path="res://screens/match_setup/Extra/unit_tooltiptrigger.gd" id="5_wsmik"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g6l2n"]
 bg_color = Color(0.36282945, 0.36282948, 0.36282933, 1)
@@ -158,10 +159,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Qty"
 
-[node name="Troop1" type="Label" parent="ArmySetup/SelectionP1"]
+[node name="Troop1" type="Button" parent="ArmySetup/SelectionP1"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Shaman"
+flat = true
+script = ExtResource("5_wsmik")
 
 [node name="CostForTroop1" type="Label" parent="ArmySetup/SelectionP1"]
 layout_mode = 2
@@ -188,10 +191,13 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "+"
 
-[node name="Troop2" type="Label" parent="ArmySetup/SelectionP1"]
+[node name="Troop2" type="Button" parent="ArmySetup/SelectionP1"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Bull"
+flat = true
+script = ExtResource("5_wsmik")
+slot_index = 1
 
 [node name="CostForTroop2" type="Label" parent="ArmySetup/SelectionP1"]
 layout_mode = 2
@@ -218,10 +224,13 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "+"
 
-[node name="Troop3" type="Label" parent="ArmySetup/SelectionP1"]
+[node name="Troop3" type="Button" parent="ArmySetup/SelectionP1"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Savage Warriors"
+flat = true
+script = ExtResource("5_wsmik")
+slot_index = 2
 
 [node name="CostForTroop3" type="Label" parent="ArmySetup/SelectionP1"]
 layout_mode = 2
@@ -248,10 +257,13 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "+"
 
-[node name="Troop4" type="Label" parent="ArmySetup/SelectionP1"]
+[node name="Troop4" type="Button" parent="ArmySetup/SelectionP1"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Unit 4"
+flat = true
+script = ExtResource("5_wsmik")
+slot_index = 3
 
 [node name="CostForTroop4" type="Label" parent="ArmySetup/SelectionP1"]
 layout_mode = 2
@@ -332,10 +344,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Qty"
 
-[node name="Troop1" type="Label" parent="ArmySetup/SelectionP2"]
+[node name="Troop1" type="Button" parent="ArmySetup/SelectionP2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Shaman"
+flat = true
+script = ExtResource("5_wsmik")
 
 [node name="CostForTroop1" type="Label" parent="ArmySetup/SelectionP2"]
 layout_mode = 2
@@ -362,10 +376,13 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "+"
 
-[node name="Troop2" type="Label" parent="ArmySetup/SelectionP2"]
+[node name="Troop2" type="Button" parent="ArmySetup/SelectionP2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Bull"
+flat = true
+script = ExtResource("5_wsmik")
+slot_index = 1
 
 [node name="CostForTroop2" type="Label" parent="ArmySetup/SelectionP2"]
 layout_mode = 2
@@ -392,10 +409,13 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "+"
 
-[node name="Troop3" type="Label" parent="ArmySetup/SelectionP2"]
+[node name="Troop3" type="Button" parent="ArmySetup/SelectionP2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Savage Warriors"
+flat = true
+script = ExtResource("5_wsmik")
+slot_index = 2
 
 [node name="CostForTroop3" type="Label" parent="ArmySetup/SelectionP2"]
 layout_mode = 2
@@ -422,10 +442,13 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "+"
 
-[node name="Troop4" type="Label" parent="ArmySetup/SelectionP2"]
+[node name="Troop4" type="Button" parent="ArmySetup/SelectionP2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Unit 4"
+flat = true
+script = ExtResource("5_wsmik")
+slot_index = 3
 
 [node name="CostForTroop4" type="Label" parent="ArmySetup/SelectionP2"]
 layout_mode = 2

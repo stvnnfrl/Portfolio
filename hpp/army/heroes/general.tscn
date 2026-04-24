@@ -1,11 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5pmbreieytsd"]
+[gd_scene load_steps=10 format=3 uid="uid://c5pmbreieytsd"]
 
 [ext_resource type="PackedScene" uid="uid://dgo42mrokcow6" path="res://army/base_hero/hero.tscn" id="1_1wkgs"]
-[ext_resource type="PackedScene" uid="uid://b7r5q3e6mjqwj" path="res://army/units/Shock_Trooper.tscn" id="2_arp6l"]
+[ext_resource type="PackedScene" uid="uid://dac2305iqo65v" path="res://army/units/shock_trooper.tscn" id="2_arp6l"]
 [ext_resource type="PackedScene" uid="uid://djy3tn7w8mt30" path="res://army/units/mine_layer.tscn" id="3_rwx0g"]
+[ext_resource type="PackedScene" uid="uid://d3oam3y4mn5vu" path="res://army/units/sniper.tscn" id="4_w6kpm"]
+[ext_resource type="PackedScene" uid="uid://bbd74wm4ooswl" path="res://army/units/defect.tscn" id="5_hfnqk"]
+[ext_resource type="PackedScene" uid="uid://bj7plsvwk0r8t" path="res://spells/DetonationProtocol.tscn" id="5_s0fb6"]
+[ext_resource type="PackedScene" uid="uid://dtu1jmsw38dqq" path="res://spells/Discharge.tscn" id="6_hfnqk"]
+[ext_resource type="PackedScene" uid="uid://wf5xombdnlny" path="res://spells/Sap.tscn" id="7_epaci"]
+[ext_resource type="PackedScene" uid="uid://cfojrofjouerp" path="res://spells/Surge.tscn" id="8_6qb5j"]
 
 [node name="Hero" instance=ExtResource("1_1wkgs")]
 hero_name = "General"
 description = "Leads the most scrap army"
-units = Array[PackedScene]([ExtResource("2_arp6l"), ExtResource("3_rwx0g")])
-spells = Array[String](["Spell_1", "Spell_2", "Spell_3", "Spell_4"])
+units = Array[PackedScene]([ExtResource("2_arp6l"), ExtResource("3_rwx0g"), ExtResource("4_w6kpm"), ExtResource("5_hfnqk")])
+spells = Array[PackedScene]([ExtResource("5_s0fb6"), ExtResource("6_hfnqk"), ExtResource("7_epaci"), ExtResource("8_6qb5j")])

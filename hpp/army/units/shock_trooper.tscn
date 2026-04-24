@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://dac2305iqo65v"]
+
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_p4vks"]
+[ext_resource type="Texture2D" uid="uid://3jkj4vb5pngy" path="res://army/units/shock_trooper.png" id="2_j6rnh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxo90"]
+atlas = ExtResource("2_j6rnh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vplu8"]
+atlas = ExtResource("2_j6rnh")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c8mqt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxo90")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vplu8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="shock_trooper" instance=ExtResource("1_p4vks")]
+unit_id = "shock_trooper"
+unit_name = "Shock Trooper"
+description = "Attack (1)  Deals damage that chains to adjacent enemies "
+icon_texture = ExtResource("2_j6rnh")
+max_health = 8
+speed = 5
+movement = 3
+dmg_min = 4
+dmg_max = 6
+reach = 2
+cost = 8
+
+[node name="AnimatedPixelArt" parent="." index="1"]
+position = Vector2(0, -14)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_c8mqt")
+animation = &"idle"

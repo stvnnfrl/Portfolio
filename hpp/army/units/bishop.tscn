@@ -1,33 +1,35 @@
 [gd_scene load_steps=6 format=3 uid="uid://dvxm1ik0p1s5b"]
 
-[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_bishop"]
-[ext_resource type="Texture2D" uid="uid://tjtxdn51sshp" path="res://army/units/bishop.png" id="2_bishop"]
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_q9ldm"]
+[ext_resource type="Texture2D" uid="uid://tjtxdn51sshp" path="res://army/units/bishop.png" id="2_b7wvc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bishop_0"]
-atlas = ExtResource("2_bishop")
+[sub_resource type="AtlasTexture" id="AtlasTexture_xl46v"]
+atlas = ExtResource("2_b7wvc")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bishop_1"]
-atlas = ExtResource("2_bishop")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tglxi"]
+atlas = ExtResource("2_b7wvc")
 region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_bishop"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_d4nps"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bishop_0")
+"texture": SubResource("AtlasTexture_xl46v")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bishop_1")
+"texture": SubResource("AtlasTexture_tglxi")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[node name="Bishop" node_paths=PackedStringArray("anim_sprite", "hex_halo", "health_bar") instance=ExtResource("1_bishop")]
-unit_name = "bishop"
-description = "Placeholder bishop unit for battlefield testing."
+[node name="bishop" instance=ExtResource("1_q9ldm")]
+unit_id = "bishop"
+unit_name = "Bishop"
+description = "Can spend a turn either attacking or healing in an aura"
+icon_texture = ExtResource("2_b7wvc")
 max_health = 7
 speed = 4
 movement = 2
@@ -35,11 +37,8 @@ dmg_min = 3
 dmg_max = 5
 reach = 2
 cost = 6
-anim_sprite = NodePath("AnimatedPixelArt")
-hex_halo = NodePath("HexHalo")
-health_bar = NodePath("HealthBar")
 
 [node name="AnimatedPixelArt" parent="." index="1"]
 scale = Vector2(3, 3)
-sprite_frames = SubResource("SpriteFrames_bishop")
+sprite_frames = SubResource("SpriteFrames_d4nps")
 animation = &"idle"

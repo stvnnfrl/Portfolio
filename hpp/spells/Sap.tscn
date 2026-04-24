@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://wf5xombdnlny"]
+
+[ext_resource type="PackedScene" uid="uid://dgoph5f5jbxt0" path="res://spells/base_spell/spell.tscn" id="1_v7fdx"]
+[ext_resource type="Texture2D" uid="uid://c64jpoo84b7cg" path="res://spells/Sap.png" id="2_naot7"]
+
+[node name="Spell" instance=ExtResource("1_v7fdx")]
+texture = ExtResource("2_naot7")
+spell_name = "Sap"

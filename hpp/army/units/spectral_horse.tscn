@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://2yr50p1lf2lb"]
+
+[ext_resource type="PackedScene" uid="uid://6v2upjya8370" path="res://army/base_unit/unit.tscn" id="1_tgvxa"]
+[ext_resource type="Texture2D" uid="uid://cnd6bfujd812n" path="res://army/units/SpectralRiderWithAttack.png" id="2_yj6h3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqcvy"]
+atlas = ExtResource("2_yj6h3")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rtb7"]
+atlas = ExtResource("2_yj6h3")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqehu"]
+atlas = ExtResource("2_yj6h3")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpkl4"]
+atlas = ExtResource("2_yj6h3")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic1e3"]
+atlas = ExtResource("2_yj6h3")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht30l"]
+atlas = ExtResource("2_yj6h3")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tg3va"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqcvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rtb7")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqehu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpkl4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ic1e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ht30l")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="spectral_horse" instance=ExtResource("1_tgvxa")]
+unit_id = "spectral_horse"
+unit_name = "Spectral Horse"
+description = "Remnants of a specter's ride"
+max_health = 3
+speed = 9
+movement = 2
+dmg_min = 3
+dmg_max = 5
+reach = 1
+cost = 0
+
+[node name="AnimatedPixelArt" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_tg3va")
+animation = &"idle"
