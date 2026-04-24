@@ -252,6 +252,7 @@ script = ExtResource("6_5qa4y")
 
 [connection signal="end_of_turn" from="." to="Grid" method="_on_pregame_end_of_turn"]
 [connection signal="selected_unit_updated" from="." to="Main/Padding/Main/Info" method="_on_pregame_selected_unit_updated"]
+[connection signal="selected_unit_updated" from="." to="Main/Padding/Main/UnitSelector" method="_on_pregame_selected_unit_updated"]
 [connection signal="selected_unit_updated" from="." to="CursorUnitPreview" method="_on_pregame_selected_unit_updated"]
 [connection signal="units_updated" from="." to="Main/Padding/Main/UnitSelector" method="_on_pregame_units_updated"]
 [connection signal="gui_input" from="Grid" to="Grid" method="_on_gui_input"]

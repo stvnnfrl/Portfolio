@@ -62,15 +62,15 @@ func change_selected_unit_to(index: int):
 # returns a callback to purchase a unit if it can be afforded
 # the callback returns whether there are any units left
 func can_purchase() -> Callable:
-	if current_unit_counts[selected_index] > 0:
-		return func(): 
-			current_unit_counts[selected_index] -= 1
-			counts_updated.emit()
-			return current_unit_counts[selected_index] == 0
+	if current_unit_counts[selected_index] == 0:
+		return Callable()  # equivalent to null
 	
-	return Callable()  # equivalent to null
+	return func(): 
+		current_unit_counts[selected_index] -= 1
+		counts_updated.emit()
+		return current_unit_counts[selected_index] == 0
 
-# returns a callback to refund a unit
+# returns a callback to refund a unit (always possible currently)
 func can_refund(index: int) -> Callable:
 	return func(): 
 		current_unit_counts[index] += 1
