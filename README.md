@@ -5,7 +5,7 @@ Hex grid battlefield game inspired by Heroes of Might and Magic III. Takes advan
 
 ## Authors and acknowledgment
 Minsu Kim: email  
-Steven Chang: steven.chang2@mail.mcgill.ca
+Steven Chang: steven.chang2@mail.mcgill.ca  
 Daniil Kriuchkov: email  
 Jakob Adalin: email  
 Ian Kim: email  
